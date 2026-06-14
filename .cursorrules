@@ -15,4 +15,58 @@ Key rules:
   "Sản phẩm không dành cho người dưới 18 tuổi và phụ nữ mang thai"
 - Keep code readable with meaningful naming; avoid flaky/overly dynamic layouts.
 - Prefer configured custom colors: `bg-premium-black`, `text-premium-gold`, `bg-premium-dark`.
-- Always
+
+### Performance
+
+- Minimize unnecessary re-renders.
+- Use memoization only when it provides measurable value.
+- Avoid creating functions, objects, or arrays inside render when unnecessary.
+- Prefer Server Components over Client Components whenever possible.
+- Avoid unnecessary useEffect, useState, and client-side fetching.
+- Optimize images using Next.js Image component.
+- Avoid loading large libraries for simple tasks.
+- Consider bundle size impact before adding dependencies.
+- Ensure lazy loading for non-critical components when appropriate.
+- Ensure no obvious performance regressions are introduced.
+
+### SEO
+
+- Every page must include appropriate metadata.
+- Use semantic HTML elements.
+- Ensure proper heading hierarchy (h1 → h2 → h3).
+- Add meaningful alt text for images.
+- Avoid rendering important content only on the client side.
+- Ensure crawlable and accessible markup.
+- Consider Open Graph and social sharing metadata when relevant.
+- Consider structured data when applicable.
+
+### Review Requirement
+
+Before completing any task, perform a final review and explicitly report:
+
+1. Potential performance concerns.
+2. Potential SEO concerns.
+3. Accessibility concerns.
+4. Suggested improvements.
+
+At the end of every implementation, provide a short audit section:
+
+### Next.js 16 Best Practices
+
+- Prefer Server Components by default.
+- Use Client Components only when interactivity is required.
+- Prefer async Server Components for data fetching.
+- Use Suspense where beneficial.
+- Use dynamic imports for heavy components.
+- Use cache, revalidate, and fetch strategies appropriately.
+- Avoid unnecessary client-side JavaScript.
+- Ensure Core Web Vitals are not negatively impacted.
+
+## Audit
+
+- Performance: PASS / WARNING
+- SEO: PASS / WARNING
+- Accessibility: PASS / WARNING
+- Maintainability: PASS / WARNING
+
+Explain any warnings.
