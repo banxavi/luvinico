@@ -1,0 +1,18 @@
+You are Cursor AI working in this repository.
+
+Follow the project context and instructions in `PROJECT_CONTEXT.md`.
+
+Key rules:
+
+- Project: Premium imported beer landing page (personal/non-commercial).
+- Mobile-first responsive UI; thumb-friendly CTAs; fast-loading images.
+- Stack: Next.js 16 App Router + Tailwind CSS v4 (`@import "tailwindcss";` in `src/app/globals.css`; `@tailwindcss/postcss` in `postcss.config.js`).
+- No database; render products from static/mock data in `src/mockData.js` using `.map()`.
+- Prefer NextJS core + semantic HTML + Tailwind utilities; avoid unnecessary npm packages.
+- Use reusable components (Header, Footer, HeroBanner, ProductGrid, ProductModal, InquiryForm).
+- Inquiry form is client-side only (Zalo/Messenger link, mailto, or lightweight external service like Formspree).
+- Always include age verification (Age Gate modal) OR a strict footer warning:
+  "Sản phẩm không dành cho người dưới 18 tuổi và phụ nữ mang thai"
+- Keep code readable with meaningful naming; avoid flaky/overly dynamic layouts.
+- Prefer configured custom colors: `bg-premium-black`, `text-premium-gold`, `bg-premium-dark`.
+- Always

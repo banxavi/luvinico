@@ -1,0 +1,755 @@
+@import "tailwindcss";
+@source "../**/*.{js,jsx}";
+
+@theme {
+  --color-brand-amber: #d4a017;
+  --color-premium-gold: #d4a017;
+  --color-premium-black: #111111;
+  --color-premium-dark: #212121;
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-brand: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --site-max: 87.5rem;
+  --site-gutter: clamp(1rem, 2.5vw + 0.25rem, 2.5rem);
+}
+
+/* Responsive page width — scales from mobile to ultrawide */
+.site-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--site-max);
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+/* Long-form text — keep readable line length on wide screens */
+.text-measure {
+  max-width: 42rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  background-color: #111111;
+  color: #f0f0f0;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(212, 160, 23, 0.35);
+}
+
+/* WCAG-friendly muted text on #111 (~4.5:1+) */
+.text-body-muted {
+  color: rgba(240, 240, 240, 0.82);
+}
+
+.text-body-subtle {
+  color: rgba(240, 240, 240, 0.72);
+}
+
+/* Logo / wordmark — gold gradient (khách: vàng gold trên nền đen) */
+.brand-wordmark {
+  font-family: var(--font-brand);
+}
+
+.brand-logo-gradient {
+  background-image: linear-gradient(
+    125deg,
+    #f8ecc8 0%,
+    #e8c547 22%,
+    #d4a017 48%,
+    #b8860b 72%,
+    #8b6914 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Product image well — full-bleed theo asset khách (card 4:5, chi tiết 1:1) */
+.product-media-well {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.product-media-well__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform 0.5s ease;
+}
+
+.group:hover .product-media-well__img {
+  transform: scale(1.03);
+}
+
+/* Card: 800×1000 (4:5) — lấp đầy khung, không padding */
+.product-card-media {
+  aspect-ratio: 4 / 5;
+  min-height: 13.75rem;
+  padding: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.product-card-media--compact {
+  aspect-ratio: 4 / 5;
+  min-height: 10.5rem;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .product-card-media--compact {
+    min-height: 11.75rem;
+  }
+
+  .product-card-media:not(.product-card-media--compact) {
+    min-height: 16.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-card-media--compact {
+    min-height: 13.75rem;
+  }
+}
+
+/* Detail gallery: 1200×1200 (1:1) — contain khi slide lẫn tỉ lệ (card trong gallery) */
+.product-detail-media {
+  aspect-ratio: 1;
+  min-height: 16rem;
+  padding: 0;
+}
+
+.product-detail-media .product-media-well__img {
+  object-fit: contain;
+}
+
+@media (min-width: 1024px) {
+  .product-detail-media {
+    min-height: 22rem;
+  }
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 2px;
+  display: inline-block;
+}
+
+/* Featured products carousel — horizontal slide (flow left / right) */
+.carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  backface-visibility: hidden;
+}
+
+.carousel-track--instant {
+  transition: none;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    transition: none;
+  }
+}
+
+/* Search bar — một khối thống nhất, không tách nút "Tìm" rời */
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #111111;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-field:focus-within {
+  border-color: rgba(212, 160, 23, 0.55);
+  box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.2);
+}
+
+.search-field-input {
+  height: 100%;
+  min-width: 0;
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0 0.25rem 0 0.875rem;
+  font-size: 0.875rem;
+  color: rgba(240, 240, 240, 0.9);
+  outline: none;
+}
+
+.search-field-input::placeholder {
+  color: rgba(240, 240, 240, 0.4);
+}
+
+.search-field-clear {
+  display: inline-flex;
+  height: 1.75rem;
+  width: 1.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: rgba(240, 240, 240, 0.55);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.search-field-clear:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.search-field-submit {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.25rem;
+  border-radius: 0.375rem;
+  color: #d4a017;
+  background-color: rgba(212, 160, 23, 0.12);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.search-field-submit:hover {
+  color: #111111;
+  background-color: #d4a017;
+}
+
+.header-contact-btn {
+  display: inline-flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.header-contact-btn--call {
+  color: #ffffff;
+  background-color: #9b1321;
+}
+
+.header-contact-btn--call:hover {
+  background-color: #82101b;
+}
+
+.header-contact-btn--zalo {
+  background-color: #007bff;
+}
+
+.header-contact-btn--zalo:hover {
+  background-color: #006ae0;
+}
+
+.header-phone-link {
+  display: inline-flex;
+  height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #9b1321;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.header-phone-link:hover {
+  background-color: #82101b;
+}
+
+.footer-heading {
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d4a017;
+  border-bottom: 1px solid rgba(212, 160, 23, 0.45);
+  box-shadow: 0 1px 0 rgba(212, 160, 23, 0.12);
+}
+
+/* Product detail — contact CTAs (tông tối, không chói) */
+.contact-btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(33, 33, 33, 0.92);
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(240, 240, 240, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.contact-btn:hover {
+  color: #ffffff;
+}
+
+.contact-btn--facebook {
+  border-color: rgba(24, 119, 242, 0.22);
+  background-color: rgba(24, 119, 242, 0.08);
+}
+
+.contact-btn--facebook:hover {
+  border-color: rgba(24, 119, 242, 0.38);
+  background-color: rgba(24, 119, 242, 0.14);
+}
+
+.contact-btn--zalo {
+  border-color: rgba(0, 123, 255, 0.22);
+  background-color: rgba(0, 123, 255, 0.08);
+}
+
+.contact-btn--zalo:hover {
+  border-color: rgba(0, 123, 255, 0.38);
+  background-color: rgba(0, 123, 255, 0.14);
+}
+
+.contact-btn--phone {
+  border-color: rgba(212, 160, 23, 0.28);
+  background-color: rgba(155, 19, 33, 0.1);
+}
+
+.contact-btn--phone:hover {
+  border-color: rgba(212, 160, 23, 0.42);
+  background-color: rgba(155, 19, 33, 0.16);
+}
+
+/* Section background — khách upload ảnh vào sectionBackgrounds.js */
+.section-backdrop {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-backdrop--has-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--section-bg-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.section-backdrop--has-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0.55) 0%, rgba(17, 17, 17, 0.88) 100%);
+  pointer-events: none;
+}
+
+.section-backdrop > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-backdrop:has(.hero-banner) {
+  display: block;
+  width: 100%;
+}
+
+/* Product detail gallery */
+.product-gallery-viewport {
+  position: relative;
+}
+
+.product-gallery-media {
+  border-bottom: none;
+}
+
+.product-gallery-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 15;
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(17, 17, 17, 0.85);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #ffffff;
+  transform: translateY(-50%);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.product-gallery-nav:hover {
+  border-color: rgba(212, 160, 23, 0.6);
+  color: #d4a017;
+}
+
+.product-gallery-nav--prev {
+  left: 0.75rem;
+}
+
+.product-gallery-nav--next {
+  right: 0.75rem;
+}
+
+/* Hero banner — kiểu ruouvangcaominh.vn (slick fade, full-width strip) */
+.hero-banner {
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: #111111;
+}
+
+.hero-banner-viewport {
+  position: relative;
+  width: 100%;
+  /* Khớp file banner PC 1920×740 — hiển thị trọn, không crop */
+  aspect-ratio: 1920 / 740;
+  overflow: hidden;
+  background-color: #111111;
+}
+
+.hero-banner-container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  height: 100%;
+}
+
+.hero-banner-slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+}
+
+.hero-banner-slide picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-banner-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.hero-banner-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(17, 17, 17, 0.72);
+  color: #ffffff;
+  font-size: 1.75rem;
+  line-height: 1;
+  transform: translateY(-50%);
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.hero-banner-nav:hover {
+  border-color: rgba(212, 160, 23, 0.65);
+  background-color: rgba(17, 17, 17, 0.9);
+  color: #d4a017;
+}
+
+.hero-banner-nav--prev {
+  left: 0.75rem;
+}
+
+.hero-banner-nav--next {
+  right: 0.75rem;
+}
+
+.hero-banner-dots {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 50%;
+  z-index: 5;
+  display: flex;
+  translate: -50% 0;
+  gap: 0.45rem;
+}
+
+.hero-banner-dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 9999px;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0.45);
+  padding: 0;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.hero-banner-dot.is-active {
+  background-color: #d4a017;
+  transform: scale(1.15);
+}
+
+@media (max-width: 767px) {
+  /* Dùng chung tỉ lệ PC cho đến khi có banner mobile 1080×1080 */
+  .hero-banner-viewport {
+    aspect-ratio: 16 / 9;
+    max-height: none;
+  }
+
+  .hero-banner-nav {
+    height: 2.25rem;
+    width: 2.25rem;
+    font-size: 1.5rem;
+  }
+
+  .hero-banner-nav--prev {
+    left: 0.5rem;
+  }
+
+  .hero-banner-nav--next {
+    right: 0.5rem;
+  }
+}
+
+.hero-decor-layer {
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Warm beer atmosphere — amber glow on dark */
+.hero-beer-mesh {
+  background:
+    radial-gradient(ellipse 70% 55% at 78% 35%, rgba(212, 160, 23, 0.38) 0%, transparent 58%),
+    radial-gradient(ellipse 50% 45% at 15% 70%, rgba(139, 90, 18, 0.28) 0%, transparent 52%),
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(26, 18, 8, 0.95) 0%, transparent 55%),
+    linear-gradient(165deg, #0d0d0d 0%, #111111 45%, #1a140a 100%);
+}
+
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+.hero-vignette {
+  z-index: 2;
+  background: radial-gradient(ellipse 85% 75% at 50% 50%, transparent 35%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.hero-watermark {
+  color: rgba(212, 160, 23, 0.05);
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero-bubble {
+  animation: hero-bubble-rise linear infinite;
+  box-shadow: 0 0 8px rgba(212, 160, 23, 0.35);
+}
+
+@keyframes hero-bubble-rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.15);
+    opacity: 0;
+  }
+}
+
+/* Hero typography — scoped so layout/global styles cannot wash out colors */
+.hero-section {
+  isolation: isolate;
+  color: #ffffff;
+}
+
+.hero-section .hero-eyebrow {
+  color: #d4a017;
+}
+
+.hero-section .hero-title.brand-logo-gradient {
+  color: transparent;
+}
+
+.hero-section .hero-title-accent {
+  font-style: normal;
+}
+
+.hero-section .hero-tagline {
+  color: rgba(245, 230, 200, 0.88);
+}
+
+.hero-section .hero-body {
+  color: rgba(240, 240, 240, 0.82);
+}
+
+.hero-section .hero-stat-value {
+  color: #ffffff;
+}
+
+.hero-section .hero-stat-label {
+  color: rgba(240, 240, 240, 0.55);
+}
+
+.hero-section .hero-secondary-btn {
+  color: rgba(240, 240, 240, 0.82);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.hero-section .hero-secondary-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.hero-section .hero-badge-title {
+  color: #d4a017;
+}
+
+.hero-section .hero-badge-sub {
+  color: rgba(240, 240, 240, 0.55);
+}
+
+/* Decor only — never affects text (no mix-blend on full hero) */
+.hero-section .hero-grain {
+  mix-blend-mode: soft-light;
+  opacity: 0.28;
+}
+
+.hero-foam-wave {
+  height: 100px;
+}
+
+.hero-beer-visual {
+  position: relative;
+}
+
+.hero-beer-glow {
+  position: absolute;
+  inset: 10% 5% 5%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.45) 0%, transparent 70%);
+  filter: blur(28px);
+  z-index: -1;
+  animation: hero-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes hero-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.hero-beer-liquid-shimmer {
+  animation: hero-liquid-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes hero-liquid-shimmer {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+
+.hero-glass-bubble {
+  animation: hero-glass-bubble-rise 3s ease-in infinite;
+}
+
+.hero-glass-bubble-1 {
+  animation-delay: 0s;
+}
+.hero-glass-bubble-2 {
+  animation-delay: 0.8s;
+}
+.hero-glass-bubble-3 {
+  animation-delay: 1.4s;
+}
+.hero-glass-bubble-4 {
+  animation-delay: 2s;
+}
+
+@keyframes hero-glass-bubble-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-55px);
+    opacity: 0;
+  }
+}
