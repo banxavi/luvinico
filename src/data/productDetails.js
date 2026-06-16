@@ -1,7 +1,6 @@
 /** Chi tiết bổ sung theo id — gộp với mockProducts khi hiển thị trang sản phẩm */
 export const productDetailExtras = {
   1: {
-    brewery: 'Mẫu — chờ tên nhà sản xuất',
     volume: '750ml',
     serveTemp: '16–18°C',
     longDescription:
@@ -11,7 +10,6 @@ export const productDetailExtras = {
     highlights: ['Ảnh mẫu khách hàng', 'Card + chi tiết', 'Chờ duyệt trước go-live'],
   },
   2: {
-    brewery: 'Mẫu — chờ tên nhà sản xuất',
     volume: '750ml',
     serveTemp: '16–18°C',
     longDescription:
@@ -21,7 +19,6 @@ export const productDetailExtras = {
     highlights: ['Gallery 3 ảnh', 'Ảnh mẫu khách hàng', 'Chờ duyệt trước go-live'],
   },
   3: {
-    brewery: 'Sierra Nevada Brewing',
     volume: '355ml',
     ibu: '38',
     serveTemp: '6–8°C',
@@ -32,7 +29,6 @@ export const productDetailExtras = {
     highlights: ['Craft kinh điển', 'Hương hop tươi', 'Dễ gây nghiện cho fan IPA nhẹ'],
   },
   4: {
-    brewery: 'Paulaner Brauerei',
     volume: '500ml',
     ibu: '15',
     serveTemp: '6–8°C',
@@ -43,7 +39,6 @@ export const productDetailExtras = {
     highlights: ['Dễ uống', 'Thơm đặc trưng', 'Lon 500ml tiện chia sẻ'],
   },
   5: {
-    brewery: 'Duvel Moortgat',
     volume: '330ml',
     ibu: '32',
     serveTemp: '6–8°C',
@@ -54,7 +49,6 @@ export const productDetailExtras = {
     highlights: ['Biểu tượng Bỉ', 'Sủi đẹp', 'Thưởng thức chậm'],
   },
   6: {
-    brewery: 'Guinness',
     volume: '330ml',
     ibu: '45',
     serveTemp: '6–8°C',
@@ -65,7 +59,6 @@ export const productDetailExtras = {
     highlights: ['Kem nitro đặc trưng', 'Icon Ireland', 'Dễ uống'],
   },
   7: {
-    brewery: 'Grupo Modelo',
     volume: '355ml',
     ibu: '18',
     serveTemp: '2–4°C',
@@ -76,7 +69,6 @@ export const productDetailExtras = {
     highlights: ['Uống lạnh', 'Hợp chanh', 'Phong cách biển'],
   },
   8: {
-    brewery: 'Hoegaarden',
     volume: '330ml',
     ibu: '12',
     serveTemp: '4–6°C',
@@ -87,7 +79,6 @@ export const productDetailExtras = {
     highlights: ['Witbier kinh điển', 'Thơm gia vị', 'Dễ uống'],
   },
   9: {
-    brewery: 'Asahi Breweries',
     volume: '330ml',
     ibu: '16',
     serveTemp: '4–6°C',
@@ -98,7 +89,6 @@ export const productDetailExtras = {
     highlights: ['Super Dry', 'Hợp Nhật cuisine', 'Dễ uống'],
   },
   10: {
-    brewery: 'Abbaye de Scourmont (Chimay)',
     volume: '330ml',
     ibu: '30',
     serveTemp: '10–12°C',
@@ -109,7 +99,6 @@ export const productDetailExtras = {
     highlights: ['Trappist', 'Cao cấp', 'Thưởng thức chậm'],
   },
   11: {
-    brewery: 'BrewDog',
     volume: '330ml',
     ibu: '35',
     serveTemp: '6–8°C',
@@ -120,7 +109,6 @@ export const productDetailExtras = {
     highlights: ['IPA hiện đại', 'Hương hop mạnh', 'Craft nổi tiếng'],
   },
   12: {
-    brewery: 'Stella Artois',
     volume: '330ml',
     ibu: '24',
     serveTemp: '4–6°C',
@@ -131,7 +119,6 @@ export const productDetailExtras = {
     highlights: ['Pilsner kinh điển', 'Dễ uống', 'Hợp tiệc'],
   },
   13: {
-    brewery: 'Lagunitas Brewing',
     volume: '355ml',
     ibu: '49',
     serveTemp: '6–8°C',
@@ -142,7 +129,6 @@ export const productDetailExtras = {
     highlights: ['IPA Mỹ', 'Hương trái cây', 'Craft phổ biến'],
   },
   14: {
-    brewery: 'Weihenstephan',
     volume: '500ml',
     ibu: '14',
     serveTemp: '6–8°C',
@@ -153,7 +139,6 @@ export const productDetailExtras = {
     highlights: ['Nhà máy lâu đời', 'Hefeweizen chuẩn', '500ml'],
   },
   15: {
-    brewery: 'Huyghe Brewery',
     volume: '330ml',
     ibu: '26',
     serveTemp: '8–10°C',
@@ -164,7 +149,6 @@ export const productDetailExtras = {
     highlights: ['Voi hồng', 'Strong ale Bỉ', 'Độc đáo'],
   },
   16: {
-    brewery: 'Asia Pacific Breweries',
     volume: '330ml',
     ibu: '15',
     serveTemp: '2–4°C',
@@ -175,7 +159,6 @@ export const productDetailExtras = {
     highlights: ['Giá tốt', 'Dễ uống', 'Hợp nhiệt đới'],
   },
   17: {
-    brewery: 'Kirin Brewery',
     volume: '350ml',
     ibu: '17',
     serveTemp: '4–6°C',
@@ -186,7 +169,6 @@ export const productDetailExtras = {
     highlights: ['First press', 'Thanh lịch', 'Dễ uống'],
   },
   18: {
-    brewery: 'Budějovický Budvar',
     volume: '330ml',
     ibu: '22',
     serveTemp: '4–6°C',
@@ -197,7 +179,6 @@ export const productDetailExtras = {
     highlights: ['Pilsner Séc', 'Chính hãng', 'Cân bằng'],
   },
   19: {
-    brewery: "Murphy's",
     volume: '500ml',
     ibu: '30',
     serveTemp: '6–8°C',
@@ -208,7 +189,6 @@ export const productDetailExtras = {
     highlights: ['Stout Ireland', 'Dễ tiếp cận', '500ml'],
   },
   20: {
-    brewery: 'Brouwerij de Koningshoeven (La Trappe)',
     volume: '330ml',
     ibu: '22',
     serveTemp: '8–10°C',

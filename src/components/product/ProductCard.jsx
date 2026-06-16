@@ -1,18 +1,18 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { productPath } from '../../lib/products';
-import ProductPrice from './ProductPrice';
+import Link from "next/link";
+import Image from "next/image";
+import { productPath } from "../../lib/products";
+import ProductPrice from "./ProductPrice";
 
 function resolveImageSrc(image) {
   if (!image) return null;
-  if (typeof image === 'string') return image;
+  if (typeof image === "string") return image;
   return image.src ?? image;
 }
 
 export default function ProductCard({ product, compact = false, searchQuery }) {
   const href = productPath(
     product,
-    searchQuery ? { from: 'search', q: searchQuery } : undefined,
+    searchQuery ? { from: "search", q: searchQuery } : undefined,
   );
   const imageSrc = resolveImageSrc(product.image);
 
@@ -21,15 +21,18 @@ export default function ProductCard({ product, compact = false, searchQuery }) {
       href={href}
       aria-label={`Xem chi tiết ${product.name}`}
       className={[
-        'group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-premium-dark text-left transition',
-        'hover:border-brand-amber/45 hover:shadow-lg hover:shadow-black/40',
-        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber',
-      ].join(' ')}
+        "group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-premium-dark text-left transition",
+        "hover:border-brand-amber/45 hover:shadow-lg hover:shadow-black/40",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber",
+      ].join(" ")}
     >
       <div
-        className={['product-media-well product-card-media', compact ? 'product-card-media--compact' : '']
+        className={[
+          "product-media-well product-card-media",
+          compact ? "product-card-media--compact" : "",
+        ]
           .filter(Boolean)
-          .join(' ')}
+          .join(" ")}
       >
         {imageSrc ? (
           <Image
@@ -42,10 +45,20 @@ export default function ProductCard({ product, compact = false, searchQuery }) {
         ) : null}
       </div>
 
-      <div className={`flex flex-1 flex-col ${compact ? 'p-3 sm:p-4' : 'p-5'}`}>
-        <h3 className={`line-clamp-2 text-center font-semibold text-white ${compact ? 'text-sm sm:text-base' : 'text-base'}`}>
+      <div className={`flex flex-1 flex-col ${compact ? "p-3 sm:p-4" : "p-5"}`}>
+        <h3
+          className={`line-clamp-2 text-center font-semibold text-white ${compact ? "text-sm sm:text-base" : "text-base"}`}
+        >
           {product.name} {product.abv}
         </h3>
+
+        {product.origin ? (
+          <p
+            className={`mt-1 text-center text-body-muted ${compact ? "text-xs" : "text-sm"}`}
+          >
+            Xuất xứ: {product.origin}
+          </p>
+        ) : null}
 
         <div className="mt-auto pt-3">
           <ProductPrice product={product} compact={compact} />

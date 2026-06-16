@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BRAND } from "../../data/brand";
 import { NAV_ITEMS } from "../../data/nav";
+import { getFeaturedTypesForCategory } from "../../lib/types";
 import { buildTelHref } from "../../lib/links";
 import { formatPhoneDisplay } from "../../lib/formatters";
 import IconButton from "../ui/IconButton";
 import BrandMark from "./BrandMark";
+import NavCategoryDropdown from "./NavCategoryDropdown";
 import ProductSearchForm from "./ProductSearchForm";
 
 const HOTLINE = BRAND.hotline;
@@ -133,16 +135,24 @@ export default function Header() {
           className="hidden max-w-[54%] flex-1 items-center justify-center gap-x-2.5 gap-y-1 xl:flex xl:gap-x-4"
           aria-label="Điều hướng chính"
         >
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={navLinkClass(isActive(item.path))}
-              aria-current={isActive(item.path) ? "page" : undefined}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.categoryKey ? (
+              <NavCategoryDropdown
+                key={item.path}
+                item={item}
+                active={isActive(item.path)}
+              />
+            ) : (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={navLinkClass(isActive(item.path))}
+                aria-current={isActive(item.path) ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
@@ -194,15 +204,37 @@ export default function Header() {
           >
             <div className="site-container flex flex-col gap-1 py-4">
               {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={mobileNavLinkClass(isActive(item.path))}
-                  aria-current={isActive(item.path) ? "page" : undefined}
-                  onClick={closePanels}
-                >
-                  {item.label}
-                </Link>
+                <div key={item.path}>
+                  <Link
+                    href={item.path}
+                    className={mobileNavLinkClass(isActive(item.path))}
+                    aria-current={isActive(item.path) ? "page" : undefined}
+                    onClick={closePanels}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.categoryKey ? (
+                    <div className="mb-2 ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3">
+                      {getFeaturedTypesForCategory(item.categoryKey, 3).map((type) => (
+                        <Link
+                          key={type.slug}
+                          href={`/tag?category=${item.categoryKey}&type=${type.slug}`}
+                          className="flex min-h-10 items-center rounded-md px-3 text-sm text-body-muted transition hover:bg-white/5 hover:text-white"
+                          onClick={closePanels}
+                        >
+                          {type.label}
+                        </Link>
+                      ))}
+                      <Link
+                        href={`/tag?category=${item.categoryKey}`}
+                        className="flex min-h-10 items-center px-3 text-xs font-semibold text-brand-amber"
+                        onClick={closePanels}
+                      >
+                        Xem thêm
+                      </Link>
+                    </div>
+                  ) : null}
+                </div>
               ))}
             </div>
           </nav>

@@ -1,6 +1,6 @@
 import { CLIENT_PRODUCT_ASSETS } from './data/clientAssets';
 
-export const mockProducts = [
+const rawProducts = [
   {
     id: 1,
     name: 'Rượu Nho Mẫu',
@@ -46,6 +46,7 @@ export const mockProducts = [
     price: '89.000 đ',
     origin: 'Đức',
     style: 'Wheat Beer',
+    category: 'bia',
     abv: '5.5%',
     description: 'Sủi tươi, thơm chuối và clove — dễ uống, hợp buổi chiều thư giãn.',
   },
@@ -67,7 +68,7 @@ export const mockProducts = [
     image:
       'https://images.unsplash.com/photo-1618885472179-5e474019f2a9?q=80&w=500&auto=format&fit=max',
     price: '78.000 đ',
-    origin: 'Ireland',
+    origin: 'Ai-len',
     style: 'Stout',
     abv: '4.2%',
     description: 'Đen mịn, kem béo, hương cà phê rang — uống mát cả ngày.',
@@ -211,7 +212,7 @@ export const mockProducts = [
     image:
       'https://images.unsplash.com/photo-1618885472179-5e474019f2a9?q=80&w=500&auto=format&fit=max',
     price: '82.000 đ',
-    origin: 'Ireland',
+    origin: 'Ai-len',
     style: 'Stout',
     abv: '4.0%',
     description: 'Mềm hơn Guinness, sô-cô-la và cà phê — uống mát không nặng.',
@@ -227,7 +228,108 @@ export const mockProducts = [
     abv: '7.0%',
     description: 'Caramel, khô quả, hậu vị ấm — trappist đậm chất tu viện.',
   },
+  {
+    id: 21,
+    name: 'Glenfiddich 12 Năm',
+    image:
+      'https://images.unsplash.com/photo-1569529465841-dfecdabbb3d2?q=80&w=500&auto=format&fit=max',
+    price: '1.250.000 đ',
+    origin: 'Scotland',
+    style: 'Single Malt Whisky',
+    category: 'ruou-manh',
+    type: 'whisky',
+    abv: '40%',
+    description: 'Hương lê và sô cô la sữa — single malt kinh điển từ Speyside.',
+  },
+  {
+    id: 22,
+    name: 'Vang Trắng Mosel',
+    image:
+      'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=500&auto=format&fit=max',
+    price: '720.000 đ',
+    origin: 'Đức',
+    style: 'Vang trắng',
+    category: 'ruou-vang',
+    type: 'vang-trang',
+    abv: '11.5%',
+    description: 'Riesling thanh, hơi ngọt — hợp hải sản và salad nhẹ.',
+  },
+  {
+    id: 23,
+    name: 'Set Quà Tết An Khang',
+    image:
+      'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=500&auto=format&fit=max',
+    price: 'Liên hệ',
+    contactPrice: true,
+    origin: 'Việt Nam',
+    style: 'Set quà',
+    category: 'qua-tet',
+    type: 'set-qua-tet',
+    abv: '12%',
+    description: 'Combo rượu vang và bia cao cấp trong hộp quà sang trọng.',
+  },
+  {
+    id: 24,
+    name: 'Ly Bordeaux 450ml',
+    image:
+      'https://images.unsplash.com/photo-1572116469696-31de055eb39e?q=80&w=500&auto=format&fit=max',
+    price: '185.000 đ',
+    origin: 'Pháp',
+    style: 'Ly thủy tinh',
+    category: 'phu-kien',
+    type: 'ly-thuy-tinh',
+    abv: '0%',
+    description: 'Ly crystal trong, thân cao — dùng thưởng thức vang đỏ Bordeaux.',
+  },
 ];
+
+function ensureProductCategory(product) {
+  if (product.category) return product;
+  const style = String(product.style ?? '').toLowerCase();
+  return {
+    ...product,
+    category: style.includes('vang') ? 'ruou-vang' : 'bia',
+  };
+}
+
+const STYLE_TO_TYPE = {
+  'vang đỏ': 'vang-do',
+  'vang trắng': 'vang-trang',
+  'single malt whisky': 'whisky',
+  'set quà': 'set-qua-tet',
+  'ly thủy tinh': 'ly-thuy-tinh',
+  'pale ale': 'pale-ale',
+  'wheat beer': 'wheat-beer',
+  hefeweizen: 'wheat-beer',
+  witbier: 'wheat-beer',
+  'belgian strong ale': 'belgian-ale',
+  dubbel: 'belgian-ale',
+  stout: 'stout',
+  lager: 'lager',
+  'trappist ale': 'trappist',
+  ipa: 'ipa',
+  pilsner: 'pilsner',
+};
+
+function ensureProductType(product) {
+  if (product.type) return product;
+  const style = String(product.style ?? '').toLowerCase().trim();
+  let type = STYLE_TO_TYPE[style];
+  if (!type && style) {
+    const matched = Object.entries(STYLE_TO_TYPE).find(([key]) => style.includes(key));
+    type = matched?.[1];
+  }
+  if (!type) {
+    if (product.category === 'ruou-vang') type = 'vang-do';
+    else if (product.category === 'ruou-manh') type = 'whisky';
+    else if (product.category === 'qua-tet') type = 'set-qua-tet';
+    else if (product.category === 'phu-kien') type = 'ly-thuy-tinh';
+    else type = 'lager';
+  }
+  return { ...product, type };
+}
+
+export const mockProducts = rawProducts.map(ensureProductCategory).map(ensureProductType);
 
 function parsePriceNumber(price) {
   return Number.parseInt(String(price).replace(/\D/g, ''), 10) || 0;

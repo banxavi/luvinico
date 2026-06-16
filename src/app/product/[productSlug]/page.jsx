@@ -79,12 +79,12 @@ export default async function ProductDetailPage({ params, searchParams }) {
   }
 
   const specs = [
+    { label: "Xuất xứ", value: product.origin },
     { label: "Phong cách", value: product.style },
     { label: "ABV", value: product.abv },
     { label: "IBU", value: product.ibu ?? "—" },
     { label: "Dung tích", value: product.volume ?? "—" },
     { label: "Nhiệt độ uống", value: product.serveTemp ?? "—" },
-    { label: "Nhà máy", value: product.brewery ?? "—" },
   ].filter((s) => s.value && s.value !== "—");
 
   return (
@@ -106,8 +106,10 @@ export default async function ProductDetailPage({ params, searchParams }) {
             <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
               {product.name}
             </h1>
-            {product.brewery ? (
-              <p className="mt-2 text-sm text-body-muted">{product.brewery}</p>
+            {product.origin ? (
+              <p className="mt-2 text-sm text-body-muted">
+                Xuất xứ: <span className="text-white/90">{product.origin}</span>
+              </p>
             ) : null}
 
             <div className="mt-5">
@@ -120,9 +122,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
 
             {specs.length > 0 ? (
               <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {specs.map((s) => (
+                {specs.map((s, index) => (
                   <div
-                    key={s.label}
+                    key={`spec-${index}-${s.label}`}
                     className="rounded-xl border border-white/10 bg-premium-dark/80 px-3 py-3"
                   >
                     <div className="text-[10px] font-semibold uppercase tracking-wide text-brand-amber/80">
@@ -187,9 +189,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
               Hương vị đặc trưng
             </h2>
             <ul className="mt-4 flex flex-wrap gap-2">
-              {product.tastingNotes.map((note) => (
+              {product.tastingNotes.map((note, index) => (
                 <li
-                  key={note}
+                  key={`tasting-${index}-${note}`}
                   className="rounded-full border border-brand-amber/25 bg-brand-amber/10 px-4 py-2 text-sm text-brand-amber"
                 >
                   {note}
@@ -205,9 +207,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
               Gợi ý kết hợp món ăn
             </h2>
             <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {product.foodPairing.map((item) => (
+              {product.foodPairing.map((item, index) => (
                 <li
-                  key={item}
+                  key={`pairing-${index}-${item}`}
                   className="rounded-lg border border-white/10 bg-premium-dark px-4 py-3 text-sm text-body-muted"
                 >
                   {item}
@@ -221,8 +223,11 @@ export default async function ProductDetailPage({ params, searchParams }) {
           <section className="mt-10">
             <h2 className="text-lg font-semibold text-white">Điểm nổi bật</h2>
             <ul className="mt-4 space-y-2">
-              {product.highlights.map((h) => (
-                <li key={h} className="flex gap-2 text-sm text-body-muted">
+              {product.highlights.map((h, index) => (
+                <li
+                  key={`highlight-${index}-${h}`}
+                  className="flex gap-2 text-sm text-body-muted"
+                >
                   <span className="text-brand-amber" aria-hidden>
                     ✓
                   </span>

@@ -1,13 +1,14 @@
 import { CATEGORIES } from '../data/categories';
 import { FOOTER } from '../data/footer';
 import { getAllProductSlugs } from '../lib/products';
+import { getAllTypeSlugs } from '../data/productTypes';
 import { getSiteUrl } from '../lib/site';
 
 export default function sitemap() {
   const baseUrl = getSiteUrl().replace(/\/$/, '');
   const now = new Date();
 
-  const staticRoutes = ['', '/kien-thuc', '/khuyen-mai', '/search'].map((path) => ({
+  const staticRoutes = ['', '/kien-thuc', '/khuyen-mai', '/search', '/tag'].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: now,
     changeFrequency: 'weekly',
@@ -19,6 +20,13 @@ export default function sitemap() {
     lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.8,
+  }));
+
+  const tagRoutes = getAllTypeSlugs().map((slug) => ({
+    url: `${baseUrl}/tag/${slug}`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.75,
   }));
 
   const productRoutes = getAllProductSlugs().map((slug) => ({
@@ -35,5 +43,5 @@ export default function sitemap() {
     priority: 0.4,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...policyRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...tagRoutes, ...productRoutes, ...policyRoutes];
 }
