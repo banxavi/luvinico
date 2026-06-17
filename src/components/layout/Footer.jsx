@@ -1,36 +1,14 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BRAND } from "../../data/brand";
 import { FOOTER } from "../../data/footer";
 import { formatPhoneDisplay } from "../../lib/formatters";
 import { buildTelHref } from "../../lib/links";
 import BrandMark from "./BrandMark";
+import FooterLink from "./FooterLink";
 
 function FooterHeading({ children }) {
   return <h3 className="footer-heading">{children}</h3>;
-}
-
-function FooterLink({ href, children }) {
-  const isInternal = href.startsWith("/") && !href.startsWith("//");
-
-  if (isInternal) {
-    return (
-      <Link
-        href={href}
-        className="text-sm text-body-muted transition hover:text-brand-amber"
-      >
-        {children}
-      </Link>
-    );
-  }
-
-  return (
-    <Link
-      href={href}
-      className="text-sm text-body-muted transition hover:text-brand-amber"
-    >
-      {children}
-    </Link>
-  );
 }
 
 export default function Footer() {
@@ -103,6 +81,17 @@ export default function Footer() {
               <p className="mt-4 text-sm leading-relaxed text-body-muted">
                 {FOOTER.warning}
               </p>
+
+              <div className="footer-warning-image mt-4 max-w-4/5 m-auto">
+                <Image
+                  src="/warning.png"
+                  alt="Không bán cho người dưới 18 tuổi. Phụ nữ mang thai không uống rượu bia. Không lái xe sau khi uống rượu bia."
+                  width={300}
+                  height={119}
+                  className="footer-warning-image__asset"
+                  sizes="(max-width: 640px) 42vw, 300px"
+                />
+              </div>
             </div>
           </div>
         </div>

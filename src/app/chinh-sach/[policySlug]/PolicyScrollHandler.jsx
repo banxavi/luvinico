@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import { scrollToTop } from "../../../lib/scroll";
 
-export default function ProductScrollHandler({ slug }) {
+export default function PolicyScrollHandler({ policySlug }) {
   useEffect(() => {
-    scrollToTop({ behavior: "smooth" });
-  }, [slug]);
+    scrollToTop();
+  }, [policySlug]);
 
   return null;
 }

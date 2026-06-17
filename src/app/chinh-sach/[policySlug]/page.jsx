@@ -1,19 +1,23 @@
-import { notFound } from 'next/navigation';
-import { FOOTER } from '../../../data/footer';
-import CatalogPageHeader from '../../../components/layout/CatalogPageHeader';
+import { notFound } from "next/navigation";
+import { FOOTER } from "../../../data/footer";
+import CatalogPageHeader from "../../../components/layout/CatalogPageHeader";
+import { getPolicyHtml } from "../../../lib/policy";
+import PolicyScrollHandler from "./PolicyScrollHandler";
 
 export function generateStaticParams() {
   return FOOTER.policies.map((policy) => ({
-    policySlug: policy.href.replace('/chinh-sach/', ''),
+    policySlug: policy.href.replace("/chinh-sach/", ""),
   }));
 }
 
 export async function generateMetadata({ params }) {
   const { policySlug } = await params;
-  const policy = FOOTER.policies.find((p) => p.href === `/chinh-sach/${policySlug}`);
+  const policy = FOOTER.policies.find(
+    (p) => p.href === `/chinh-sach/${policySlug}`,
+  );
   if (!policy) {
     return {
-      title: 'Không tìm thấy trang',
+      title: "Không tìm thấy trang",
     };
   }
   return {
@@ -27,18 +31,28 @@ export async function generateMetadata({ params }) {
 
 export default async function PolicyPage({ params }) {
   const { policySlug } = await params;
-  const policy = FOOTER.policies.find((p) => p.href === `/chinh-sach/${policySlug}`);
+  const policy = FOOTER.policies.find(
+    (p) => p.href === `/chinh-sach/${policySlug}`,
+  );
 
   if (!policy) {
     notFound();
   }
 
+  const html = await getPolicyHtml(policySlug);
+
+  if (!html) {
+    notFound();
+  }
+
   return (
-    <div className="site-container pt-10 pb-16">
+    <div className="site-container pt-10">
+      <PolicyScrollHandler policySlug={policySlug} />
       <CatalogPageHeader eyebrow="CHÍNH SÁCH" title={policy.label} />
-      <p className="mt-8 max-w-2xl text-sm leading-relaxed text-body-muted sm:text-base">
-        Nội dung chính sách đang được chuẩn bị. Vui lòng liên hệ hotline để được hỗ trợ trực tiếp.
-      </p>
+      <article
+        className="policy-content mt-8"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }

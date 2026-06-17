@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import Footer from './Footer';
-import SiteHeader from './SiteHeader';
+import Image from "next/image";
+import Footer from "./Footer";
+import SiteHeader from "./SiteHeader";
 
 const BACKGROUND_IMAGE =
-  'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2400&auto=format&fit=crop';
+  "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2400&auto=format&fit=crop";
 
 export default function PageLayout({ children }) {
   return (
@@ -24,7 +24,7 @@ export default function PageLayout({ children }) {
 
       <div className="relative z-10 overflow-x-clip">
         <SiteHeader />
-        <main className="w-full max-w-full pb-16">{children}</main>
+        <main className="w-full max-w-full">{children}</main>
         <Footer />
       </div>
     </div>

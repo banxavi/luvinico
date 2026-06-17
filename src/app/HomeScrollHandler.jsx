@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { isHomePath } from '../lib/router-utils';
-import { scrollToSection } from '../lib/scroll';
+import { scrollToSection, scrollToTop } from '../lib/scroll';
 
 export default function HomeScrollHandler() {
   const pathname = usePathname() ?? '/';
@@ -29,7 +29,7 @@ export default function HomeScrollHandler() {
     if (!isHomePath(pathname)) return;
     const id = (hash ?? '').replace(/^#/, '');
     if (id) scrollToSection(id);
-    else window.scrollTo({ top: 0, behavior: 'auto' });
+    else scrollToTop();
   }, [pathname, hash, key]);
 
   return null;
