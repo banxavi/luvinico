@@ -1,6 +1,7 @@
 import { mockProducts } from '../mockData';
 import { getProductCategory } from './catalog';
 import { getTypeMeta, getTypesByCategory, PRODUCT_TYPES } from '../data/productTypes';
+import { NAV_SUBMENU_LIMIT } from '../data/nav';
 
 const STYLE_TO_TYPE = {
   'vang đỏ': 'vang-do',
@@ -44,8 +45,8 @@ export function countProductsByType(typeSlug) {
   return getProductsByType(typeSlug).length;
 }
 
-/** 2–3 loại nổi bật cho menu hover — ưu tiên loại có sản phẩm */
-export function getFeaturedTypesForCategory(categoryKey, limit = 3) {
+/** Tối đa NAV_SUBMENU_LIMIT loại nổi bật cho menu hover — ưu tiên loại có sản phẩm */
+function getSortedTypesForCategory(categoryKey) {
   const types = getTypesByCategory(categoryKey).map((type) => ({
     ...type,
     productCount: countProductsByType(type.slug),
@@ -54,9 +55,21 @@ export function getFeaturedTypesForCategory(categoryKey, limit = 3) {
   const withProducts = types.filter((type) => type.productCount > 0);
   const pool = withProducts.length > 0 ? withProducts : types;
 
-  return pool
-    .sort((a, b) => b.productCount - a.productCount || a.label.localeCompare(b.label, 'vi'))
-    .slice(0, limit);
+  return pool.sort(
+    (a, b) => b.productCount - a.productCount || a.label.localeCompare(b.label, 'vi'),
+  );
+}
+
+export function getFeaturedTypesForCategory(categoryKey, limit = NAV_SUBMENU_LIMIT) {
+  return getSortedTypesForCategory(categoryKey).slice(0, limit);
+}
+
+/** Sub-menu nav: items + cờ hiện "Xem thêm" khi còn loại ngoài limit */
+export function getNavSubmenuTypes(categoryKey, limit = NAV_SUBMENU_LIMIT) {
+  const sorted = getSortedTypesForCategory(categoryKey);
+  const items = sorted.slice(0, limit);
+  const hasMore = sorted.length > limit;
+  return { items, hasMore };
 }
 
 export function getTypesWithCounts(categoryKey) {

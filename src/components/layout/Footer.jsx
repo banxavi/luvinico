@@ -97,7 +97,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-body-subtle">
-          © {new Date().getFullYear()} {BRAND.name} All rights reserved.
+          © {BRAND.name} All rights reserved.
         </div>
       </div>
     </footer>

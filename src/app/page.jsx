@@ -3,7 +3,6 @@ import BrandStorySection from '../components/sections/BrandStorySection';
 import UspSection from '../components/sections/UspSection';
 import BestSellersSection from '../components/sections/BestSellersSection';
 import ValueDealsSection from '../components/sections/ValueDealsSection';
-import AvailableAtSection from '../components/sections/AvailableAtSection';
 import SectionBackdrop from '../components/ui/SectionBackdrop';
 import HomeScrollHandler from './HomeScrollHandler';
 
@@ -40,9 +39,6 @@ export default function HomePage() {
         </SectionBackdrop>
         <SectionBackdrop sectionKey="usp">
           <UspSection />
-        </SectionBackdrop>
-        <SectionBackdrop sectionKey="partners">
-          <AvailableAtSection />
         </SectionBackdrop>
       </div>
     </>

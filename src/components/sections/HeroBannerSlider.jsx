@@ -4,11 +4,11 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import Fade from 'embla-carousel-fade';
 import Image from 'next/image';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { HERO_BANNERS } from '../../data/clientAssets';
 import { useEmblaNav, useEmblaSelectedIndex } from '../../lib/emblaControls';
 
-const AUTO_PLAY_MS = 4000;
+const AUTO_PLAY_MS = 3000;
 
 export default function HeroBannerSlider() {
   const slides = HERO_BANNERS;
@@ -17,8 +17,8 @@ export default function HeroBannerSlider() {
     () =>
       Autoplay({
         delay: AUTO_PLAY_MS,
-        stopOnInteraction: true,
-        stopOnMouseEnter: true,
+        stopOnInteraction: false,
+        stopOnMouseEnter: false,
       }),
     [],
   );
@@ -26,6 +26,20 @@ export default function HeroBannerSlider() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [Fade(), autoplay]);
   const selectedIndex = useEmblaSelectedIndex(emblaApi);
   const { scrollPrev, scrollNext, scrollTo } = useEmblaNav(emblaApi);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.reInit();
+    emblaApi.plugins()?.autoplay?.play();
+  }, [emblaApi, slides.length]);
+
+  const onNavClick = useCallback(
+    (action) => {
+      action();
+      autoplay.reset();
+    },
+    [autoplay],
+  );
 
   const onDotClick = useCallback(
     (index) => {
@@ -70,7 +84,7 @@ export default function HeroBannerSlider() {
               type="button"
               className="hero-banner-nav hero-banner-nav--prev"
               aria-label="Banner trước"
-              onClick={scrollPrev}
+              onClick={() => onNavClick(scrollPrev)}
             >
               <span aria-hidden>‹</span>
             </button>
@@ -78,7 +92,7 @@ export default function HeroBannerSlider() {
               type="button"
               className="hero-banner-nav hero-banner-nav--next"
               aria-label="Banner sau"
-              onClick={scrollNext}
+              onClick={() => onNavClick(scrollNext)}
             >
               <span aria-hidden>›</span>
             </button>

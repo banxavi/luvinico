@@ -46,7 +46,7 @@ function ProductSearchFormFields({ urlQuery, autoFocus = false, onClose }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="search-field-input"
-        placeholder="Tìm tên bia, xuất xứ, ABV…"
+        placeholder="Tìm tên bia, rượu, xuất xứ"
         inputMode="search"
         autoComplete="off"
         aria-label="Tìm kiếm sản phẩm"

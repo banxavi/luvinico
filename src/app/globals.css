@@ -489,6 +489,7 @@ body {
   display: flex;
   touch-action: pan-y pinch-zoom;
   height: 100%;
+  position: relative;
 }
 
 .hero-banner-slide {

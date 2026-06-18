@@ -92,14 +92,14 @@ export default function Header() {
     setSearchOpen(false);
   };
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [menuOpen]);
+  // useEffect(() => {
+  //   if (!menuOpen) return;
+  //   const prev = document.body.style.overflow;
+  //   document.body.style.overflow = "hidden";
+  //   return () => {
+  //     document.body.style.overflow = prev;
+  //   };
+  // }, [menuOpen]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -124,7 +124,7 @@ export default function Header() {
       <div className="site-container flex items-center justify-between gap-2 py-3 lg:gap-3 lg:py-4">
         <Link
           href="/"
-          className="min-w-0 shrink-0"
+          className="min-w-0"
           aria-label="LUVINI & CO. — về trang chủ"
           onClick={closePanels}
         >
@@ -158,7 +158,7 @@ export default function Header() {
         <div className="flex shrink-0 items-center gap-2">
           <Link
             href={buildTelHref(HOTLINE)}
-            className="header-phone-link"
+            className="header-phone-link max-md:hidden!"
             aria-label={`Gọi ${HOTLINE}`}
           >
             <PhoneIcon />
@@ -192,17 +192,20 @@ export default function Header() {
 
       {menuOpen ? (
         <>
-          <button
-            type="button"
-            className="fixed inset-0 z-30 bg-black/60 xl:hidden"
-            aria-label="Đóng menu"
-            onClick={closePanels}
-          />
+        <div className="fixed bg-black/60 inset-0 h-screen mt-[68px] w-screen z-10"/>
           <nav
             className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,480px)] overflow-y-auto border-b border-white/10 bg-premium-black shadow-2xl xl:hidden"
             aria-label="Menu di động"
           >
             <div className="site-container flex flex-col gap-1 py-4">
+              <Link
+                href={buildTelHref(HOTLINE)}
+                className="header-phone-link"
+                aria-label={`Gọi ${HOTLINE}`}
+              >
+                <PhoneIcon />
+                <span>{formatPhoneDisplay(HOTLINE)}</span>
+              </Link>
               {NAV_ITEMS.map((item) => (
                 <div key={item.path}>
                   <Link
