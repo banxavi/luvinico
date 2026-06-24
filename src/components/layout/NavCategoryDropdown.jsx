@@ -6,7 +6,7 @@ import { getNavSubmenuTypes } from '../../lib/types';
 
 const navLinkClass = (active) =>
   [
-    'whitespace-nowrap font-medium transition-colors',
+    'whitespace-nowrap font-medium uppercase tracking-wide transition-colors',
     'text-sm xl:text-[0.95rem] 2xl:text-base',
     active ? 'text-brand-amber' : 'text-body-muted hover:text-white',
   ].join(' ');

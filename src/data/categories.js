@@ -17,10 +17,11 @@ export const CATEGORIES = {
   },
   bia: {
     key: 'bia',
-    path: '/bia',
-    title: 'Bia nhập khẩu',
+    path: '/bia-khuyen-mai',
+    title: 'Bia khuyến mãi',
     eyebrow: 'DANH MỤC',
-    description: 'Bia craft và lager nhập khẩu chính hãng từ châu Âu, Mỹ và châu Á.',
+    description:
+      'Các sản phẩm bia khuyến mãi được chọn lọc kỹ càng, đảm bảo chất lượng hảo hạng, hương vị nguyên vẹn. Quý khách hàng có thể yên tâm thưởng thức những dòng bia tuyệt vời với giá ưu đãi nhất.\n\nFirst Beer – Bia Nhập Khẩu Giá Sỉ luôn luôn cập nhật các loại bia khuyến mãi với số lượng và giá thành hấp dẫn bất ngờ. Hãy luôn đồng hành cùng chúng tôi để không bỏ lỡ các cơ hội trải nghiệm những thương hiệu bia hàng đầu trên thế giới.',
   },
   'qua-tet': {
     key: 'qua-tet',

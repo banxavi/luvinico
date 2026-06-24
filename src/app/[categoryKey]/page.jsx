@@ -33,7 +33,10 @@ export async function generateMetadata({ params, searchParams }) {
   }
   return {
     title: `${meta.title} — Nhập khẩu chính hãng`,
-    description: meta.description || `Xem bộ sưu tập sản phẩm ${meta.title} tại LUVINI & CO.`,
+    description: (meta.description || `Xem bộ sưu tập sản phẩm ${meta.title} tại LUVINI & CO.`).replace(
+      /\s+/g,
+      ' ',
+    ),
     alternates: {
       canonical: buildCategoryCanonical(categoryKey, {
         origin: resolvedSearchParams.origin || '',
