@@ -6,8 +6,8 @@ import { getNavSubmenuTypes } from '../../lib/types';
 
 const navLinkClass = (active) =>
   [
-    'whitespace-nowrap font-medium uppercase tracking-wide transition-colors',
-    'text-sm xl:text-[0.95rem] 2xl:text-base',
+    'inline-flex min-h-9 items-center whitespace-nowrap font-medium uppercase leading-none transition-colors',
+    'text-[0.625rem] tracking-wide xl:text-xs 2xl:text-sm',
     active ? 'text-brand-amber' : 'text-body-muted hover:text-white',
   ].join(' ');
 
@@ -17,7 +17,7 @@ export default function NavCategoryDropdown({ item, active }) {
 
   return (
     <div
-      className="relative"
+      className="relative flex items-center"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >

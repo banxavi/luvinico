@@ -17,6 +17,7 @@ import ProductBreadcrumb from "../../../components/layout/ProductBreadcrumb";
 import ProductCard from "../../../components/product/ProductCard";
 import ProductImageGallery from "../../../components/product/ProductImageGallery";
 import ProductPrice from "../../../components/product/ProductPrice";
+import ProductDetailContent from "../../../components/product/ProductDetailContent";
 import ProductJsonLd from "../../../components/seo/ProductJsonLd";
 import ProductScrollHandler from "./ProductScrollHandler";
 import Link from "next/link";
@@ -117,7 +118,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
             </div>
 
             <p className="mt-4 text-base leading-relaxed text-body-muted">
-              {product.longDescription ?? product.description}
+              {product.description}
             </p>
 
             {specs.length > 0 ? (
@@ -183,58 +184,13 @@ export default async function ProductDetailPage({ params, searchParams }) {
           </div>
         </div>
 
-        {product.tastingNotes?.length ? (
-          <section className="mt-12">
-            <h2 className="text-lg font-semibold text-white">
-              Hương vị đặc trưng
-            </h2>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {product.tastingNotes.map((note, index) => (
-                <li
-                  key={`tasting-${index}-${note}`}
-                  className="rounded-full border border-brand-amber/25 bg-brand-amber/10 px-4 py-2 text-sm text-brand-amber"
-                >
-                  {note}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
+        <ProductDetailContent content={product.content} />
 
-        {product.foodPairing?.length ? (
-          <section className="mt-10">
-            <h2 className="text-lg font-semibold text-white">
-              Gợi ý kết hợp món ăn
-            </h2>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {product.foodPairing.map((item, index) => (
-                <li
-                  key={`pairing-${index}-${item}`}
-                  className="rounded-lg border border-white/10 bg-premium-dark px-4 py-3 text-sm text-body-muted"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
-
-        {product.highlights?.length ? (
-          <section className="mt-10">
-            <h2 className="text-lg font-semibold text-white">Điểm nổi bật</h2>
-            <ul className="mt-4 space-y-2">
-              {product.highlights.map((h, index) => (
-                <li
-                  key={`highlight-${index}-${h}`}
-                  className="flex gap-2 text-sm text-body-muted"
-                >
-                  <span className="text-brand-amber" aria-hidden>
-                    ✓
-                  </span>
-                  {h}
-                </li>
-              ))}
-            </ul>
+        {!product.content?.length && product.longDescription ? (
+          <section className="mt-12 border-t border-white/10 pt-10">
+            <p className="text-base leading-relaxed text-body-muted">
+              {product.longDescription}
+            </p>
           </section>
         ) : null}
 

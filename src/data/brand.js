@@ -6,7 +6,7 @@ export const BRAND = {
   subtitle: 'Curated Fine Wine & Imported Beer',
   est: '2026',
   hotline: '0907566279',
-  facebook: 'https://facebook.com',
+  facebook: 'https://www.facebook.com/luvini.co',
   email: 'hello@luvini.co',
   description:
     'Tuyển chọn rượu vang và bia nhập khẩu chính hãng — cho những khoảnh khắc thưởng thức tinh tế.',

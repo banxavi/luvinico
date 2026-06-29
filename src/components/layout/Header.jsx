@@ -17,8 +17,8 @@ const HOTLINE = BRAND.hotline;
 
 const navLinkClass = (active) =>
   [
-    "whitespace-nowrap font-medium uppercase tracking-wide transition-colors",
-    "text-sm xl:text-[0.95rem] 2xl:text-base",
+    "inline-flex min-h-9 items-center whitespace-nowrap font-medium uppercase leading-none transition-colors",
+    "text-[0.625rem] tracking-wide xl:text-xs 2xl:text-sm",
     active ? "text-brand-amber" : "text-body-muted hover:text-white",
   ].join(" ");
 
@@ -92,14 +92,14 @@ export default function Header() {
     setSearchOpen(false);
   };
 
-  // useEffect(() => {
-  //   if (!menuOpen) return;
-  //   const prev = document.body.style.overflow;
-  //   document.body.style.overflow = "hidden";
-  //   return () => {
-  //     document.body.style.overflow = prev;
-  //   };
-  // }, [menuOpen]);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -120,11 +120,11 @@ export default function Header() {
   };
 
   return (
-    <header className="relative border-b border-white/10">
-      <div className="site-container flex items-center justify-between gap-2 py-3 lg:gap-3 lg:py-4">
+    <header className="relative z-50 border-b border-white/10">
+      <div className="site-container flex min-h-14 items-center justify-between gap-2 py-2.5 sm:min-h-[3.75rem] sm:py-3">
         <Link
           href="/"
-          className="min-w-0"
+          className="flex min-w-0 shrink items-center"
           aria-label="LUVINI & CO. — về trang chủ"
           onClick={closePanels}
         >
@@ -132,7 +132,7 @@ export default function Header() {
         </Link>
 
         <nav
-          className="hidden max-w-[54%] flex-1 items-center justify-center gap-x-2.5 gap-y-1 xl:flex xl:gap-x-4"
+          className="hidden min-w-0 flex-1 flex-wrap items-center justify-center gap-x-2 gap-y-1 xl:flex 2xl:flex-nowrap 2xl:gap-x-3"
           aria-label="Điều hướng chính"
         >
           {NAV_ITEMS.map((item) =>
@@ -155,17 +155,17 @@ export default function Header() {
           )}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <Link
             href={buildTelHref(HOTLINE)}
-            className="header-phone-link max-md:hidden!"
+            className="header-phone-link max-md:hidden max-xl:w-11 max-xl:px-0 max-xl:justify-center"
             aria-label={`Gọi ${HOTLINE}`}
           >
             <PhoneIcon />
-            <span>{formatPhoneDisplay(HOTLINE)}</span>
+            <span className="max-xl:sr-only">{formatPhoneDisplay(HOTLINE)}</span>
           </Link>
 
-          <div className="flex items-center gap-2 xl:hidden">
+          <div className="flex items-center gap-1.5 sm:gap-2 xl:hidden">
             <IconButton
               label="Tìm kiếm sản phẩm"
               onClick={toggleSearch}
@@ -192,9 +192,14 @@ export default function Header() {
 
       {menuOpen ? (
         <>
-        <div className="fixed bg-black/60 inset-0 h-screen mt-[68px] w-screen z-10"/>
+          <button
+            type="button"
+            className="fixed inset-0 z-30 bg-black/60 xl:hidden"
+            aria-label="Đóng menu"
+            onClick={closePanels}
+          />
           <nav
-            className="absolute inset-x-0 top-full z-50 max-h-[min(80vh,480px)] overflow-y-auto border-b border-white/10 bg-premium-black shadow-2xl xl:hidden"
+            className="absolute inset-x-0 top-full z-40 max-h-[min(85vh,36rem)] overflow-y-auto border-b border-white/10 bg-premium-black shadow-2xl xl:hidden"
             aria-label="Menu di động"
           >
             <div className="site-container flex flex-col gap-1 py-4">

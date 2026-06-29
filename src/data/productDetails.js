@@ -3,199 +3,451 @@ export const productDetailExtras = {
   1: {
     volume: '750ml',
     serveTemp: '16–18°C',
-    longDescription:
-      'Sản phẩm mẫu dùng ảnh rượu nho từ khách hàng. Vui lòng xem thử card listing và ảnh chi tiết để đánh giá độ đồng bộ nền, góc chụp và tỉ lệ trong khung.',
-    tastingNotes: ['Quả chín', 'Gia vị nhẹ', 'Tanin mềm', 'Hậu vị dài'],
-    foodPairing: ['Thịt đỏ nướng', 'Phô mai cứng', 'Mì Ý', 'Thịt hun khói'],
-    highlights: ['Ảnh mẫu khách hàng', 'Card + chi tiết', 'Chờ duyệt trước go-live'],
+    content: [
+      {
+        heading: 'Thực phẩm kết hợp',
+        blocks: [
+          {
+            type: 'ul',
+            items: ['Thịt đỏ (bò, cừu)', 'Thịt gia cầm', 'Phô mai', 'Salad'],
+          },
+        ],
+      },
+      {
+        heading: 'Cách thưởng thức',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Nhiệt độ phục vụ:', text: ' 16–18°C.' },
+              {
+                bold: 'Decanter (thở rượu):',
+                text: ' Khuyên dùng 30–60 phút trước khi uống để bung tỏa hương thơm.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Hướng dẫn bảo quản và sử dụng',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              'Bảo quản tránh ánh nắng trực tiếp',
+              'Nhiệt độ sử dụng tốt nhất 16–18°C',
+              'Dùng ly cỡ lớn để tận hưởng hương vị',
+            ],
+          },
+        ],
+      },
+    ],
   },
   2: {
     volume: '750ml',
     serveTemp: '16–18°C',
-    longDescription:
-      'Sản phẩm mẫu dùng bộ ảnh rượu vang từ khách hàng — gồm 2 góc chi tiết và 1 ảnh card. Kiểm tra gallery trên mobile/desktop trước khi chuẩn hóa toàn bộ catalog.',
-    tastingNotes: ['Mận chín', 'Đinh hương', 'Sô-cô-la', 'Gỗ sồi nhẹ'],
-    foodPairing: ['Bít tết', 'Vịt quay', 'Phô mai blue', 'Sô-cô-la đen'],
-    highlights: ['Gallery 3 ảnh', 'Ảnh mẫu khách hàng', 'Chờ duyệt trước go-live'],
-  },
-  3: {
-    volume: '355ml',
-    ibu: '38',
-    serveTemp: '6–8°C',
-    longDescription:
-      'Sierra Nevada Pale Ale là huyền thoại craft Mỹ: đắng hoa bia rõ ràng nhưng không gắt, hương cam chanh và thông tươi. Thưởng thức chậm để cảm nhận rõ độ cân bằng giữa đắng và ngọt malt.',
-    tastingNotes: ['Hoa bia (hop)', 'Cam chanh', 'Thông', 'Đắng cân bằng'],
-    foodPairing: ['Burger', 'Tacos', 'Pizza cay', 'Gà rán'],
-    highlights: ['Craft kinh điển', 'Hương hop tươi', 'Dễ gây nghiện cho fan IPA nhẹ'],
-  },
-  4: {
-    volume: '500ml',
-    ibu: '15',
-    serveTemp: '6–8°C',
-    longDescription:
-      'Paulaner Hefe-Weizen mang đến trải nghiệm wheat beer Đức đúng chuẩn: đục tự nhiên, thơm chuối và đinh hương (clove), sủi tươi mát. Rất hợp buổi chiều và những cuộc trò chuyện không vội.',
-    tastingNotes: ['Chuối', 'Đinh hương', 'Bột mì', 'Sủi tươi'],
-    foodPairing: ['Pretzel', 'Salad nhẹ', 'Hải sản', 'Phô mai tươi'],
-    highlights: ['Dễ uống', 'Thơm đặc trưng', 'Lon 500ml tiện chia sẻ'],
-  },
-  5: {
-    volume: '330ml',
-    ibu: '32',
-    serveTemp: '6–8°C',
-    longDescription:
-      'Duvel là strong golden ale Bỉ nổi tiếng với bọt dày như champagne và hậu vị khô, cay nhẹ tinh tế. Một chai đủ để kéo dài cuộc trò chuyện — đúng tinh thần LUVINI & CO..',
-    tastingNotes: ['Bọt champagne', 'Cam zest', 'Hồi', 'Khô, sạch'],
-    foodPairing: ['Ốc', 'Tôm hùm', 'Gà nướng', 'Phô mai brie'],
-    highlights: ['Biểu tượng Bỉ', 'Sủi đẹp', 'Thưởng thức chậm'],
-  },
-  6: {
-    volume: '330ml',
-    ibu: '45',
-    serveTemp: '6–8°C',
-    longDescription:
-      'Guinness Draught nổi bật với lớp kem nitro mịn, vị đen cà phê và sô-cô-la thanh mát. Dù là stout nhưng body nhẹ, rất dễ uống — đặc biệt khi thưởng thức lạnh sau ngày dài.',
-    tastingNotes: ['Cà phê rang', 'Sô-cô-la', 'Kem nitro', 'Khô nhẹ'],
-    foodPairing: ['Hàu', 'Thịt bò', 'Pie', 'Chocolate dessert'],
-    highlights: ['Kem nitro đặc trưng', 'Icon Ireland', 'Dễ uống'],
-  },
-  7: {
-    volume: '355ml',
-    ibu: '18',
-    serveTemp: '2–4°C',
-    longDescription:
-      'Corona Extra mang phong cách bia biển Mexico: trong, nhẹ, cực kỳ dễ uống khi lạnh và có thể thêm chanh. Rất hợp để thả lỏng sau một ngày dài.',
-    tastingNotes: ['Nhẹ', 'Ngọt malt nhẹ', 'Trong', 'Kết thúc sạch'],
-    foodPairing: ['Tacos', 'Ceviche', 'Đồ nướng', 'Salad'],
-    highlights: ['Uống lạnh', 'Hợp chanh', 'Phong cách biển'],
+    content: [
+      {
+        heading: 'Đặc điểm hương vị và cấu trúc',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Màu sắc:',
+                text: ' Đỏ Ruby đậm pha ánh tím huyền bí và sang trọng.',
+              },
+              {
+                bold: 'Hương thơm:',
+                text: ' Trái cây đỏ chín, mứt quả đen, anh đào, gỗ sồi Pháp, cam thảo, chocolate và thoảng khói sồi.',
+              },
+              {
+                bold: 'Vị rượu:',
+                text: ' Mạnh mẽ, cấu trúc rắn — ngọt mận khô, mứt dâu rừng và cay nhẹ của thảo mộc.',
+              },
+              {
+                bold: 'Hậu vị:',
+                text: ' Tannin mịn như lụa, kết thúc ngọt mềm và kéo dài.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Hướng dẫn thưởng thức đúng cách',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Nhiệt độ:', text: ' 16–18°C.' },
+              {
+                bold: 'Thở rượu:',
+                text: ' Decanter 30–60 phút để hương vị bung tỏa và tannin mềm hơn.',
+              },
+            ],
+          },
+          {
+            type: 'p',
+            value: 'Kết hợp món đậm vị, giàu chất béo:',
+          },
+          {
+            type: 'ul',
+            items: [
+              'Thịt đỏ nướng (bò, cừu)',
+              'Thịt tẩm ướp gia vị mạnh',
+              'Đồ săn bắn (thịt hươu, nai)',
+              'Phô mai chín',
+            ],
+          },
+        ],
+      },
+    ],
   },
   8: {
-    volume: '330ml',
-    ibu: '12',
-    serveTemp: '4–6°C',
-    longDescription:
-      'Hoegaarden White là witbier Bỉ với hương cam và hạt tiêu, đục tự nhiên từ gia vị và wheat. Thanh mát, dễ tiếp cận — lựa chọn an toàn cho nhóm đông.',
-    tastingNotes: ['Cam', 'Tiêu', 'Coriander', 'Mát'],
-    foodPairing: ['Salad', 'Cá trắng', 'Mì Ý nhẹ', 'Phô mai dê'],
-    highlights: ['Witbier kinh điển', 'Thơm gia vị', 'Dễ uống'],
+    volume: '750ml',
+    serveTemp: '12–18°C',
+    content: [
+      {
+        heading: 'Đặc trưng hương vị',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Hương thơm:',
+                text: ' Quả mọng đen, mận chín, tiêu đen, vani và gỗ sồi nướng.',
+              },
+              {
+                bold: 'Vị rượu:',
+                text: ' Đầy đặn, cân bằng — mứt trái cây, cam thảo, tannin mượt, hậu vị ấm áp không ngọt gắt.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Hướng dẫn thưởng thức',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Nhiệt độ:',
+                text: ' 12–18°C — dòng Classic mượt, không cần decant quá lâu.',
+              },
+            ],
+          },
+          {
+            type: 'p',
+            value: 'Món ăn kèm gợi ý:',
+          },
+          {
+            type: 'ul',
+            items: [
+              'Thịt đỏ nướng (BBQ, bít tết bò, sườn cừu nướng tỏi)',
+              'Pizza, mì Ý sốt cà chua đậm vị',
+              'Phô mai cứng (Cheddar, Parmesan)',
+            ],
+          },
+        ],
+      },
+    ],
   },
-  9: {
-    volume: '330ml',
-    ibu: '16',
-    serveTemp: '4–6°C',
-    longDescription:
-      'Asahi Super Dry được mệnh danh “khô nhất” trong các lager Nhật: kết thúc gọn, ít ngọt dư, cực kỳ sạch. Hợp sushi, sashimi và những bữa ăn tinh tế.',
-    tastingNotes: ['Khô', 'Gạo nhẹ', 'Sạch', 'Sủi đều'],
-    foodPairing: ['Sushi', 'Sashimi', 'Tempura', 'Đồ chiên nhẹ'],
-    highlights: ['Super Dry', 'Hợp Nhật cuisine', 'Dễ uống'],
+  3: {
+    volume: 'Hộp 2 chai 750ml',
+    serveTemp: '8–12°C',
+    content: [
+      {
+        heading: 'Set Quà Tặng Bia Chimay – Phần quà dành tặng cho người thân yêu !',
+        blocks: [
+          {
+            type: 'p',
+            value: [
+              { text: 'Không chỉ riêng dịp Lễ Tết — bia cũng là thức uống để cùng chia sẻ và dành tặng nhau. ' },
+              { text: 'LUVINI & CO.', bold: true },
+              { text: ' mang đến món quà ý nghĩa, sang trọng và thiết thực cho mọi dịp đặc biệt.' },
+            ],
+          },
+          {
+            type: 'p',
+            value: 'Hộp quà gồm hai dòng Trappist nổi tiếng:',
+          },
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Chimay Đỏ (7%)', text: ' — hương thơm trái cây dịu nhẹ.' },
+              { bold: 'Chimay Xanh (9%)', text: ' — đậm đà, hương thảo mộc và gia vị.' },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Thưởng thức Set Quà Tặng Bia Chimay',
+        blocks: [
+          {
+            type: 'p',
+            value: 'Set quà bia Bỉ phù hợp làm quà trong các dịp quan trọng:',
+          },
+          {
+            type: 'ul',
+            items: ['Lễ – Tết', 'Sinh nhật', 'Sự kiện doanh nghiệp', 'Tri ân đối tác'],
+          },
+          {
+            type: 'p',
+            value: [
+              { text: 'Thiết kế ' },
+              { text: 'sang trọng, đẹp mắt', bold: true },
+              { text: ' và hương vị đậm chất Trappist — món quà ý nghĩa cho người thân và đối tác quan trọng.' },
+            ],
+          },
+        ],
+      },
+    ],
   },
-  10: {
-    volume: '330ml',
-    ibu: '30',
-    serveTemp: '10–12°C',
-    longDescription:
-      'Chimay Blue là trappist ale cao cấp: đậm trái cây sấy, gia vị ấm và độ cồn cao nhưng hài hòa. Nên thưởng thức chậm, hơi ấm — mỗi ngụm đều đáng giá.',
-    tastingNotes: ['Mận khô', 'Nho khô', 'Gia vị', 'Ấm, sâu'],
-    foodPairing: ['Thịt hầm', 'Phô mai mạnh', 'Paté', 'Tráng miệng đậm'],
-    highlights: ['Trappist', 'Cao cấp', 'Thưởng thức chậm'],
+  4: {
+    volume: 'Hộp 4 chai 330ml + 1 ly',
+    serveTemp: '6–10°C',
+    content: [
+      {
+        heading: 'Đặc trưng hương vị bia Duvel',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Dòng bia:',
+                text: ' Belgian Strong Blond Ale — biểu tượng bia vàng mạnh của Bỉ từ năm 1871.',
+              },
+              {
+                bold: 'Nồng độ cồn:',
+                text: ' 8.5% ABV — cao nhưng uống mượt mà, êm ái.',
+              },
+              {
+                bold: 'Khứu giác & vị giác:',
+                text: ' Vàng tươi như ánh nắng; hương cam quýt, lê chín, tiêu trắng và men Bỉ; vị đắng nhẹ hòa ngọt malt; hậu vị khô, thanh và kéo dài.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Nghệ thuật thưởng thức và kết hợp món ăn',
+        blocks: [
+          {
+            type: 'p',
+            value: [
+              { text: 'Nhiệt độ lý tưởng: ', bold: false },
+              { text: '6°C – 10°C', bold: true },
+              { text: ' — ướp lạnh trước khi rót ra ly Tulip.' },
+            ],
+          },
+          {
+            type: 'p',
+            value: [
+              { text: 'Ẩm thực đi kèm: ', bold: true },
+              { text: 'Duvel cắt ngấy cực tốt nhờ ga mạnh và nồng độ cao — hợp món béo, nhiều đạm:' },
+            ],
+          },
+          {
+            type: 'ul',
+            items: ['Thịt kho hột vịt', 'Nem rán', 'Bánh chưng', 'Chả lụa', 'Dăm bông', 'Hạt khô'],
+          },
+          {
+            type: 'p',
+            value: [
+              { text: 'Hộp quà Duvel ', bold: false },
+              { text: 'cao cấp, bắt mắt', bold: true },
+              { text: ' — lựa chọn ưa chuộng của người sành bia Bỉ cho Lễ Tết, tri ân và chúc tụng.' },
+            ],
+          },
+        ],
+      },
+    ],
   },
-  11: {
-    volume: '330ml',
-    ibu: '35',
+  5: {
+    volume: 'Thùng 24 lon 500ml',
     serveTemp: '6–8°C',
-    longDescription:
-      'Punk IPA là biểu tượng craft táo bạo từ Scotland: đắng hop rõ, hương bưởi và thông nổi. Dành cho ai muốn bia có cá tính và không ngại độ đắng.',
-    tastingNotes: ['Bưởi', 'Thông', 'Đắng hop', 'Khô'],
-    foodPairing: ['Burger cay', 'Wings', 'Curry', 'BBQ'],
-    highlights: ['IPA hiện đại', 'Hương hop mạnh', 'Craft nổi tiếng'],
+    content: [
+      {
+        heading: 'Mẹo thưởng thức',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Nhiệt độ:',
+                text: ' Ướp lạnh 6°C – 8°C — không thêm đá để tránh loãng vị.',
+              },
+              {
+                bold: 'Kết hợp món ăn:',
+                text: ' Xúc xích Đức, salad, hải sản, phô mai nhẹ.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Giới thiệu về Bia Paulaner Weissbier lon 500ml',
+        blocks: [
+          {
+            type: 'p',
+            value: [
+              { text: 'Paulaner Weissbier ', bold: true },
+              { text: 'là Hefeweizen truyền thống Bavaria — làm từ lúa mì, thơm dịu, dễ chịu và thanh mát.' },
+            ],
+          },
+          {
+            type: 'ul',
+            items: [
+              'Màu vàng đục tự nhiên, lớp bọt dày mịn',
+              'Hương chuối, xoài và dứa tươi mát',
+              'Nồng độ 5.5% — nhẹ nhàng, dễ uống',
+              'Lon 500ml thiết kế sang trọng, đẹp mắt',
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Thưởng thức Bia Paulaner Weissbier lon 500ml',
+        blocks: [
+          {
+            type: 'p',
+            value: 'Ướp lạnh lon trước khi uống để cảm nhận trọn vẹn hương vị bia Đức.',
+          },
+          {
+            type: 'p',
+            value: 'Đặc biệt ngon khi kết hợp:',
+          },
+          {
+            type: 'ul',
+            items: ['Thịt đỏ nướng', 'Đồ nướng', 'Các món mặn thơm'],
+          },
+        ],
+      },
+    ],
   },
-  12: {
-    volume: '330ml',
-    ibu: '24',
-    serveTemp: '4–6°C',
-    longDescription:
-      'Stella Artois là pilsner Bỉ cổ điển: vàng trong, đắng hoa nhẹ, sủi đều — “an toàn” cho mọi dịp nhưng vẫn đủ chất để thưởng thức thong dong.',
-    tastingNotes: ['Hoa nhẹ', 'Malt ngọt', 'Trong', 'Khô'],
-    foodPairing: ['Mì Ý', 'Gà', 'Khoai tây chiên', 'Salad'],
-    highlights: ['Pilsner kinh điển', 'Dễ uống', 'Hợp tiệc'],
-  },
-  13: {
-    volume: '355ml',
-    ibu: '49',
+  6: {
+    volume: 'Thùng 20 chai 500ml',
     serveTemp: '6–8°C',
-    longDescription:
-      'Lagunitas IPA từ California: đắng rõ, hương thông và cam đào, body vừa. Một trong những IPA Mỹ dễ tiếp cận nhưng vẫn đậm chất craft.',
-    tastingNotes: ['Thông', 'Cam đào', 'Đắng vừa', 'Hậu vị hop'],
-    foodPairing: ['BBQ', 'Pizza', 'Taco', 'Phô mai cay'],
-    highlights: ['IPA Mỹ', 'Hương trái cây', 'Craft phổ biến'],
+    content: [
+      {
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Hương vị:',
+                text: ' Đậm đà nhưng êm dịu — ngọt nhẹ caramel, lúa mì và trái cây chín.',
+              },
+              {
+                bold: 'Thành phần:',
+                text: ' Tuân thủ Reinheitsgebot — nước, lúa mì, đại mạch rang, hoa bia Hallertau và men tự nhiên.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Cách thưởng thức chuẩn vị',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Nhiệt độ:', text: ' 6–8°C — không uống quá lạnh.' },
+              { bold: 'Ly uống:', text: ' Ly Weissbier cao, thon — giữ bọt và hương thơm.' },
+              {
+                bold: 'Món ăn:',
+                text: ' Xúc xích Đức, thịt nướng, phô mai, hải sản, đồ nướng.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Mùi hương phong phú, dễ uống cho mọi dịp',
+        blocks: [
+          {
+            type: 'p',
+            value: 'Khác nhiều bia đen mạnh, Dunkel dễ chịu với hương caramel, chuối chín và bánh mì nướng.',
+          },
+          {
+            type: 'p',
+            value: 'Phù hợp cả người mới — tiệc nhẹ, picnic, BBQ cuối tuần.',
+          },
+        ],
+      },
+      {
+        heading: 'Vì sao nên chọn Paulaner Weissbier Dunkel?',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              'Thương hiệu uy tín hàng trăm năm',
+              'Hương vị đậm đà, dễ uống',
+              'Nguyên liệu 100% tự nhiên',
+              'Công nghệ ủ bia chuẩn Đức',
+              'Bao bì sang trọng, cao cấp',
+              'Đánh giá cao từ giới sành bia',
+              'Hạn sử dụng dài, dễ bảo quản',
+            ],
+          },
+        ],
+      },
+    ],
   },
-  14: {
-    volume: '500ml',
-    ibu: '14',
-    serveTemp: '6–8°C',
-    longDescription:
-      'Weihenstephaner Hefe đến từ nhà máy bia lâu đời nhất thế giới (Đức): hefeweizen đúng chuẩn, chuối và đinh hương nồng, sủi dày. Trải nghiệm wheat beer “chuẩn gốc”.',
-    tastingNotes: ['Chuối', 'Đinh hương', 'Bột mì', 'Sủi dày'],
-    foodPairing: ['Pretzel', 'Weisswurst', 'Salad', 'Phô mai nhẹ'],
-    highlights: ['Nhà máy lâu đời', 'Hefeweizen chuẩn', '500ml'],
-  },
-  15: {
-    volume: '330ml',
-    ibu: '26',
-    serveTemp: '8–10°C',
-    longDescription:
-      'Delirium Tremens với biểu tượng voi hồng: strong ale Bỉ ngọt nhẹ, hoa quả và gia vị, bọt vàng đẹp. Một chai kể chuyện — lúc bạn để ý từng lớp hương.',
-    tastingNotes: ['Hoa quả', 'Gia vị', 'Ngọt nhẹ', 'Bọt vàng'],
-    foodPairing: ['Phô mai', 'Moules', 'Gà nướng', 'Tráng miệng'],
-    highlights: ['Voi hồng', 'Strong ale Bỉ', 'Độc đáo'],
-  },
-  16: {
-    volume: '330ml',
-    ibu: '15',
+  7: {
+    volume: 'Thùng 24 chai 210ml',
     serveTemp: '2–4°C',
-    longDescription:
-      'Tiger Crystal là lager trong, nhẹ, dễ uống — rất hợp khí hậu nhiệt đới và đồ nướng. Thường đi cùng tiếng cười và món ăn cay.',
-    tastingNotes: ['Trong', 'Nhẹ', 'Ngọt nhẹ', 'Kết thúc gọn'],
-    foodPairing: ['Đồ nướng', 'Hải sản', 'Lẩu', 'Gỏi'],
-    highlights: ['Giá tốt', 'Dễ uống', 'Hợp nhiệt đới'],
-  },
-  17: {
-    volume: '350ml',
-    ibu: '17',
-    serveTemp: '4–6°C',
-    longDescription:
-      'Kirin Ichiban chỉ dùng mẻ lúa mạch đầu tiên (first press) nên vị tinh khiết, thanh, ít đắng dư. Tinh tế kiểu Nhật — phù hợp bữa ăn nhẹ và hội thoại chậm rãi.',
-    tastingNotes: ['Gạo nhẹ', 'Tinh khiết', 'Khô', 'Thanh'],
-    foodPairing: ['Sushi', 'Yakitori', 'Tempura', 'Đậu phụ'],
-    highlights: ['First press', 'Thanh lịch', 'Dễ uống'],
-  },
-  18: {
-    volume: '330ml',
-    ibu: '22',
-    serveTemp: '4–6°C',
-    longDescription:
-      'Budweiser Budvar (Budvar) là pilsner Séc danh tiếng từ Ceske Budejovice: đắng hoa cân bằng, malt tròn, sủi đẹp. “Budvar” thật — khác hoàn toàn các bản Mỹ cùng tên.',
-    tastingNotes: ['Hoa nhẹ', 'Malt tròn', 'Đắng cân bằng', 'Trong'],
-    foodPairing: ['Gà', 'Heo quay', 'Pretzel', 'Pickles'],
-    highlights: ['Pilsner Séc', 'Chính hãng', 'Cân bằng'],
-  },
-  19: {
-    volume: '500ml',
-    ibu: '30',
-    serveTemp: '6–8°C',
-    longDescription:
-      'Murphy\'s Irish Stout mềm hơn Guinness: sô-cô-la, cà phê, kem mịn nhưng body nhẹ hơn. Dễ uống cho người mới thử stout.',
-    tastingNotes: ['Sô-cô-la', 'Cà phê', 'Kem mịn', 'Nhẹ hơn Guinness'],
-    foodPairing: ['Pie', 'Beef', 'Oyster', 'Chocolate'],
-    highlights: ['Stout Ireland', 'Dễ tiếp cận', '500ml'],
-  },
-  20: {
-    volume: '330ml',
-    ibu: '22',
-    serveTemp: '8–10°C',
-    longDescription:
-      'La Trappe Dubbel là dubbel trappist Hà Lan: caramel, khô quả, hậu vị ấm và bọt beige. Một dòng bia “ấm lòng” cho buổi tối có chiều sâu.',
-    tastingNotes: ['Caramel', 'Khô quả', 'Gia vị nhẹ', 'Ấm'],
-    foodPairing: ['Thịt hầm', 'Phô mai', 'Bánh mì nướng', 'Moules'],
-    highlights: ['Trappist', 'Dubbel', 'Hậu vị ấm'],
+    content: [
+      {
+        heading: 'Cách thưởng thức bia Corona Extra',
+        blocks: [
+          {
+            type: 'p',
+            value: 'Bia Corona nên được ướp lạnh trước khi uống:',
+          },
+          {
+            type: 'ul',
+            items: [
+              'Tủ lạnh, tủ mát hoặc tủ đông (tùy nhiệt độ ban đầu)',
+              'Thời gian ướp: khoảng 30 phút đến vài tiếng',
+              'Thêm lát chanh tươi trên miệng chai — nét đặc trưng của Corona',
+            ],
+          },
+          {
+            type: 'p',
+            value: [
+              { text: 'Chanh giúp hương vị ', bold: false },
+              { text: 'tươi mát', bold: true },
+              { text: ' và tăng cảm giác sảng khoái khi thưởng thức.' },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Bia Corona Extra và món bò bít tết',
+        blocks: [
+          {
+            type: 'p',
+            value: [
+              { text: 'Corona Extra ', bold: true },
+              { text: 'là thương hiệu bia bán chạy toàn cầu — dễ gây thói quen thưởng thức từ ngụm đầu tiên.' },
+            ],
+          },
+          {
+            type: 'p',
+            value: 'Kết hợp hoàn hảo khi dã ngoại:',
+          },
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Bò bít tết', text: ' — dễ làm, ăn ngon, chuẩn phong cách châu Âu' },
+              'Đồ nướng và hải sản ngoài trời',
+              'Bia lạnh có chanh — bữa tiệc nhẹ nhàng, sảng khoái',
+            ],
+          },
+        ],
+      },
+    ],
   },
 };

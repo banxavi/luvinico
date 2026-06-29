@@ -22,20 +22,20 @@ export default function BrandMark({ variant = "header" }) {
   }
 
   return (
-    <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+    <div className="flex min-w-0 items-center gap-2 sm:gap-2.5">
       <Image
         src={logoImg}
         alt=""
-        className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-brand-amber/25 sm:h-12 sm:w-12"
+        className="h-9 w-9 shrink-0 self-center rounded-full object-cover ring-1 ring-brand-amber/25 sm:h-10 sm:w-10"
         width={48}
         height={48}
         loading="eager"
       />
-      <div className="min-w-0">
-        <div className="brand-wordmark brand-logo-gradient truncate text-[1.05rem] font-semibold uppercase leading-none tracking-[0.08em] sm:text-xl">
+      <div className="flex min-w-0 flex-col justify-center">
+        <div className="brand-wordmark brand-logo-gradient truncate text-[0.9rem] font-semibold uppercase leading-none tracking-[0.06em] sm:text-[1.05rem]">
           {BRAND.name}
         </div>
-        <p className="mt-1 truncate text-[10px] leading-snug text-white/90 sm:text-[13px]">
+        <p className="mt-0.5 hidden truncate text-[10px] leading-none text-white/90 sm:block sm:mt-1 sm:text-[11px]">
           {BRAND.subtitle}
         </p>
       </div>

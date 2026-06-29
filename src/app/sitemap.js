@@ -1,5 +1,6 @@
 import { CATEGORIES } from '../data/categories';
 import { FOOTER } from '../data/footer';
+import { getAllArticleSlugs } from '../lib/articles';
 import { getAllProductSlugs } from '../lib/products';
 import { getAllTypeSlugs } from '../data/productTypes';
 import { getSiteUrl } from '../lib/site';
@@ -36,6 +37,13 @@ export default function sitemap() {
     priority: 0.9,
   }));
 
+  const articleRoutes = getAllArticleSlugs().map((slug) => ({
+    url: `${baseUrl}/kien-thuc/${slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }));
+
   const policyRoutes = FOOTER.policies.map((policy) => ({
     url: `${baseUrl}${policy.href}`,
     lastModified: now,
@@ -43,5 +51,12 @@ export default function sitemap() {
     priority: 0.4,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...tagRoutes, ...productRoutes, ...policyRoutes];
+  return [
+    ...staticRoutes,
+    ...categoryRoutes,
+    ...tagRoutes,
+    ...productRoutes,
+    ...articleRoutes,
+    ...policyRoutes,
+  ];
 }

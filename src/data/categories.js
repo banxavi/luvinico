@@ -6,7 +6,7 @@ export const CATEGORIES = {
     title: 'Rượu vang',
     eyebrow: 'DANH MỤC',
     description:
-      'Rượu vang nhập khẩu tuyển chọn — từ vang đỏ đậm vị đến vang trắng thanh mát và sparkling cho mọi dịp.',
+      'Rượu vang nhập khẩu chính hãng — Pháp (Bordeaux), Ý (Primitivo Puglia) và Úc (Shiraz Cabernet), tuyển chọn cho mọi dịp thưởng thức.',
   },
   'ruou-manh': {
     key: 'ruou-manh',
@@ -21,7 +21,7 @@ export const CATEGORIES = {
     title: 'Bia nhập khẩu',
     eyebrow: 'DANH MỤC',
     description:
-      'Bia nhập khẩu chính hãng — từ lager, IPA đến craft và trappist, tuyển chọn cho mọi khẩu vị.',
+      'Bia nhập khẩu chính hãng — Bỉ (Chimay, Duvel), Đức (Paulaner) và Mexico (Coronita Extra), tuyển chọn cho mọi khẩu vị.',
   },
   'ruou-soju': {
     key: 'ruou-soju',
