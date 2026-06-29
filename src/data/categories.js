@@ -17,11 +17,25 @@ export const CATEGORIES = {
   },
   bia: {
     key: 'bia',
-    path: '/bia-khuyen-mai',
-    title: 'Bia khuyến mãi',
+    path: '/bia',
+    title: 'Bia nhập khẩu',
     eyebrow: 'DANH MỤC',
     description:
-      'Các sản phẩm bia khuyến mãi được chọn lọc kỹ càng, đảm bảo chất lượng hảo hạng, hương vị nguyên vẹn. Quý khách hàng có thể yên tâm thưởng thức những dòng bia tuyệt vời với giá ưu đãi nhất.\n\nFirst Beer – Bia Nhập Khẩu Giá Sỉ luôn luôn cập nhật các loại bia khuyến mãi với số lượng và giá thành hấp dẫn bất ngờ. Hãy luôn đồng hành cùng chúng tôi để không bỏ lỡ các cơ hội trải nghiệm những thương hiệu bia hàng đầu trên thế giới.',
+      'Bia nhập khẩu chính hãng — từ lager, IPA đến craft và trappist, tuyển chọn cho mọi khẩu vị.',
+  },
+  'ruou-soju': {
+    key: 'ruou-soju',
+    path: '/ruou-soju',
+    title: 'Rượu soju',
+    eyebrow: 'DANH MỤC',
+    description: 'Rượu soju Hàn Quốc và châu Á — thanh mát, dễ uống, phù hợp ăn uống cùng bạn bè.',
+  },
+  'do-uong-trai-cay': {
+    key: 'do-uong-trai-cay',
+    path: '/do-uong-trai-cay',
+    title: 'Đồ uống trái cây',
+    eyebrow: 'DANH MỤC',
+    description: 'Đồ uống trái cây và cocktail không cồn — nhẹ nhàng, tươi mát cho mọi dịp.',
   },
   'qua-tet': {
     key: 'qua-tet',

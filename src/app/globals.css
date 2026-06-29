@@ -572,9 +572,9 @@ body {
 }
 
 @media (max-width: 767px) {
-  /* Dùng chung tỉ lệ PC cho đến khi có banner mobile 1080×1080 */
+  /* Banner mobile 1080×1080 */
   .hero-banner-viewport {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 1 / 1;
     max-height: none;
   }
 

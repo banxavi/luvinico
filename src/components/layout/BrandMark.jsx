@@ -1,5 +1,5 @@
 import { BRAND } from "../../data/brand";
-import logoImg from "../../assets/L&Co.png";
+import logoImg from "../../assets/logo/new_logo.webp.png";
 import Image from "next/image";
 
 export default function BrandMark({ variant = "header" }) {
