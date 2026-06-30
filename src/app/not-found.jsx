@@ -1,13 +1,14 @@
 import Link from 'next/link';
+import { createPageMetadata } from '../lib/seo';
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: 'Không tìm thấy trang',
   description: 'Trang bạn tìm kiếm không tồn tại hoặc đã được di chuyển.',
   robots: {
     index: false,
     follow: false,
   },
-};
+});
 
 export default function NotFound() {
   return (

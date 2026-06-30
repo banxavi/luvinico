@@ -6,6 +6,7 @@ import ProductGrid from '../../components/product/ProductGrid';
 import ProductFilters from '../../components/search/ProductFilters';
 import CategoryTypeSidebar from '../../components/tag/CategoryTypeSidebar';
 import { filterProducts, getSearchFilterOptions } from '../../lib/search';
+import { createPageMetadata } from '../../lib/seo';
 import { getProductType, getTypesWithCounts, resolveTypeSlug } from '../../lib/types';
 
 function buildTagCanonical({ category, type, origin, price, abv }) {
@@ -35,26 +36,26 @@ export async function generateMetadata({ searchParams }) {
   if (meta && typeSlug) {
     const types = getTypesWithCounts(categoryKey);
     const typeMeta = types.find((t) => t.slug === typeSlug);
-    return {
+    return createPageMetadata({
       title: `${typeMeta?.label ?? typeSlug} — ${meta.title}`,
       description: `Xem sản phẩm loại ${typeMeta?.label?.toLowerCase() ?? typeSlug} trong ${meta.title.toLowerCase()} tại LUVINI & CO.`,
       alternates: { canonical },
-    };
+    });
   }
 
   if (meta) {
-    return {
+    return createPageMetadata({
       title: `${meta.title} — Tất cả loại`,
       description: `Xem tất cả sản phẩm ${meta.title.toLowerCase()} theo loại tại LUVINI & CO.`,
       alternates: { canonical },
-    };
+    });
   }
 
-  return {
+  return createPageMetadata({
     title: 'Loại sản phẩm',
     description: 'Danh sách loại sản phẩm rượu vang, bia nhập khẩu tại LUVINI & CO.',
     alternates: { canonical: '/tag' },
-  };
+  });
 }
 
 export default async function TagIndexPage({ searchParams }) {

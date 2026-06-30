@@ -119,7 +119,7 @@ const rawProducts = [
     id: 21,
     name: 'Glenfiddich 12 Năm',
     image:
-      'https://images.unsplash.com/photo-1569529465841-dfecdabbb3d2?q=80&w=500&auto=format&fit=max',
+      'https://images.unsplash.com/photo-1618885472179-5e474019f2a9?q=80&w=500&auto=format&fit=max',
     price: '1.250.000 đ',
     origin: 'Scotland',
     style: 'Single Malt Whisky',
@@ -146,7 +146,7 @@ const rawProducts = [
     id: 24,
     name: 'Ly Bordeaux 450ml',
     image:
-      'https://images.unsplash.com/photo-1572116469696-31de055eb39e?q=80&w=500&auto=format&fit=max',
+      'https://images.unsplash.com/photo-1608270586620-248524c67de9?q=80&w=500&auto=format&fit=max',
     price: '185.000 đ',
     origin: 'Pháp',
     style: 'Ly thủy tinh',

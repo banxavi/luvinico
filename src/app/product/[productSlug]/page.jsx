@@ -13,7 +13,7 @@ import {
   getRedirectSlugFromLegacyPath,
   resolveProductImageUrl,
 } from "../../../lib/products";
-import { formatSeoTitle } from '../../../lib/seo';
+import { createPageMetadata } from '../../../lib/seo';
 import { getSaleDiscountPercent, isProductOnSale } from '../../../lib/pricing';
 import ProductBreadcrumb from "../../../components/layout/ProductBreadcrumb";
 import ProductCard from "../../../components/product/ProductCard";
@@ -34,27 +34,23 @@ export async function generateMetadata({ params }) {
   const { productSlug } = await params;
   const product = getProductBySlug(productSlug);
   if (!product) {
-    return {
-      title: "Không tìm thấy sản phẩm",
-    };
+    return createPageMetadata({ title: 'Không tìm thấy sản phẩm' });
   }
   const title = `${product.name} — Rượu vang & Bia nhập khẩu`;
   const description =
     product.description || `Chi tiết sản phẩm ${product.name} tại LUVINI & CO.`;
   const image = resolveProductImageUrl(product.image);
 
-  return {
+  return createPageMetadata({
     title,
     description,
     alternates: {
       canonical: `/product/${productSlug}`,
     },
     openGraph: {
-      title: formatSeoTitle(title),
-      description,
       images: image ? [{ url: image, alt: product.name }] : [],
     },
-  };
+  });
 }
 
 export default async function ProductDetailPage({ params, searchParams }) {

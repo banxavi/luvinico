@@ -30,7 +30,6 @@ export const metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
     default: BRAND.name,
-    template: `${BRAND.name} — %s`,
   },
   description: `${BRAND.name} — ${BRAND.tagline}. Rượu vang tuyển chọn và bia nhập khẩu cao cấp.`,
   icons: {

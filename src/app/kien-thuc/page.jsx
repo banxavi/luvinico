@@ -1,15 +1,16 @@
 import { getAllArticles } from '../../lib/articles';
 import CatalogPageHeader from '../../components/layout/CatalogPageHeader';
 import ArticleCard from '../../components/knowledge/ArticleCard';
+import { createPageMetadata } from '../../lib/seo';
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: 'Kiến thức thưởng thức rượu vang & bia nhập khẩu',
   description:
     'Chia sẻ kiến thức về rượu vang, bia nhập khẩu cao cấp, cách kết hợp món ăn và văn hóa thưởng thức từ LUVINI & CO.',
   alternates: {
     canonical: '/kien-thuc',
   },
-};
+});
 
 export default function KnowledgePage() {
   const articles = getAllArticles();

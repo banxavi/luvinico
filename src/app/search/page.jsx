@@ -3,6 +3,7 @@ import { BRAND } from '../../data/brand';
 import { mockProducts } from '../../mockData';
 import ProductGrid from '../../components/product/ProductGrid';
 import SearchFilters from '../../components/search/SearchFilters';
+import { createPageMetadata } from '../../lib/seo';
 import { filterProducts, getSearchFilterOptions } from '../../lib/search';
 
 function buildSearchCanonical({ q, origin, category, price, abv }) {
@@ -28,7 +29,7 @@ export async function generateMetadata({ searchParams }) {
   });
 
   if (q) {
-    return {
+    return createPageMetadata({
       title: `Tìm kiếm: "${q}"`,
       description: `Kết quả tìm kiếm cho từ khóa "${q}" tại LUVINI & CO.`,
       alternates: { canonical },
@@ -36,14 +37,14 @@ export async function generateMetadata({ searchParams }) {
         index: false,
         follow: true,
       },
-    };
+    });
   }
 
-  return {
+  return createPageMetadata({
     title: 'Tìm kiếm sản phẩm',
     description: 'Tìm kiếm các sản phẩm rượu vang, bia nhập khẩu tại LUVINI & CO.',
     alternates: { canonical },
-  };
+  });
 }
 
 export default async function SearchPage({ searchParams }) {

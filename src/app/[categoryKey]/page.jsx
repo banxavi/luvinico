@@ -6,6 +6,7 @@ import CatalogPageHeader from '../../components/layout/CatalogPageHeader';
 import ProductGrid from '../../components/product/ProductGrid';
 import ProductFilters from '../../components/search/ProductFilters';
 import { filterProducts, getSearchFilterOptions } from '../../lib/search';
+import { createPageMetadata } from '../../lib/seo';
 import { resolveTypeSlug } from '../../lib/types';
 
 function buildCategoryCanonical(categoryKey, { origin, price, abv, type }) {
@@ -27,11 +28,9 @@ export async function generateMetadata({ params, searchParams }) {
   const resolvedSearchParams = await searchParams;
   const meta = CATEGORIES[categoryKey];
   if (!meta) {
-    return {
-      title: 'Danh mục không tồn tại',
-    };
+    return createPageMetadata({ title: 'Danh mục không tồn tại' });
   }
-  return {
+  return createPageMetadata({
     title: `${meta.title} — Nhập khẩu chính hãng`,
     description: (meta.description || `Xem bộ sưu tập sản phẩm ${meta.title} tại LUVINI & CO.`).replace(
       /\s+/g,
@@ -45,7 +44,7 @@ export async function generateMetadata({ params, searchParams }) {
         type: resolvedSearchParams.type || '',
       }),
     },
-  };
+  });
 }
 
 export default async function CategoryPage({ params, searchParams }) {

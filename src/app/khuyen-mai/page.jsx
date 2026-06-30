@@ -2,14 +2,15 @@ import { BRAND } from '../../data/brand';
 import { mockValueProducts } from '../../mockData';
 import CatalogPageHeader from '../../components/layout/CatalogPageHeader';
 import ProductFeaturedCarousel from '../../components/product/ProductFeaturedCarousel';
+import { createPageMetadata } from '../../lib/seo';
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: 'Chương trình ưu đãi',
   description: 'Các chương trình ưu đãi, khuyến mãi đặc biệt và quà tặng giá tốt nhất từ LUVINI & CO. Cập nhật mới nhất.',
   alternates: {
     canonical: '/khuyen-mai',
   },
-};
+});
 
 export default function PromotionsPage() {
   const products = mockValueProducts ?? [];

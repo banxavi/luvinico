@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { FOOTER } from "../../../data/footer";
 import CatalogPageHeader from "../../../components/layout/CatalogPageHeader";
 import { getPolicyHtml } from "../../../lib/policy";
+import { createPageMetadata } from "../../../lib/seo";
 import PolicyScrollHandler from "./PolicyScrollHandler";
 
 export function generateStaticParams() {
@@ -16,17 +17,15 @@ export async function generateMetadata({ params }) {
     (p) => p.href === `/chinh-sach/${policySlug}`,
   );
   if (!policy) {
-    return {
-      title: "Không tìm thấy trang",
-    };
+    return createPageMetadata({ title: "Không tìm thấy trang" });
   }
-  return {
+  return createPageMetadata({
     title: policy.label,
     description: `Xem chi tiết điều khoản ${policy.label} của cửa hàng LUVINI & CO.`,
     alternates: {
       canonical: `/chinh-sach/${policySlug}`,
     },
-  };
+  });
 }
 
 export default async function PolicyPage({ params }) {

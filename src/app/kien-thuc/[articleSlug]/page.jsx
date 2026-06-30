@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { formatSeoTitle } from '../../../lib/seo';
+import { createPageMetadata } from '../../../lib/seo';
 import RichContent from '../../../components/content/RichContent';
 import { getAllArticleSlugs, getArticleBySlug } from '../../../lib/articles';
 
@@ -14,21 +14,19 @@ export async function generateMetadata({ params }) {
   const article = getArticleBySlug(articleSlug);
 
   if (!article) {
-    return { title: 'Bài viết không tồn tại' };
+    return createPageMetadata({ title: 'Bài viết không tồn tại' });
   }
 
-  return {
+  return createPageMetadata({
     title: article.title,
     description: article.excerpt,
     alternates: {
       canonical: `/kien-thuc/${articleSlug}`,
     },
     openGraph: {
-      title: formatSeoTitle(article.title),
-      description: article.excerpt,
       type: 'article',
     },
-  };
+  });
 }
 
 export default async function ArticlePage({ params }) {
