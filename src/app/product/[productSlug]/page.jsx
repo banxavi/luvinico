@@ -13,6 +13,8 @@ import {
   getRedirectSlugFromLegacyPath,
   resolveProductImageUrl,
 } from "../../../lib/products";
+import { formatSeoTitle } from '../../../lib/seo';
+import { getSaleDiscountPercent, isProductOnSale } from '../../../lib/pricing';
 import ProductBreadcrumb from "../../../components/layout/ProductBreadcrumb";
 import ProductCard from "../../../components/product/ProductCard";
 import ProductImageGallery from "../../../components/product/ProductImageGallery";
@@ -48,7 +50,7 @@ export async function generateMetadata({ params }) {
       canonical: `/product/${productSlug}`,
     },
     openGraph: {
-      title,
+      title: formatSeoTitle(title),
       description,
       images: image ? [{ url: image, alt: product.name }] : [],
     },
@@ -78,6 +80,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
   if (!product) {
     notFound();
   }
+
+  const onSale = isProductOnSale(product);
+  const discountPercent = onSale ? getSaleDiscountPercent(product) : null;
 
   const specs = [
     { label: "Xuất xứ", value: product.origin },
@@ -113,8 +118,13 @@ export default async function ProductDetailPage({ params, searchParams }) {
               </p>
             ) : null}
 
-            <div className="mt-5">
-              <ProductPrice product={product} size="lg" />
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              {onSale && discountPercent ? (
+                <span className="product-sale-badge product-sale-badge--detail">
+                  Giảm {discountPercent}%
+                </span>
+              ) : null}
+              <ProductPrice product={product} size="lg" layout="inline" />
             </div>
 
             <p className="mt-4 text-base leading-relaxed text-body-muted">

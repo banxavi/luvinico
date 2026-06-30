@@ -4,17 +4,21 @@ import UspSection from '../components/sections/UspSection';
 import BestSellersSection from '../components/sections/BestSellersSection';
 import ValueDealsSection from '../components/sections/ValueDealsSection';
 import SectionBackdrop from '../components/ui/SectionBackdrop';
+import { BRAND } from '../data/brand';
 import HomeScrollHandler from './HomeScrollHandler';
+import { formatSeoTitle } from '../lib/seo';
+
+const homeTitle = 'Rượu vang nhập khẩu & Bia craft cao cấp';
 
 export const metadata = {
-  title: 'Rượu vang nhập khẩu & Bia craft cao cấp',
+  title: homeTitle,
   description: 'Khám phá bộ sưu tập rượu vang tuyển chọn, bia nhập khẩu thượng hạng và set quà tặng Tết tinh tế tại LUVINI & CO. Giao hàng nhanh, tư vấn chuyên nghiệp.',
   keywords: 'rượu vang, bia nhập khẩu, bia bỉ, bia craft, quà tết, luvini',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'LUVINI & CO. — Rượu vang nhập khẩu & Bia craft cao cấp',
+    title: formatSeoTitle(homeTitle),
     description: 'Bộ sưu tập rượu vang tuyển chọn, bia nhập khẩu thượng hạng và set quà tặng Tết tinh tế tại LUVINI & CO.',
     type: 'website',
   },

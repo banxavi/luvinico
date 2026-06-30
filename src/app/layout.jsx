@@ -2,6 +2,7 @@ import { Cormorant_Garamond, Playfair_Display, Be_Vietnam_Pro } from 'next/font/
 import './globals.css';
 import PageLayout from '../components/layout/PageLayout';
 import { Suspense } from 'react';
+import { BRAND } from '../data/brand';
 import { getSiteUrl } from '../lib/site';
 
 const cormorant = Cormorant_Garamond({
@@ -28,10 +29,10 @@ const beVietnam = Be_Vietnam_Pro({
 export const metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: 'LUVINI & CO.',
-    template: '%s | LUVINI & CO.',
+    default: BRAND.name,
+    template: `${BRAND.name} — %s`,
   },
-  description: 'LUVINI & CO. — The Art of Fine Taste. Rượu vang tuyển chọn và bia nhập khẩu cao cấp.',
+  description: `${BRAND.name} — ${BRAND.tagline}. Rượu vang tuyển chọn và bia nhập khẩu cao cấp.`,
   icons: {
     icon: '/favicon.svg',
   },
@@ -39,10 +40,10 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'LUVINI & CO. — Curated Fine Wine & Imported Beer',
-    description: 'Curated Fine Wine & Imported Beer — rượu vang và bia nhập khẩu tuyển chọn.',
+    title: `${BRAND.name} — ${BRAND.subtitle}`,
+    description: BRAND.description,
     type: 'website',
-    siteName: 'LUVINI & CO.',
+    siteName: BRAND.name,
     locale: 'vi_VN',
   },
   robots: {

@@ -10,7 +10,7 @@ const rawProducts = [
     origin: 'Pháp',
     style: 'Vang đỏ',
     category: 'ruou-vang',
-    type: 'vang-do',
+    type: 'ruou-vang-phap',
     abv: '14.5%',
     description:
       'Vang đỏ Bordeaux cổ điển — Merlot và Cabernet, hương trái cây chín, mận, vanilla và gia vị. Chai 750ml.',
@@ -24,7 +24,7 @@ const rawProducts = [
     origin: 'Ý',
     style: 'Vang đỏ',
     category: 'ruou-vang',
-    type: 'vang-do',
+    type: 'ruou-vang-y',
     abv: '14.5%',
     description:
       'Primitivo DOC Puglia từ Giustini — đậm đà, hương trái cây chín, gỗ sồi và chocolate. Chai 750ml, sản lượng giới hạn.',
@@ -38,7 +38,7 @@ const rawProducts = [
     origin: 'Bỉ',
     style: 'Trappist Ale',
     category: 'bia',
-    type: 'trappist',
+    type: 'chimay',
     abv: '7–9%',
     description:
       'Hộp quà 2 chai Chimay Trappist Bỉ — Chimay Đỏ (7%) thơm trái cây dịu, Chimay Xanh (9%) đậm đà thảo mộc và gia vị. Quà tặng sang trọng cho Lễ, Tết và đối tác.',
@@ -52,7 +52,7 @@ const rawProducts = [
     origin: 'Bỉ',
     style: 'Belgian Strong Ale',
     category: 'bia',
-    type: 'belgian-ale',
+    type: 'duvel',
     abv: '8.5%',
     description:
       'Bia Duvel Belgian Strong Blond Ale — vàng tươi, hương cam quýt và lê chín, vị mượt êm dù nồng độ 8.5%. Hộp quà 4 chai 330ml kèm ly Tulip.',
@@ -67,7 +67,7 @@ const rawProducts = [
     origin: 'Đức',
     style: 'Wheat Beer',
     category: 'bia',
-    type: 'wheat-beer',
+    type: 'paulaner',
     abv: '5.5%',
     description:
       'Paulaner Weissbier Hefeweizen Bavaria — vàng đục, bọt dày, hương chuối, xoài và dứa. Thùng 24 lon 500ml, uống lạnh 6–8°C.',
@@ -82,7 +82,7 @@ const rawProducts = [
     origin: 'Đức',
     style: 'Wheat Beer',
     category: 'bia',
-    type: 'wheat-beer',
+    type: 'paulaner',
     abv: '5.3%',
     description:
       'Paulaner Weissbier Dunkel — màu nâu hạt dẻ, vị caramel và trái cây chín, bọt mịn. Thùng 20 chai 500ml, chuẩn vị bia lúa mì đen Đức.',
@@ -96,7 +96,7 @@ const rawProducts = [
     origin: 'Mexico',
     style: 'Lager',
     category: 'bia',
-    type: 'lager',
+    type: 'coronita-extra',
     abv: '4.6%',
     description:
       'Coronita Extra Mexico — bia vàng nhẹ, trong mát, thường thưởng thức lạnh kèm lát chanh. Thùng 24 chai 210ml.',
@@ -110,10 +110,10 @@ const rawProducts = [
     origin: 'Úc',
     style: 'Vang đỏ',
     category: 'ruou-vang',
-    type: 'vang-do',
+    type: 'ruou-vang-uc',
     abv: '13%',
     description:
-      'Shiraz và Cabernet Đông Nam Úc — trái cây đậm, gia vị cay, tannin mượt. Màu ruby đậm, dễ uống mọi dịp. Chai 750ml.',
+      "Shiraz và Cabernet Đông Nam Úc — trái cây đậm, gia vị cay, tannin mượt. Màu ruby đậm, dễ uống mọi dịp. Chai 750ml.",
   },
   {
     id: 21,
@@ -167,22 +167,9 @@ function ensureProductCategory(product) {
 }
 
 const STYLE_TO_TYPE = {
-  'vang đỏ': 'vang-do',
-  'vang trắng': 'vang-trang',
   'single malt whisky': 'whisky',
   'set quà': 'set-qua-tet',
   'ly thủy tinh': 'ly-thuy-tinh',
-  'pale ale': 'pale-ale',
-  'wheat beer': 'wheat-beer',
-  hefeweizen: 'wheat-beer',
-  witbier: 'wheat-beer',
-  'belgian strong ale': 'belgian-ale',
-  dubbel: 'belgian-ale',
-  stout: 'stout',
-  lager: 'lager',
-  'trappist ale': 'trappist',
-  ipa: 'ipa',
-  pilsner: 'pilsner',
 };
 
 function ensureProductType(product) {
@@ -194,13 +181,11 @@ function ensureProductType(product) {
     type = matched?.[1];
   }
   if (!type) {
-    if (product.category === 'ruou-vang') type = 'vang-do';
-    else if (product.category === 'ruou-manh') type = 'whisky';
+    if (product.category === 'ruou-manh') type = 'whisky';
     else if (product.category === 'qua-tet') type = 'set-qua-tet';
     else if (product.category === 'phu-kien') type = 'ly-thuy-tinh';
-    else type = 'lager';
   }
-  return { ...product, type };
+  return type ? { ...product, type } : product;
 }
 
 export const mockProducts = rawProducts.map(ensureProductCategory).map(ensureProductType);

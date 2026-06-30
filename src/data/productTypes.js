@@ -1,69 +1,47 @@
-/** Loại sản phẩm (tag) — gắn với danh mục */
+/** Loại sản phẩm (sub-menu / tag) — label theo dòng 3 trong file docx khách */
 export const PRODUCT_TYPES = {
-  'vang-do': {
-    key: 'vang-do',
-    slug: 'vang-do',
-    label: 'Vang đỏ',
+  // Rượu vang — sub-tab theo xuất xứ (dòng 3: Ruou Vang Pháp, Ý, Úc...)
+  'ruou-vang-phap': {
+    key: 'ruou-vang-phap',
+    slug: 'ruou-vang-phap',
+    label: 'Rượu Vang Pháp',
     category: 'ruou-vang',
   },
-  'vang-trang': {
-    key: 'vang-trang',
-    slug: 'vang-trang',
-    label: 'Vang trắng',
+  'ruou-vang-y': {
+    key: 'ruou-vang-y',
+    slug: 'ruou-vang-y',
+    label: 'Rượu Vang Ý',
     category: 'ruou-vang',
   },
-  sparkling: {
-    key: 'sparkling',
-    slug: 'sparkling',
-    label: 'Sparkling',
+  'ruou-vang-uc': {
+    key: 'ruou-vang-uc',
+    slug: 'ruou-vang-uc',
+    label: 'Rượu Vang Úc',
     category: 'ruou-vang',
   },
-  lager: {
-    key: 'lager',
-    slug: 'lager',
-    label: 'Lager',
+  // Bia — sub-tab theo thương hiệu (dòng 3: Bia Chimay, Paulaner, Coronita Extra...)
+  chimay: {
+    key: 'chimay',
+    slug: 'chimay',
+    label: 'Bia Chimay',
     category: 'bia',
   },
-  ipa: {
-    key: 'ipa',
-    slug: 'ipa',
-    label: 'IPA',
+  duvel: {
+    key: 'duvel',
+    slug: 'duvel',
+    label: 'Bia Duvel',
     category: 'bia',
   },
-  stout: {
-    key: 'stout',
-    slug: 'stout',
-    label: 'Stout',
+  paulaner: {
+    key: 'paulaner',
+    slug: 'paulaner',
+    label: 'Bia Paulaner',
     category: 'bia',
   },
-  'wheat-beer': {
-    key: 'wheat-beer',
-    slug: 'wheat-beer',
-    label: 'Wheat Beer',
-    category: 'bia',
-  },
-  'belgian-ale': {
-    key: 'belgian-ale',
-    slug: 'belgian-ale',
-    label: 'Belgian Ale',
-    category: 'bia',
-  },
-  trappist: {
-    key: 'trappist',
-    slug: 'trappist',
-    label: 'Trappist',
-    category: 'bia',
-  },
-  'pale-ale': {
-    key: 'pale-ale',
-    slug: 'pale-ale',
-    label: 'Pale Ale',
-    category: 'bia',
-  },
-  pilsner: {
-    key: 'pilsner',
-    slug: 'pilsner',
-    label: 'Pilsner',
+  'coronita-extra': {
+    key: 'coronita-extra',
+    slug: 'coronita-extra',
+    label: 'Bia Coronita Extra',
     category: 'bia',
   },
   whisky: {

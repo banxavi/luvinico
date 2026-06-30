@@ -19,18 +19,16 @@ const uspItems = [
 export default function UspSection() {
   return (
     <FadeInSection className="pt-14">
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <div className="rounded-2xl border border-white/10 bg-premium-dark p-5">
           <div className="text-xs font-semibold text-brand-amber">CO / CQ</div>
-          <div className="mt-2 text-sm text-body-muted">Nguồn gốc minh bạch</div>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-premium-dark p-5">
-          <div className="text-xs font-semibold text-brand-amber">TƯ VẤN</div>
-          <div className="mt-2 text-sm text-body-muted">Wine &amp; beer pairing</div>
+          <div className="mt-2 text-sm text-body-muted">100% nhập khẩu chính ngạch</div>
         </div>
         <div className="rounded-2xl border border-white/10 bg-premium-dark p-5">
           <div className="text-xs font-semibold text-brand-amber">GIAO NHANH</div>
-          <div className="mt-2 text-sm text-body-muted">Hỗ trợ trong ngày</div>
+          <div className="mt-2 text-sm text-body-muted">
+            Giao hàng nhanh chóng – Miễn phí nội thành TP.HCM cho đơn hàng từ 1.000.000₫.
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,11 @@
 import { resolveProductPrice } from '../../lib/pricing';
 
-export default function ProductPrice({ product, size = 'md', className = '' }) {
+export default function ProductPrice({
+  product,
+  size = 'md',
+  layout = 'auto',
+  className = '',
+}) {
   const resolved = resolveProductPrice(product);
 
   const mainClass =
@@ -8,7 +13,16 @@ export default function ProductPrice({ product, size = 'md', className = '' }) {
       ? 'text-2xl font-bold sm:text-3xl'
       : size === 'sm'
         ? 'text-sm font-bold sm:text-base'
-        : 'text-lg font-bold';
+        : 'text-base font-bold sm:text-lg';
+
+  const originalClass =
+    size === 'lg'
+      ? 'text-base text-body-muted line-through sm:text-lg'
+      : size === 'sm'
+        ? 'text-[0.7rem] text-body-muted line-through sm:text-xs'
+        : 'text-xs text-body-muted line-through sm:text-sm';
+
+  const useStackLayout = layout === 'stack' || (layout === 'auto' && size !== 'lg');
 
   if (resolved.mode === 'contact') {
     return (
@@ -19,17 +33,23 @@ export default function ProductPrice({ product, size = 'md', className = '' }) {
   }
 
   if (resolved.mode === 'sale') {
-    const originalClass =
-      size === 'lg'
-        ? 'text-base text-body-muted line-through sm:text-lg'
-        : 'text-sm text-body-muted line-through sm:text-base';
-    const gapClass = size === 'lg' ? 'gap-3 sm:gap-4' : size === 'sm' ? 'gap-2' : 'gap-2.5 sm:gap-3';
-    const saleOffset = size === 'lg' ? 'ml-2 sm:ml-3' : 'ml-1.5 sm:ml-2';
+    if (useStackLayout) {
+      return (
+        <div
+          className={`product-price product-price--sale product-price--stack w-full min-w-0 ${className}`.trim()}
+        >
+          <span className={originalClass}>{resolved.original}</span>
+          <span className={`${mainClass} text-brand-amber`}>{resolved.sale}</span>
+        </div>
+      );
+    }
 
     return (
-      <div className={`flex min-h-[2.5rem] items-center justify-center ${gapClass} ${className}`.trim()}>
-        <span className={`shrink-0 ${originalClass}`}>{resolved.original}</span>
-        <span className={`shrink-0 ${mainClass} ${saleOffset} text-brand-amber`}>{resolved.sale}</span>
+      <div
+        className={`product-price product-price--sale product-price--inline flex w-full min-w-0 flex-wrap items-baseline justify-center gap-x-2 gap-y-1 sm:gap-x-3 ${className}`.trim()}
+      >
+        <span className={originalClass}>{resolved.original}</span>
+        <span className={`${mainClass} text-brand-amber`}>{resolved.sale}</span>
       </div>
     );
   }

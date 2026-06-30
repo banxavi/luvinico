@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { formatSeoTitle } from '../../../lib/seo';
 import RichContent from '../../../components/content/RichContent';
 import { getAllArticleSlugs, getArticleBySlug } from '../../../lib/articles';
 
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }) {
       canonical: `/kien-thuc/${articleSlug}`,
     },
     openGraph: {
-      title: article.title,
+      title: formatSeoTitle(article.title),
       description: article.excerpt,
       type: 'article',
     },
