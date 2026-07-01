@@ -7,6 +7,8 @@ import ProductFilters from '../../components/search/ProductFilters';
 import CategoryTypeSidebar from '../../components/tag/CategoryTypeSidebar';
 import { filterProducts, getSearchFilterOptions } from '../../lib/search';
 import { createPageMetadata } from '../../lib/seo';
+import { CATALOG_PAGE_SIZE, formatPaginatedProductCount, paginateItems, parsePageParam } from '../../lib/pagination';
+import CatalogPagination from '../../components/ui/CatalogPagination';
 import {
   getProductType,
   getProductsForNavGroup,
@@ -16,7 +18,7 @@ import {
 } from '../../lib/types';
 import { getProductsByCategory } from '../../lib/catalog';
 
-function buildTagCanonical({ category, group, type, origin, price, abv }) {
+function buildTagCanonical({ category, group, type, origin, price, abv, page }) {
   const params = new URLSearchParams();
   if (category) params.set('category', category);
   if (group) params.set('group', group);
@@ -24,6 +26,7 @@ function buildTagCanonical({ category, group, type, origin, price, abv }) {
   if (origin) params.set('origin', origin);
   if (price) params.set('price', price);
   if (abv) params.set('abv', abv);
+  if (page && Number(page) > 1) params.set('page', String(page));
   const query = params.toString();
   return query ? `/tag?${query}` : '/tag';
 }
@@ -45,6 +48,7 @@ export async function generateMetadata({ searchParams }) {
     origin: resolvedSearchParams.origin || '',
     price: resolvedSearchParams.price || '',
     abv: resolvedSearchParams.abv || '',
+    page: resolvedSearchParams.page || '',
   });
 
   if (meta && typeSlug) {
@@ -92,6 +96,7 @@ export default async function TagIndexPage({ searchParams }) {
   const origin = (resolvedSearchParams.origin || '').trim();
   const price = (resolvedSearchParams.price || '').trim();
   const abv = (resolvedSearchParams.abv || '').trim();
+  const pageParam = (resolvedSearchParams.page || '').trim();
   const meta = categoryKey ? CATEGORIES[categoryKey] : null;
   const groupMeta = groupKey ? getNavMenuGroup(categoryKey, groupKey) : null;
 
@@ -131,9 +136,22 @@ export default async function TagIndexPage({ searchParams }) {
     ? categoryPool.filter((product) => getProductType(product) === typeSlug)
     : categoryPool;
   const filtered = filterProducts(pool, { origin, price, abv });
+  const pagination = paginateItems(filtered, {
+    page: parsePageParam(pageParam),
+    limit: CATALOG_PAGE_SIZE,
+  });
+  const displayProducts = pagination.items;
   const filterOptions = getSearchFilterOptions(pool);
   const activeTypeMeta = typeSlug ? types.find((t) => t.slug === typeSlug) : null;
   const hasExtraFilters = Boolean(origin || price || abv);
+  const paginationSearchParams = {
+    category: categoryKey,
+    ...(groupKey ? { group: groupKey } : {}),
+    ...(typeSlug ? { type: typeSlug } : {}),
+    origin,
+    price,
+    abv,
+  };
 
   const pageTitle = activeTypeMeta
     ? activeTypeMeta.label
@@ -186,13 +204,21 @@ export default async function TagIndexPage({ searchParams }) {
           </Suspense>
 
           <div className="mt-6 text-sm text-body-muted">
-            {filtered.length}/{pool.length} sản phẩm
+            {formatPaginatedProductCount(pagination)}
             {hasExtraFilters ? ' (đã lọc)' : ''}
           </div>
 
           <div className="mt-6">
-            {filtered.length > 0 ? (
-              <ProductGrid products={filtered} />
+            {displayProducts.length > 0 ? (
+              <>
+                <ProductGrid products={displayProducts} />
+                <CatalogPagination
+                  basePath="/tag"
+                  searchParams={paginationSearchParams}
+                  page={pagination.page}
+                  totalPages={pagination.totalPages}
+                />
+              </>
             ) : (
               <div className="rounded-2xl border border-white/10 bg-premium-dark p-6 text-sm text-body-muted">
                 Chưa có sản phẩm phù hợp. Hãy thử loại hoặc bộ lọc khác.

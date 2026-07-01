@@ -23,9 +23,11 @@ export default async function TagTypeRedirectPage({ params, searchParams }) {
   const origin = (resolvedSearchParams.origin || '').trim();
   const price = (resolvedSearchParams.price || '').trim();
   const abv = (resolvedSearchParams.abv || '').trim();
+  const page = (resolvedSearchParams.page || '').trim();
   if (origin) paramsOut.set('origin', origin);
   if (price) paramsOut.set('price', price);
   if (abv) paramsOut.set('abv', abv);
+  if (page) paramsOut.set('page', page);
 
   redirect(`/tag?${paramsOut.toString()}`);
 }

@@ -56,6 +56,8 @@ export default function ProductFilters({
         else params.delete(key);
       });
 
+      params.delete("page");
+
       preservedKeys.forEach((key) => {
         const val = searchParams.get(key);
         if (val) params.set(key, val);

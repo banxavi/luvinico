@@ -7,14 +7,17 @@ import ProductGrid from '../../components/product/ProductGrid';
 import ProductFilters from '../../components/search/ProductFilters';
 import { filterProducts, getSearchFilterOptions } from '../../lib/search';
 import { createPageMetadata } from '../../lib/seo';
+import { CATALOG_PAGE_SIZE, formatPaginatedProductCount, paginateItems, parsePageParam } from '../../lib/pagination';
 import { resolveTypeSlug } from '../../lib/types';
+import CatalogPagination from '../../components/ui/CatalogPagination';
 
-function buildCategoryCanonical(categoryKey, { origin, price, abv, type }) {
+function buildCategoryCanonical(categoryKey, { origin, price, abv, type, page }) {
   const params = new URLSearchParams();
   if (origin) params.set('origin', origin);
   if (price) params.set('price', price);
   if (abv) params.set('abv', abv);
   if (type) params.set('type', type);
+  if (page && Number(page) > 1) params.set('page', String(page));
   const query = params.toString();
   return query ? `/${categoryKey}?${query}` : `/${categoryKey}`;
 }
@@ -42,6 +45,7 @@ export async function generateMetadata({ params, searchParams }) {
         price: resolvedSearchParams.price || '',
         abv: resolvedSearchParams.abv || '',
         type: resolvedSearchParams.type || '',
+        page: resolvedSearchParams.page || '',
       }),
     },
   });
@@ -60,11 +64,23 @@ export default async function CategoryPage({ params, searchParams }) {
   const price = (resolvedSearchParams.price || '').trim();
   const abv = (resolvedSearchParams.abv || '').trim();
   const typeSlug = resolveTypeSlug(resolvedSearchParams.type || '');
+  const pageParam = (resolvedSearchParams.page || '').trim();
 
   const pool = getProductsByCategory(categoryKey);
   const filtered = filterProducts(pool, { origin, price, abv, type: typeSlug || '' });
+  const pagination = paginateItems(filtered, {
+    page: parsePageParam(pageParam),
+    limit: CATALOG_PAGE_SIZE,
+  });
+  const displayProducts = pagination.items;
   const filterOptions = getSearchFilterOptions(pool, { includeTypes: true });
   const hasActiveFilters = Boolean(origin || price || abv || typeSlug);
+  const paginationSearchParams = {
+    origin,
+    price,
+    abv,
+    ...(typeSlug ? { type: typeSlug } : {}),
+  };
 
   return (
     <div className="site-container pt-10 pb-10">
@@ -88,7 +104,7 @@ export default async function CategoryPage({ params, searchParams }) {
       <div className="mt-6 text-sm text-body-muted">
         {pool.length > 0 ? (
           <>
-            {filtered.length}/{pool.length} sản phẩm
+            {formatPaginatedProductCount(pagination)}
             {hasActiveFilters ? ' (đã lọc)' : ''}
           </>
         ) : (
@@ -97,8 +113,16 @@ export default async function CategoryPage({ params, searchParams }) {
       </div>
 
       <div className="mt-6">
-        {filtered.length > 0 ? (
-          <ProductGrid products={filtered} />
+        {displayProducts.length > 0 ? (
+          <>
+            <ProductGrid products={displayProducts} />
+            <CatalogPagination
+              basePath={`/${categoryKey}`}
+              searchParams={paginationSearchParams}
+              page={pagination.page}
+              totalPages={pagination.totalPages}
+            />
+          </>
         ) : pool.length > 0 ? (
           <div className="rounded-2xl border border-white/10 bg-premium-dark p-6 text-sm text-body-muted">
             Không tìm thấy sản phẩm phù hợp. Hãy thử bộ lọc khác.

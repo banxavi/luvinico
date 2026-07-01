@@ -13,9 +13,10 @@ export function getProductPriceValue(product) {
 
 export const PRICE_FILTERS = [
   { value: '', label: 'Tất cả mức giá' },
-  { value: 'duoi-100', label: 'Dưới 100.000 đ', min: 1, max: 99_999 },
-  { value: '100-150', label: '100.000 – 150.000 đ', min: 100_000, max: 150_000 },
-  { value: 'tren-150', label: 'Trên 150.000 đ', min: 150_001, max: Infinity },
+  { value: 'duoi-200', label: 'Dưới 200 ngàn', min: 1, max: 199_999 },
+  { value: '200-500', label: '200 ngàn – 500 ngàn', min: 200_000, max: 500_000 },
+  { value: '500-1000', label: '500 ngàn – 1 triệu', min: 500_001, max: 1_000_000 },
+  { value: 'tren-1000', label: 'Trên 1 triệu', min: 1_000_001, max: Infinity },
   { value: 'lien-he', label: 'Liên hệ' },
 ];
 
