@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BRAND } from "../../data/brand";
 import { NAV_ITEMS } from "../../data/nav";
-import { getFeaturedTypesForCategory } from "../../lib/types";
+import { buildTagHref, getNavMenuSections } from "../../lib/types";
 import { buildTelHref } from "../../lib/links";
 import { formatPhoneDisplay } from "../../lib/formatters";
 import IconButton from "../ui/IconButton";
@@ -222,24 +222,42 @@ export default function Header() {
                     {item.label}
                   </Link>
                   {item.categoryKey ? (
-                    <div className="mb-2 ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3">
-                      {getFeaturedTypesForCategory(item.categoryKey, 3).map((type) => (
-                        <Link
-                          key={type.slug}
-                          href={`/tag?category=${item.categoryKey}&type=${type.slug}`}
-                          className="flex min-h-10 items-center rounded-md px-3 text-sm text-body-muted transition hover:bg-white/5 hover:text-white"
-                          onClick={closePanels}
-                        >
-                          {type.label}
-                        </Link>
+                    <div className="mb-2 ml-4 flex flex-col gap-2 border-l border-white/10 pl-3">
+                      {getNavMenuSections(item.categoryKey).map((section) => (
+                        <div key={section.key}>
+                          {section.label ? (
+                            <Link
+                              href={section.parentHref}
+                              className="flex min-h-10 items-center rounded-md px-3 text-sm font-semibold text-white transition hover:bg-white/5 hover:text-brand-amber"
+                              onClick={closePanels}
+                            >
+                              {section.label}
+                            </Link>
+                          ) : null}
+                          {section.subTabs.map((tab) => (
+                            <Link
+                              key={tab.slug}
+                              href={buildTagHref(item.categoryKey, {
+                                ...(section.parentHref ? { group: section.key } : {}),
+                                type: tab.slug,
+                              })}
+                              className="flex min-h-10 items-center rounded-md px-3 text-sm text-body-muted transition hover:bg-white/5 hover:text-white"
+                              onClick={closePanels}
+                            >
+                              {tab.label}
+                            </Link>
+                          ))}
+                          {section.hasMore ? (
+                            <Link
+                              href={section.moreHref}
+                              className="flex min-h-10 items-center px-3 text-xs font-semibold text-brand-amber"
+                              onClick={closePanels}
+                            >
+                              Xem thêm &gt;&gt;
+                            </Link>
+                          ) : null}
+                        </div>
                       ))}
-                      <Link
-                        href={`/tag?category=${item.categoryKey}`}
-                        className="flex min-h-10 items-center px-3 text-xs font-semibold text-brand-amber"
-                        onClick={closePanels}
-                      >
-                        Xem thêm
-                      </Link>
                     </div>
                   ) : null}
                 </div>

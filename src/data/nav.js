@@ -1,5 +1,5 @@
 /** Menu chính — map route giống ruouvangcaominh.vn */
-export const NAV_SUBMENU_LIMIT = 12;
+export { NAV_SUBMENU_LIMIT } from './navMenu';
 
 export const NAV_ITEMS = [
   { path: '/khuyen-mai', label: 'Khuyến Mãi' },

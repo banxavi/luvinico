@@ -1,17 +1,25 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { CATEGORIES } from '../../data/categories';
-import { getProductsByCategory } from '../../lib/catalog';
+import { getNavMenuGroup } from '../../data/navMenu';
 import ProductGrid from '../../components/product/ProductGrid';
 import ProductFilters from '../../components/search/ProductFilters';
 import CategoryTypeSidebar from '../../components/tag/CategoryTypeSidebar';
 import { filterProducts, getSearchFilterOptions } from '../../lib/search';
 import { createPageMetadata } from '../../lib/seo';
-import { getProductType, getTypesWithCounts, resolveTypeSlug } from '../../lib/types';
+import {
+  getProductType,
+  getProductsForNavGroup,
+  getTypesWithCounts,
+  resolveGroupKey,
+  resolveTypeSlug,
+} from '../../lib/types';
+import { getProductsByCategory } from '../../lib/catalog';
 
-function buildTagCanonical({ category, type, origin, price, abv }) {
+function buildTagCanonical({ category, group, type, origin, price, abv }) {
   const params = new URLSearchParams();
   if (category) params.set('category', category);
+  if (group) params.set('group', group);
   if (type) params.set('type', type);
   if (origin) params.set('origin', origin);
   if (price) params.set('price', price);
@@ -23,10 +31,16 @@ function buildTagCanonical({ category, type, origin, price, abv }) {
 export async function generateMetadata({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const categoryKey = (resolvedSearchParams.category || '').trim();
-  const typeSlug = resolveTypeSlug(resolvedSearchParams.type || '');
+  const groupKey = resolveGroupKey(categoryKey, resolvedSearchParams.group || '');
+  const typeSlug = resolveTypeSlug(resolvedSearchParams.type || '', {
+    categoryKey,
+    groupKey: groupKey || '',
+  });
   const meta = categoryKey ? CATEGORIES[categoryKey] : null;
+  const groupMeta = groupKey ? getNavMenuGroup(categoryKey, groupKey) : null;
   const canonical = buildTagCanonical({
     category: categoryKey,
+    group: groupKey || '',
     type: typeSlug || '',
     origin: resolvedSearchParams.origin || '',
     price: resolvedSearchParams.price || '',
@@ -34,11 +48,20 @@ export async function generateMetadata({ searchParams }) {
   });
 
   if (meta && typeSlug) {
-    const types = getTypesWithCounts(categoryKey);
+    const types = getTypesWithCounts(categoryKey, groupKey || '');
     const typeMeta = types.find((t) => t.slug === typeSlug);
+    const scope = groupMeta?.label ?? meta.title;
     return createPageMetadata({
-      title: `${typeMeta?.label ?? typeSlug} — ${meta.title}`,
-      description: `Xem sản phẩm loại ${typeMeta?.label?.toLowerCase() ?? typeSlug} trong ${meta.title.toLowerCase()} tại LUVINI & CO.`,
+      title: `${typeMeta?.label ?? typeSlug} — ${scope}`,
+      description: `Xem sản phẩm ${typeMeta?.label?.toLowerCase() ?? typeSlug} tại LUVINI & CO.`,
+      alternates: { canonical },
+    });
+  }
+
+  if (meta && groupMeta) {
+    return createPageMetadata({
+      title: `${groupMeta.label} — ${meta.title}`,
+      description: `Xem tất cả sản phẩm ${groupMeta.label.toLowerCase()} tại LUVINI & CO.`,
       alternates: { canonical },
     });
   }
@@ -61,13 +84,22 @@ export async function generateMetadata({ searchParams }) {
 export default async function TagIndexPage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const categoryKey = (resolvedSearchParams.category || '').trim();
-  const typeSlug = resolveTypeSlug(resolvedSearchParams.type || '');
+  const groupKey = resolveGroupKey(categoryKey, resolvedSearchParams.group || '');
+  const typeSlug = resolveTypeSlug(resolvedSearchParams.type || '', {
+    categoryKey,
+    groupKey: groupKey || '',
+  });
   const origin = (resolvedSearchParams.origin || '').trim();
   const price = (resolvedSearchParams.price || '').trim();
   const abv = (resolvedSearchParams.abv || '').trim();
   const meta = categoryKey ? CATEGORIES[categoryKey] : null;
+  const groupMeta = groupKey ? getNavMenuGroup(categoryKey, groupKey) : null;
 
   if (categoryKey && !meta) {
+    notFound();
+  }
+
+  if (groupKey && !groupMeta) {
     notFound();
   }
 
@@ -85,14 +117,16 @@ export default async function TagIndexPage({ searchParams }) {
     );
   }
 
-  const types = getTypesWithCounts(categoryKey);
-  const typeInCategory = typeSlug && types.some((t) => t.slug === typeSlug);
+  const types = getTypesWithCounts(categoryKey, groupKey || '');
+  const typeInScope = typeSlug && types.some((t) => t.slug === typeSlug);
 
-  if (typeSlug && !typeInCategory) {
+  if (typeSlug && !typeInScope) {
     notFound();
   }
 
-  const categoryPool = getProductsByCategory(categoryKey);
+  const categoryPool = groupKey
+    ? getProductsForNavGroup(categoryKey, groupKey)
+    : getProductsByCategory(categoryKey);
   const pool = typeSlug
     ? categoryPool.filter((product) => getProductType(product) === typeSlug)
     : categoryPool;
@@ -101,24 +135,32 @@ export default async function TagIndexPage({ searchParams }) {
   const activeTypeMeta = typeSlug ? types.find((t) => t.slug === typeSlug) : null;
   const hasExtraFilters = Boolean(origin || price || abv);
 
+  const pageTitle = activeTypeMeta
+    ? activeTypeMeta.label
+    : groupMeta
+      ? groupMeta.label
+      : meta.title;
+
+  const pageDescription = activeTypeMeta
+    ? `Sản phẩm ${activeTypeMeta.label}${groupMeta ? ` — ${groupMeta.label}` : ''}`
+    : groupMeta
+      ? `Tất cả sản phẩm ${groupMeta.label}`
+      : meta.description;
+
   return (
     <div className="site-container pt-10 pb-10">
       <div>
         <div className="brand-logo-gradient text-xs font-semibold tracking-normal">{meta.eyebrow}</div>
-        <h1 className="mt-2 text-3xl font-semibold">
-          {activeTypeMeta ? activeTypeMeta.label : meta.title}
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm text-body-muted">
-          {activeTypeMeta
-            ? `Sản phẩm loại ${activeTypeMeta.label.toLowerCase()} trong ${meta.title.toLowerCase()}`
-            : meta.description}
-        </p>
+        <h1 className="mt-2 text-3xl font-semibold">{pageTitle}</h1>
+        <p className="mt-2 max-w-2xl text-sm text-body-muted">{pageDescription}</p>
       </div>
 
       <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-start">
         <aside className="w-full shrink-0 lg:sticky lg:top-6 lg:w-60">
           <CategoryTypeSidebar
             categoryKey={categoryKey}
+            groupKey={groupKey || ''}
+            groupLabel={groupMeta?.label ?? ''}
             types={types}
             activeType={typeSlug || ''}
             totalCount={categoryPool.length}
@@ -138,7 +180,7 @@ export default async function TagIndexPage({ searchParams }) {
               basePath="/tag"
               origins={filterOptions.origins}
               showCategoryFilter={false}
-              preservedKeys={['category', 'type']}
+              preservedKeys={['category', 'group', 'type']}
               ariaLabel="Bộ lọc danh mục"
             />
           </Suspense>

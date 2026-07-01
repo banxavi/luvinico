@@ -21,7 +21,7 @@ export const CATEGORIES = {
     title: 'Bia nhập khẩu',
     eyebrow: 'DANH MỤC',
     description:
-      'Bia nhập khẩu chính hãng — Bỉ (Chimay, Duvel), Đức (Paulaner) và Mexico (Coronita Extra), tuyển chọn cho mọi khẩu vị.',
+      'Bia nhập khẩu chính hãng — Đức (Paulaner) và Mexico (Coronita Extra), tuyển chọn cho mọi khẩu vị.',
   },
   'ruou-soju': {
     key: 'ruou-soju',

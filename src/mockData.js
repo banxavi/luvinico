@@ -37,7 +37,7 @@ const rawProducts = [
     price: '750.000 đ',
     origin: 'Bỉ',
     style: 'Trappist Ale',
-    category: 'bia',
+    category: 'qua-tet',
     type: 'chimay',
     abv: '7–9%',
     description:
@@ -51,7 +51,7 @@ const rawProducts = [
     price: '450.000 đ',
     origin: 'Bỉ',
     style: 'Belgian Strong Ale',
-    category: 'bia',
+    category: 'qua-tet',
     type: 'duvel',
     abv: '8.5%',
     description:

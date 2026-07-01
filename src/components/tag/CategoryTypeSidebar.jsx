@@ -1,14 +1,5 @@
 import Link from 'next/link';
-
-function buildTagHref(categoryKey, typeSlug, filters = {}) {
-  const params = new URLSearchParams();
-  params.set('category', categoryKey);
-  if (typeSlug) params.set('type', typeSlug);
-  if (filters.origin) params.set('origin', filters.origin);
-  if (filters.price) params.set('price', filters.price);
-  if (filters.abv) params.set('abv', filters.abv);
-  return `/tag?${params.toString()}`;
-}
+import { buildTagHref } from '../../lib/types';
 
 const itemClass = (active) =>
   [
@@ -20,6 +11,8 @@ const itemClass = (active) =>
 
 export default function CategoryTypeSidebar({
   categoryKey,
+  groupKey = '',
+  groupLabel = '',
   types,
   activeType = '',
   totalCount = 0,
@@ -27,16 +20,20 @@ export default function CategoryTypeSidebar({
   price = '',
   abv = '',
 }) {
-  const filters = { origin, price, abv };
+  const filters = { origin, price, abv, group: groupKey };
   const allActive = !activeType;
 
   return (
     <nav aria-label="Loại sản phẩm" className="rounded-2xl border border-white/10 bg-premium-dark/60 p-3">
-      <h2 className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-body-subtle">Loại</h2>
+      {groupLabel ? (
+        <p className="px-2 pb-2 text-sm font-semibold text-white">{groupLabel}</p>
+      ) : (
+        <h2 className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-body-subtle">Loại</h2>
+      )}
       <ul className="flex flex-col gap-0.5">
         <li>
           <Link
-            href={buildTagHref(categoryKey, '', filters)}
+            href={buildTagHref(categoryKey, filters)}
             className={itemClass(allActive)}
             aria-current={allActive ? 'page' : undefined}
           >
@@ -49,7 +46,7 @@ export default function CategoryTypeSidebar({
           return (
             <li key={type.slug}>
               <Link
-                href={buildTagHref(categoryKey, type.slug, filters)}
+                href={buildTagHref(categoryKey, { ...filters, type: type.slug })}
                 className={itemClass(active)}
                 aria-current={active ? 'page' : undefined}
               >
