@@ -3,7 +3,7 @@ import './globals.css';
 import PageLayout from '../components/layout/PageLayout';
 import { Suspense } from 'react';
 import { BRAND } from '../data/brand';
-import { getSiteUrl } from '../lib/site';
+import { getSiteUrl, isIndexableSite } from '../lib/site';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['vietnamese', 'latin'],
@@ -45,10 +45,9 @@ export const metadata = {
     siteName: BRAND.name,
     locale: 'vi_VN',
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: isIndexableSite()
+    ? { index: true, follow: true, googleBot: { index: true, follow: true } }
+    : { index: false, follow: false, googleBot: { index: false, follow: false } },
 };
 
 export default function RootLayout({ children }) {
