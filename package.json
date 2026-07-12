@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build",
+    "build": "wrangler deploy",
     "build:cf": "opennextjs-cloudflare build",
     "start": "next start",
     "lint": "next lint",
