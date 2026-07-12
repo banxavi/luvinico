@@ -22,20 +22,18 @@ export const PRODUCT_TYPES = {
     category: 'ruou-vang',
     group: 'ruou-vang',
   },
-  // Hộp quà bia — tab Quà Tết
-  chimay: {
-    key: 'chimay',
-    slug: 'chimay',
-    label: 'Bia Chimay',
+  // Quà Tết — 2 submenu phẳng (không parent)
+  'hop-qua-tet': {
+    key: 'hop-qua-tet',
+    slug: 'hop-qua-tet',
+    label: 'Hộp Quà Tết',
     category: 'qua-tet',
-    group: 'hop-qua-bia',
   },
-  duvel: {
-    key: 'duvel',
-    slug: 'duvel',
-    label: 'Bia Duvel',
+  'gio-qua-tet': {
+    key: 'gio-qua-tet',
+    slug: 'gio-qua-tet',
+    label: 'Giỏ Quà Tết',
     category: 'qua-tet',
-    group: 'hop-qua-bia',
   },
   // Bia Đức — thương hiệu theo doc / menu khách
   eibauer: {
@@ -162,17 +160,17 @@ export const PRODUCT_TYPES = {
     label: 'Rum',
     category: 'ruou-manh',
   },
-  'set-qua-tet': {
-    key: 'set-qua-tet',
-    slug: 'set-qua-tet',
-    label: 'Set quà Tết',
-    category: 'qua-tet',
+  'ly-ruou-vang': {
+    key: 'ly-ruou-vang',
+    slug: 'ly-ruou-vang',
+    label: 'Ly Rượu Vang',
+    category: 'phu-kien',
   },
-  'hop-qua': {
-    key: 'hop-qua',
-    slug: 'hop-qua',
-    label: 'Hộp quà',
-    category: 'qua-tet',
+  'khui-ruou-vang': {
+    key: 'khui-ruou-vang',
+    slug: 'khui-ruou-vang',
+    label: 'Khui Rượu Vang',
+    category: 'phu-kien',
   },
   'ly-thuy-tinh': {
     key: 'ly-thuy-tinh',

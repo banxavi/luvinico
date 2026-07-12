@@ -102,7 +102,6 @@ body {
   aspect-ratio: 4 / 5;
   min-height: 13.75rem;
   padding: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .product-card-media--compact {

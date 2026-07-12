@@ -43,11 +43,12 @@ export const CATEGORY_NAV_MENUS = {
   ],
   'qua-tet': [
     {
-      key: 'hop-qua-bia',
-      label: 'Hộp quà bia',
+      key: 'qua-tet',
+      label: null,
+      showEmptySubTabs: true,
       subTabs: [
-        { slug: 'chimay', label: 'Bia Chimay' },
-        { slug: 'duvel', label: 'Bia Duvel' },
+        { slug: 'hop-qua-tet', label: 'Hộp Quà Tết' },
+        { slug: 'gio-qua-tet', label: 'Giỏ Quà Tết' },
       ],
     },
   ],
@@ -62,7 +63,25 @@ export const CATEGORY_NAV_MENUS = {
       ],
     },
   ],
+  /** Tab phẳng — không có parent/sub-tab trong menu */
+  'ruou-manh': [],
+  'phu-kien': [
+    {
+      key: 'phu-kien',
+      label: null,
+      showEmptySubTabs: true,
+      subTabs: [
+        { slug: 'ly-ruou-vang', label: 'Ly Rượu Vang' },
+        { slug: 'khui-ruou-vang', label: 'Khui Rượu Vang' },
+      ],
+    },
+  ],
 };
+
+/** true nếu danh mục có cấu hình menu riêng (kể cả mảng rỗng = không sub-tab) */
+export function hasCategoryNavMenuConfig(categoryKey) {
+  return Object.prototype.hasOwnProperty.call(CATEGORY_NAV_MENUS, categoryKey);
+}
 
 export function getCategoryNavMenus(categoryKey) {
   return CATEGORY_NAV_MENUS[categoryKey] ?? [];

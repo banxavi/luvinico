@@ -4,6 +4,7 @@ import {
   getCategoryNavMenus,
   getNavMenuGroup,
   getSubTabSlugsForGroup,
+  hasCategoryNavMenuConfig,
   isTypeInGroup,
   NAV_SUBMENU_LIMIT,
   NAV_MAX_COLUMNS,
@@ -51,17 +52,18 @@ function countProductsInGroup(categoryKey, groupKey) {
   ).length;
 }
 
-/** Sub-tab kèm số lượng — chỉ hiện tab có sản phẩm */
+/** Sub-tab kèm số lượng — mặc định ẩn tab trống; group.showEmptySubTabs = hiện đủ theo doc */
 export function getSubTabsWithCounts(categoryKey, groupKey) {
   const group = getNavMenuGroup(categoryKey, groupKey);
   if (!group) return [];
 
-  return group.subTabs
-    .map((tab) => ({
-      ...tab,
-      productCount: countProductsByType(tab.slug),
-    }))
-    .filter((tab) => tab.productCount > 0);
+  const tabs = group.subTabs.map((tab) => ({
+    ...tab,
+    productCount: countProductsByType(tab.slug),
+  }));
+
+  if (group.showEmptySubTabs) return tabs;
+  return tabs.filter((tab) => tab.productCount > 0);
 }
 
 export function getProductsForNavGroup(categoryKey, groupKey) {
@@ -92,9 +94,8 @@ export function getFeaturedTypesForCategory(categoryKey, limit = NAV_SUBMENU_LIM
 
 /** Menu desktop/mobile — nhóm parent + sub-tab (ẩn tab trống) */
 export function getNavMenuSections(categoryKey, limit = NAV_SUBMENU_LIMIT) {
-  const groups = getCategoryNavMenus(categoryKey);
-  if (groups.length) {
-    return groups
+  if (hasCategoryNavMenuConfig(categoryKey)) {
+    return getCategoryNavMenus(categoryKey)
       .map((group) => {
         const subTabs = getSubTabsWithCounts(categoryKey, group.key);
         if (!subTabs.length) return null;

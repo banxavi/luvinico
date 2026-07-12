@@ -1,16 +1,14 @@
 import Image from "next/image";
 import Footer from "./Footer";
 import SiteHeader from "./SiteHeader";
-
-const BACKGROUND_IMAGE =
-  "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2400&auto=format&fit=crop";
+import backgroundImage from "../../assets/Upload_12_July/1920x1080.webp";
 
 export default function PageLayout({ children }) {
   return (
     <div className="relative min-h-screen overflow-x-clip bg-premium-black text-white font-sans">
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <Image
-          src={BACKGROUND_IMAGE}
+          src={backgroundImage}
           alt=""
           fill
           priority={false}

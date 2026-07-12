@@ -6,14 +6,15 @@ export const CATEGORIES = {
     title: 'Rượu vang',
     eyebrow: 'DANH MỤC',
     description:
-      'Rượu vang nhập khẩu chính hãng — Pháp (Bordeaux), Ý (Primitivo Puglia) và Úc (Shiraz Cabernet), tuyển chọn cho mọi dịp thưởng thức.',
+      'Rượu vang nhập khẩu chính hãng — Pháp (Chateau Bellevue, Le Pacha Les Eyraux), Ý (Primitivo Puglia) và Úc (Shiraz Cabernet), tuyển chọn cho mọi dịp thưởng thức.',
   },
   'ruou-manh': {
     key: 'ruou-manh',
     path: '/ruou-manh',
     title: 'Rượu mạnh',
     eyebrow: 'DANH MỤC',
-    description: 'Whisky, cognac, rượu mạnh và spirit cao cấp — chờ bổ sung catalog từ khách hàng.',
+    description:
+      'Cognac và whisky nhập khẩu cao cấp — Remy Martin XO 300th Anniversary, Frapin XO Cigar Blend và Loch Lomond 12 Years Old.',
   },
   bia: {
     key: 'bia',
@@ -23,33 +24,19 @@ export const CATEGORIES = {
     description:
       'Bia nhập khẩu chính hãng — Đức (Paulaner) và Mexico (Coronita Extra), tuyển chọn cho mọi khẩu vị.',
   },
-  'ruou-soju': {
-    key: 'ruou-soju',
-    path: '/ruou-soju',
-    title: 'Rượu soju',
-    eyebrow: 'DANH MỤC',
-    description: 'Rượu soju Hàn Quốc và châu Á — thanh mát, dễ uống, phù hợp ăn uống cùng bạn bè.',
-  },
-  'do-uong-trai-cay': {
-    key: 'do-uong-trai-cay',
-    path: '/do-uong-trai-cay',
-    title: 'Đồ uống trái cây',
-    eyebrow: 'DANH MỤC',
-    description: 'Đồ uống trái cây và cocktail không cồn — nhẹ nhàng, tươi mát cho mọi dịp.',
-  },
   'qua-tet': {
     key: 'qua-tet',
     path: '/qua-tet',
     title: 'Quà Tết',
     eyebrow: 'DANH MỤC',
-    description: 'Set quà Tết rượu vang & bia cao cấp — hộp quà và combo theo ngân sách.',
+    description: 'Hộp Quà Tết và Giỏ Quà Tết — set quà rượu vang & bia cao cấp theo ngân sách.',
   },
   'phu-kien': {
     key: 'phu-kien',
     path: '/phu-kien',
     title: 'Phụ kiện',
     eyebrow: 'DANH MỤC',
-    description: 'Ly, decanter, opener và phụ kiện thưởng thức — sắp cập nhật.',
+    description: 'Ly rượu vang và khui rượu — phụ kiện thưởng thức từ Bohemia và các thương hiệu cao cấp.',
   },
 };
 

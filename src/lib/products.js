@@ -83,9 +83,23 @@ export function getRelatedProducts(productId, limit = 4) {
   const current = getProductById(productId);
   if (!current) return [];
 
-  const sameStyle = mockProducts.filter((p) => p.id !== productId && p.style === current.style);
-  const pool = sameStyle.length >= limit ? sameStyle : mockProducts.filter((p) => p.id !== productId);
+  const others = mockProducts.filter((p) => p.id !== productId);
+  const currentType = current.type ?? null;
+  const currentCategory = current.category ?? null;
 
+  const sameType = currentType
+    ? others.filter((p) => p.type === currentType)
+    : [];
+  const sameCategory = others.filter(
+    (p) =>
+      p.category === currentCategory &&
+      (!currentType || p.type !== currentType),
+  );
+  const rest = others.filter(
+    (p) => p.category !== currentCategory && (!currentType || p.type !== currentType),
+  );
+
+  const pool = [...sameType, ...sameCategory, ...rest];
   return pool.map((p) => mergeProduct(p)).slice(0, limit);
 }
 

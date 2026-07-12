@@ -5,6 +5,8 @@ import bannerMuaHePc from '../assets/banner/banner_mua_he_ppc.webp';
 import bannerMuaHeMobile from '../assets/banner/banner_mua_he_mobile.webp';
 import ruouNhoCard from '../assets/ruou_nho_card.png';
 import ruouNhoChiTiet from '../assets/ruou_nho_chi_tiet.png';
+import lePachaLesEyrauxCard from '../assets/RuouVang/le_pacha_les_eyraux_card.webp';
+import lePachaLesEyrauxChiTiet from '../assets/RuouVang/le_pacha_les_eyraux_chi_tiet.webp';
 import chateauBellevueCard from '../assets/RuouVang/chateau_bellevue_la_ferriere_card.webp';
 import chateauBellevueChiTiet from '../assets/RuouVang/chateau_bellevue_la_ferriere_chi_tiet.webp';
 import arealePrimitivoCard from '../assets/RuouVang/areale_primitivo_di_manduria_card.webp';
@@ -21,6 +23,14 @@ import paulanerDunkelCard from '../assets/Bia Đức/paulaner_weissbier_dunkel_c
 import paulanerDunkelChiTiet from '../assets/Bia Đức/paulaner_weissbier_dunkel_chi_tiet.webp';
 import biaCoronitaCard from '../assets/Bia Mexico/bia_coronita_extra_card.png';
 import biaCoronitaChiTiet from '../assets/Bia Mexico/bia_coronita_extra_chi_tiet.png';
+import remyMartinXoCard from '../assets/RuouManh/remy_martin_xo_300th_anniversary_card.webp';
+import remyMartinXoChiTiet from '../assets/RuouManh/remy_martin_xo_300th_anniversary_chi_tiet.webp';
+import frapinXoCard from '../assets/RuouManh/frapin_xo_cigar_blend_card.webp';
+import frapinXoChiTiet from '../assets/RuouManh/frapin_xo_cigar_blend_chi_tiet.webp';
+import lochLomond12Card from '../assets/RuouManh/loch_lomond_12_years_old_card.webp';
+import lochLomond12ChiTiet from '../assets/RuouManh/loch_lomond_12_years_old_chi_tiet.webp';
+import colibriWhiteWineGlassCard from '../assets/PhuKien/ly_uong_ruou_vang_trang_colibri_card.webp';
+import colibriWhiteWineGlassChiTiet from '../assets/PhuKien/ly_uong_ruou_vang_trang_colibri_chi_tiet.webp';
 
 /** @deprecated dùng HERO_BANNERS */
 export const HERO_BACKGROUNDS = [bannerKhaiTruongPc, bannerMuaHePc];
@@ -52,6 +62,10 @@ export const CLIENT_PRODUCT_ASSETS = {
     chateauBellevue: {
       card: chateauBellevueCard,
       gallery: [chateauBellevueChiTiet, chateauBellevueCard],
+    },
+    lePachaLesEyraux: {
+      card: lePachaLesEyrauxCard,
+      gallery: [lePachaLesEyrauxChiTiet, lePachaLesEyrauxCard],
     },
     arealePrimitivo: {
       card: arealePrimitivoCard,
@@ -86,6 +100,26 @@ export const CLIENT_PRODUCT_ASSETS = {
     coronita: {
       card: biaCoronitaCard,
       gallery: [biaCoronitaChiTiet, biaCoronitaCard],
+    },
+  },
+  ruouManh: {
+    remyMartinXo300: {
+      card: remyMartinXoCard,
+      gallery: [remyMartinXoChiTiet, remyMartinXoCard],
+    },
+    frapinXoCigar: {
+      card: frapinXoCard,
+      gallery: [frapinXoChiTiet, frapinXoCard],
+    },
+    lochLomond12: {
+      card: lochLomond12Card,
+      gallery: [lochLomond12ChiTiet, lochLomond12Card],
+    },
+  },
+  phuKien: {
+    colibriWhiteWineGlass: {
+      card: colibriWhiteWineGlassCard,
+      gallery: [colibriWhiteWineGlassChiTiet, colibriWhiteWineGlassCard],
     },
   },
 };

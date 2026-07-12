@@ -1,4 +1,5 @@
 import { formatPrice } from './formatters';
+import { mockProducts } from '../mockData';
 
 function parsePriceVnd(value) {
   const amount = parseInt(String(value ?? '').replace(/[^\d]/g, ''), 10);
@@ -16,8 +17,14 @@ export function getSaleDiscountPercent(product) {
   return Math.round((1 - sale / original) * 100);
 }
 
+/** Có giá sale thấp hơn giá gốc */
 export function isProductOnSale(product) {
-  return Boolean(product?.salePrice && product?.price);
+  return getSaleDiscountPercent(product) != null;
+}
+
+/** Tất cả sản phẩm đang giảm giá — dùng cho /khuyen-mai */
+export function getOnSaleProducts() {
+  return (mockProducts ?? []).filter(isProductOnSale);
 }
 
 export function resolveProductPrice(product) {
@@ -35,7 +42,7 @@ export function resolveProductPrice(product) {
     return { mode: 'contact', label: 'Liên hệ' };
   }
 
-  if (product.salePrice) {
+  if (isProductOnSale(product)) {
     return {
       mode: 'sale',
       sale: formatPrice(product.salePrice),

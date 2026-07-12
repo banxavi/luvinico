@@ -16,6 +16,20 @@ const rawProducts = [
       'Vang đỏ Bordeaux cổ điển — Merlot và Cabernet, hương trái cây chín, mận, vanilla và gia vị. Chai 750ml.',
   },
   {
+    id: 26,
+    name: 'Rượu Vang Pháp Le Pacha Les Eyraux – Chai 750ml',
+    image: CLIENT_PRODUCT_ASSETS.ruouVang.lePachaLesEyraux.card,
+    gallery: CLIENT_PRODUCT_ASSETS.ruouVang.lePachaLesEyraux.gallery,
+    price: '725.000 đ',
+    origin: 'Pháp',
+    style: 'Vang đỏ',
+    category: 'ruou-vang',
+    type: 'ruou-vang-phap',
+    abv: '14.5%',
+    description:
+      'Le Pacha Les Eyraux Bordeaux Supérieur 2019 — Merlot và Cabernet Sauvignon, hương quả mọng đen, tannin mượt. Lý tưởng với thịt đỏ nướng và bò hầm. Chai 750ml.',
+  },
+  {
     id: 2,
     name: 'Rượu vang Areale Primitivo Di Manduria – Chai 750ml',
     image: CLIENT_PRODUCT_ASSETS.ruouVang.arealePrimitivo.card,
@@ -38,7 +52,7 @@ const rawProducts = [
     origin: 'Bỉ',
     style: 'Trappist Ale',
     category: 'qua-tet',
-    type: 'chimay',
+    type: 'hop-qua-tet',
     abv: '7–9%',
     description:
       'Hộp quà 2 chai Chimay Trappist Bỉ — Chimay Đỏ (7%) thơm trái cây dịu, Chimay Xanh (9%) đậm đà thảo mộc và gia vị. Quà tặng sang trọng cho Lễ, Tết và đối tác.',
@@ -52,7 +66,7 @@ const rawProducts = [
     origin: 'Bỉ',
     style: 'Belgian Strong Ale',
     category: 'qua-tet',
-    type: 'duvel',
+    type: 'hop-qua-tet',
     abv: '8.5%',
     description:
       'Bia Duvel Belgian Strong Blond Ale — vàng tươi, hương cam quýt và lê chín, vị mượt êm dù nồng độ 8.5%. Hộp quà 4 chai 330ml kèm ly Tulip.',
@@ -117,43 +131,62 @@ const rawProducts = [
   },
   {
     id: 21,
-    name: 'Glenfiddich 12 Năm',
-    image:
-      'https://images.unsplash.com/photo-1618885472179-5e474019f2a9?q=80&w=500&auto=format&fit=max',
-    price: '1.250.000 đ',
+    name: 'Rượu Remy Martin XO 300 Anniversary – Chai 750ml',
+    image: CLIENT_PRODUCT_ASSETS.ruouManh.remyMartinXo300.card,
+    gallery: CLIENT_PRODUCT_ASSETS.ruouManh.remyMartinXo300.gallery,
+    price: 'Liên hệ',
+    contactPrice: true,
+    origin: 'Pháp',
+    style: 'Cognac',
+    category: 'ruou-manh',
+    type: 'cognac',
+    abv: '40%',
+    description:
+      'Remy Martin XO 300th Anniversary — phiên bản giới hạn kỷ niệm 3 thế kỷ (1724–2024). Eaux-de-vie tinh túy, hương trái cây chín, cam quýt, gia vị và gỗ sồi; cổ chai khắc vàng kèm hộp quà sang trọng. Chai 750ml.',
+  },
+  {
+    id: 22,
+    name: 'Rượu Cognac Frapin XO Cigar Blend Premier Grand Cru – Chai 750ml',
+    image: CLIENT_PRODUCT_ASSETS.ruouManh.frapinXoCigar.card,
+    gallery: CLIENT_PRODUCT_ASSETS.ruouManh.frapinXoCigar.gallery,
+    price: 'Liên hệ',
+    contactPrice: true,
+    origin: 'Pháp',
+    style: 'Cognac',
+    category: 'ruou-manh',
+    type: 'cognac',
+    abv: '40%',
+    description:
+      'Frapin XO Cigar Blend Premier Grand Cru từ Grande Champagne — Cognac mượt, đậm đà hương trái cây sấy, vani, quả phỉ và gỗ sồi, thiết kế để thưởng thức cùng xì gà. Chai 750ml.',
+  },
+  {
+    id: 25,
+    name: 'Rượu Loch Lomond 12 Years Old Single Malt Whisky – Chai 750ml',
+    image: CLIENT_PRODUCT_ASSETS.ruouManh.lochLomond12.card,
+    gallery: CLIENT_PRODUCT_ASSETS.ruouManh.lochLomond12.gallery,
+    price: 'Liên hệ',
+    contactPrice: true,
     origin: 'Scotland',
     style: 'Single Malt Whisky',
     category: 'ruou-manh',
     type: 'whisky',
-    abv: '40%',
-    description: 'Hương lê và sô cô la sữa — single malt kinh điển từ Speyside.',
-  },
-  {
-    id: 23,
-    name: 'Set Quà Tết An Khang',
-    image:
-      'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=500&auto=format&fit=max',
-    price: 'Liên hệ',
-    contactPrice: true,
-    origin: 'Việt Nam',
-    style: 'Set quà',
-    category: 'qua-tet',
-    type: 'set-qua-tet',
-    abv: '12%',
-    description: 'Combo rượu vang và bia cao cấp trong hộp quà sang trọng.',
+    abv: '46%',
+    description:
+      'Loch Lomond 12 Years Old Single Malt Scotch Whisky Highland — ủ 3 loại thùng gỗ sồi Mỹ, không lọc lạnh. Hương đào, lê, vani và chút khói nhẹ. Chai 750ml.',
   },
   {
     id: 24,
-    name: 'Ly Bordeaux 450ml',
-    image:
-      'https://images.unsplash.com/photo-1608270586620-248524c67de9?q=80&w=500&auto=format&fit=max',
-    price: '185.000 đ',
-    origin: 'Pháp',
-    style: 'Ly thủy tinh',
+    name: 'Ly uống rượu vang trắng Colibri – 6 cái/hộp',
+    image: CLIENT_PRODUCT_ASSETS.phuKien.colibriWhiteWineGlass.card,
+    gallery: CLIENT_PRODUCT_ASSETS.phuKien.colibriWhiteWineGlass.gallery,
+    price: '900.000 đ',
+    origin: 'Cộng hòa Séc',
+    style: 'Ly rượu vang',
     category: 'phu-kien',
-    type: 'ly-thuy-tinh',
+    type: 'ly-ruou-vang',
     abv: '0%',
-    description: 'Ly crystal trong, thân cao — dùng thưởng thức vang đỏ Bordeaux.',
+    description:
+      'Ly pha lê Colibri 350ml từ Bohemia — dáng tulip, vành miệng thuôn, chân cao. Giữ hương thơm, lý tưởng cho vang trắng và sâm panh. Hộp 6 cái, không chứa chì.',
   },
 ];
 
@@ -168,8 +201,11 @@ function ensureProductCategory(product) {
 
 const STYLE_TO_TYPE = {
   'single malt whisky': 'whisky',
-  'set quà': 'set-qua-tet',
-  'ly thủy tinh': 'ly-thuy-tinh',
+  'set quà': 'hop-qua-tet',
+  'hộp quà': 'hop-qua-tet',
+  'giỏ quà': 'gio-qua-tet',
+  'ly thủy tinh': 'ly-ruou-vang',
+  'ly rượu vang': 'ly-ruou-vang',
 };
 
 function ensureProductType(product) {
@@ -182,8 +218,8 @@ function ensureProductType(product) {
   }
   if (!type) {
     if (product.category === 'ruou-manh') type = 'whisky';
-    else if (product.category === 'qua-tet') type = 'set-qua-tet';
-    else if (product.category === 'phu-kien') type = 'ly-thuy-tinh';
+    else if (product.category === 'qua-tet') type = 'hop-qua-tet';
+    else if (product.category === 'phu-kien') type = 'ly-ruou-vang';
   }
   return type ? { ...product, type } : product;
 }
@@ -194,7 +230,8 @@ function parsePriceNumber(price) {
   return Number.parseInt(String(price).replace(/\D/g, ''), 10) || 0;
 }
 
-/** Giá tốt — dùng cho carousel 1 hàng × 5 (có thể xoay trang) */
+/** Giá tốt — chỉ rượu vang & bia, carousel 1 hàng × 5 */
 export const mockValueProducts = [...mockProducts]
+  .filter((p) => p.category === 'ruou-vang' || p.category === 'bia')
   .sort((a, b) => parsePriceNumber(a.price) - parsePriceNumber(b.price))
   .slice(0, 10);

@@ -43,6 +43,70 @@ export const productDetailExtras = {
       },
     ],
   },
+  26: {
+    volume: '750ml',
+    serveTemp: '16–18°C',
+    content: [
+      {
+        heading: 'Đặc điểm nổi bật',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Phân hạng:', text: ' AOC Bordeaux Supérieur' },
+              { bold: 'Niên vụ:', text: ' 2019' },
+              { bold: 'Thương hiệu:', text: ' Chateau Les Eyraux' },
+              {
+                bold: 'Giống nho:',
+                text: ' 80% Merlot, 20% Cabernet Sauvignon',
+              },
+            ],
+          },
+          {
+            type: 'p',
+            value:
+              'Thu hoạch bằng máy, chọn lọc nghiêm ngặt. Ủ nền trong bể xi măng và thép không gỉ để giữ độ tươi; thêm 6 tháng trong thùng gỗ sồi Pháp — cấu trúc mượt, hương vani dễ chịu.',
+          },
+        ],
+      },
+      {
+        heading: 'Hương vị nổi bật',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Màu sắc:',
+                text: ' Đỏ ruby trong trẻo, phản chiếu ánh sáng đẹp, tươi mới theo niên vụ.',
+              },
+              {
+                bold: 'Hương thơm:',
+                text: ' Mứt quả đỏ, anh đào chín quyện vani nhẹ và gỗ sồi Pháp tinh tế.',
+              },
+              {
+                bold: 'Vị giác:',
+                text: ' Mềm mại dễ uống, cấu trúc tròn đầy cân bằng; tannin êm mượt, hậu vị kéo dài đậm vừa phải.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Gợi ý món ăn kết hợp',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              'Thịt bò áp chảo, bít tết, sốt tiêu',
+              'Sườn nướng BBQ',
+              'Pasta sốt bò bằm',
+              'Phô mai mềm: Brie, Camembert',
+            ],
+          },
+        ],
+      },
+    ],
+  },
   2: {
     volume: '750ml',
     serveTemp: '16–18°C',
@@ -395,6 +459,157 @@ export const productDetailExtras = {
       },
     ],
   },
+  21: {
+    volume: '750ml',
+    serveTemp: '15–18°C',
+    content: [
+      {
+        heading: 'Hương vị cực kỳ cân bằng và phong phú',
+        blocks: [
+          {
+            type: 'p',
+            value:
+              'Giữ chuẩn hương vị Remy Martin XO — cân bằng, tinh tế và phong phú. Trên đầu lưỡi là ấm ngọt của trái cây chín, xen cam quýt, gia vị và gỗ sồi. Hậu vị dai, sâu lắng với trái cây, gia vị gỗ sồi và hạt khô.',
+          },
+        ],
+      },
+      {
+        heading: 'Hướng dẫn trải nghiệm Remy Martin XO 300 Anniversary',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Nhiệt độ:', text: ' 15–18°C — tránh quá nóng để rượu không bốc hơi nhanh.' },
+              {
+                bold: 'Cách nếm:',
+                text: ' Giữ trong miệng 10–15 giây, uống chậm từng ngụm để cảm nhận hương Cognac.',
+              },
+              {
+                bold: 'Thưởng thức:',
+                text: ' Uống thẳng hoặc với đá lạnh; cũng phù hợp làm cocktail.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Kết hợp ẩm thực',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              'Sushi, sashimi hoặc salad vị nhẹ',
+              'Beefsteak mọng nước',
+              'Tiệc nhẹ với trái cây, bánh ngọt',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  22: {
+    volume: '750ml',
+    serveTemp: '15–18°C',
+    content: [
+      {
+        heading: 'Hương vị và màu sắc',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Hương vị:',
+                text: ' Phức hợp, cân bằng — vani, trái cây sấy (hạt phỉ, óc chó) và hương hộp xì gà.',
+              },
+              {
+                bold: 'Màu sắc:',
+                text: ' Nâu gỗ gụ với sắc đồng ấm áp.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Hướng dẫn thưởng thức Frapin XO Cigar Blend',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              { bold: 'Nhiệt độ:', text: ' 15–18°C.' },
+              {
+                bold: 'Cách nếm:',
+                text: ' Giữ trong miệng 10–15 giây, uống chậm từng ngụm.',
+              },
+              {
+                bold: 'Thưởng thức:',
+                text: ' Uống thẳng hoặc với đá; phù hợp khai vị, tiệc sang trọng và cocktail.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Kết hợp ẩm thực',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              'Sushi, sashimi hoặc salad vị nhẹ',
+              'Beefsteak mọng nước',
+              'Tiệc nhẹ với trái cây, bánh ngọt',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  25: {
+    volume: '750ml',
+    serveTemp: '19–22°C',
+    content: [
+      {
+        heading: 'Đặc trưng Loch Lomond 12 Years Old',
+        blocks: [
+          {
+            type: 'p',
+            value:
+              'Single Malt Scotch Whisky Highland — ủ trong 3 loại thùng gỗ sồi Mỹ (Bourbon, refill và re-char), đóng chai 46% ABV, không lọc lạnh. Hương đào, lê, vani và kết thúc bằng chút khói nhẹ.',
+          },
+        ],
+      },
+      {
+        heading: 'Hướng dẫn trải nghiệm',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Nhiệt độ:',
+                text: ' Để rượu ở nhiệt độ phòng khoảng 19–22°C trước khi uống.',
+              },
+              {
+                bold: 'Thưởng thức:',
+                text: ' Uống thẳng hoặc với đá lạnh để khám phá nốt hương tinh tế; cũng phù hợp làm cocktail.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Kết hợp ẩm thực',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              'Sushi, sashimi hoặc salad vị nhẹ',
+              'Beefsteak mọng nước',
+              'Tiệc nhẹ với trái cây, bánh ngọt',
+            ],
+          },
+        ],
+      },
+    ],
+  },
   7: {
     volume: 'Thùng 24 chai 210ml',
     serveTemp: '2–4°C',
@@ -445,6 +660,52 @@ export const productDetailExtras = {
               'Đồ nướng và hải sản ngoài trời',
               'Bia lạnh có chanh — bữa tiệc nhẹ nhàng, sảng khoái',
             ],
+          },
+        ],
+      },
+    ],
+  },
+  24: {
+    volume: '6 cái/hộp · 350ml/ly',
+    serveTemp: null,
+    content: [
+      {
+        heading: 'Chi tiết sản phẩm',
+        blocks: [
+          {
+            type: 'p',
+            value:
+              'Ly uống rượu vang trắng hình hoa tulip với chân cao, mang vẻ cổ điển. Chế tác tinh xảo, đem lại sự sang trọng và thanh lịch cho bữa tiệc.',
+          },
+          {
+            type: 'ul',
+            items: [
+              {
+                bold: 'Vành miệng:',
+                text: ' Tròn, đường cắt mịn — hơi thuôn giúp hương vị dễ đưa lên mũi.',
+              },
+              {
+                bold: 'Đế ly:',
+                text: ' Rộng, ổn định khi đặt trên bề mặt.',
+              },
+              {
+                bold: 'Xuất xứ:',
+                text: ' Bohemia (Cộng hòa Séc) — vùng nổi tiếng về pha lê cao cấp.',
+              },
+              {
+                bold: 'An toàn:',
+                text: ' Không chứa chì; công thức độc quyền tăng độ cứng, chống vỡ và mài mòn.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Phù hợp thưởng thức',
+        blocks: [
+          {
+            type: 'ul',
+            items: ['Rượu vang trắng', 'Sâm panh / sparkling wine'],
           },
         ],
       },

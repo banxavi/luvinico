@@ -50,7 +50,8 @@ function addTagNavRoutes(map) {
 
 function addFlatTagRoutes(map) {
   for (const categoryKey of Object.keys(CATEGORIES)) {
-    if (CATEGORY_NAV_MENUS[categoryKey]) continue;
+    // Có cấu hình menu riêng (kể cả [] = không sub-tab) → không tạo tag phẳng
+    if (Object.prototype.hasOwnProperty.call(CATEGORY_NAV_MENUS, categoryKey)) continue;
 
     const types = getTypesByCategory(categoryKey).filter(
       (type) => countProductsByType(type.slug) > 0,

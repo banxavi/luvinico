@@ -5,8 +5,13 @@ import { mockProducts } from '../../mockData';
 import ProductFeaturedCarousel from '../product/ProductFeaturedCarousel';
 import FadeInSection from '../ui/FadeInSection';
 
+const WINE_AND_BEER = new Set(['ruou-vang', 'bia']);
+
 export default function BestSellersSection() {
-  const products = useMemo(() => mockProducts ?? [], []);
+  const products = useMemo(
+    () => (mockProducts ?? []).filter((p) => WINE_AND_BEER.has(p.category)),
+    [],
+  );
 
   return (
     <FadeInSection id="products" className="pt-10 sm:pt-12">
