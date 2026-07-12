@@ -1,7 +1,8 @@
 ﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Cloudflare Pages — static HTML in `out/`
+  output: "export",
   reactStrictMode: true,
-
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [40, 75, 100],
