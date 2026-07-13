@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
   if (!product) {
     return createPageMetadata({ title: 'Không tìm thấy sản phẩm' });
   }
-  const title = `${product.name} — Rượu vang & Bia nhập khẩu`;
+  const title = `${product.name} | Rượu vang & Bia nhập khẩu`;
   const description =
     product.description || `Chi tiết sản phẩm ${product.name} tại LUVINI & CO.`;
   const image = resolveProductImageUrl(product.image);

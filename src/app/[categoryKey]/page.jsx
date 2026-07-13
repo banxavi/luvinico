@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
     return createPageMetadata({ title: "Danh mục không tồn tại" });
   }
   return createPageMetadata({
-    title: `${meta.title} — Nhập khẩu chính hãng`,
+    title: `${meta.title} | Nhập khẩu chính hãng`,
     description: (
       meta.description ||
       `Xem bộ sưu tập sản phẩm ${meta.title} tại LUVINI & CO.`

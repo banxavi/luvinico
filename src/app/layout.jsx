@@ -3,6 +3,7 @@ import './globals.css';
 import PageLayout from '../components/layout/PageLayout';
 import { Suspense } from 'react';
 import { BRAND } from '../data/brand';
+import { formatSeoTitle } from '../lib/seo';
 import { getSiteUrl, isIndexableSite } from '../lib/site';
 
 const cormorant = Cormorant_Garamond({
@@ -26,20 +27,23 @@ const beVietnam = Be_Vietnam_Pro({
   display: 'swap',
 });
 
+const defaultTitle = formatSeoTitle(BRAND.subtitle);
+
 export const metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: BRAND.name,
+    default: defaultTitle,
   },
-  description: `${BRAND.name} — ${BRAND.tagline}. Rượu vang tuyển chọn và bia nhập khẩu cao cấp.`,
+  description: `${BRAND.name} | ${BRAND.tagline}. Rượu vang tuyển chọn và bia nhập khẩu cao cấp.`,
   icons: {
-    icon: '/favicon.svg',
+    icon: [{ url: '/favicon.png', type: 'image/png' }],
+    apple: [{ url: '/favicon.png', type: 'image/png' }],
   },
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: `${BRAND.name} — ${BRAND.subtitle}`,
+    title: defaultTitle,
     description: BRAND.description,
     type: 'website',
     siteName: BRAND.name,
