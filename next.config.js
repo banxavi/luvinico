@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [40, 75, 100],
+    unoptimized: true,
     // Dev: cho phép ảnh từ localhost / IP LAN (khi test port hoặc nguồn local)
     dangerouslyAllowLocalIP: true,
     // Cho phép SVG từ bất kỳ domain nào (icon, logo CDN, v.v.)
@@ -16,6 +17,7 @@ const nextConfig = {
       { protocol: "http", hostname: "**", pathname: "/**" },
     ],
   },
+  trailingSlash: true
 };
 
 export default nextConfig;
