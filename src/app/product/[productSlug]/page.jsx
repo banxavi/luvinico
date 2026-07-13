@@ -16,12 +16,12 @@ import {
 import { createPageMetadata } from '../../../lib/seo';
 import { getSaleDiscountPercent, isProductOnSale } from '../../../lib/pricing';
 import ProductBreadcrumb from "../../../components/layout/ProductBreadcrumb";
-import ProductCard from "../../../components/product/ProductCard";
 import ProductImageGallery from "../../../components/product/ProductImageGallery";
 import ProductPrice from "../../../components/product/ProductPrice";
 import ProductDetailContent from "../../../components/product/ProductDetailContent";
 import ProductJsonLd from "../../../components/seo/ProductJsonLd";
 import ProductScrollHandler from "./ProductScrollHandler";
+import RelatedProducts from "./RelatedProducts";
 import Link from "next/link";
 
 const HOTLINE = BRAND.hotline;
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }) {
   });
 }
 
-export default async function ProductDetailPage({ params, searchParams }) {
+export default async function ProductDetailPage({ params }) {
   const { productSlug } = await params;
 
   if (/^\d+$/.test(productSlug)) {
@@ -62,12 +62,6 @@ export default async function ProductDetailPage({ params, searchParams }) {
       redirect(`/product/${legacySlug}`);
     }
   }
-
-  const resolvedSearchParams = await searchParams;
-  const searchQuery =
-    resolvedSearchParams.from === "search"
-      ? (resolvedSearchParams.q || "").trim()
-      : "";
 
   const product = getProductBySlug(productSlug);
   const related = product ? getRelatedProducts(product.id) : [];
@@ -201,24 +195,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
         ) : null}
 
         {related.length > 0 ? (
-          <section className="mt-14 border-t border-white/10 pt-12">
-            <h2 className="text-xl font-semibold text-white">
-              Có thể bạn cũng thích
-            </h2>
-            <p className="mt-2 text-sm text-body-muted">
-              Gợi ý thêm từ bộ sưu tập {BRAND.shortName}.
-            </p>
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {related.map((p) => (
-                <ProductCard
-                  key={p.id}
-                  product={p}
-                  compact
-                  searchQuery={searchQuery || undefined}
-                />
-              ))}
-            </div>
-          </section>
+          <Suspense fallback={null}>
+            <RelatedProducts related={related} />
+          </Suspense>
         ) : null}
       </div>
     </article>
