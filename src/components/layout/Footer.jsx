@@ -70,7 +70,7 @@ export default function Footer() {
               <FooterHeading>{FOOTER.facebookLabel}</FooterHeading>
               <div className="mt-4 text-sm leading-relaxed text-body-muted">
                 Điểm mới từ <b>nghị quyết 66.18/2026/NQ-CP</b> (áp dụng từ 01/7/2026):
-                Không còn xử phạt hành chính đối với một số vi phạm về <b>đăng ký bán rượu, nhập khẩu rượu</b> và <p>kinh doanh rượu</p> theo quy định tại Nghị định 98/2020/NĐ-CP.
+                Không còn xử phạt hành chính đối với một số vi phạm về <b>đăng ký bán rượu, nhập khẩu rượu</b> và kinh doanh rượu theo quy định tại Nghị định 98/2020/NĐ-CP.
               </div>
             </div>
 

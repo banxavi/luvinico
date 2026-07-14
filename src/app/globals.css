@@ -37,7 +37,7 @@ body {
   color: #f0f0f0;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
-  overflow-x: clip;
+  /* Avoid overflow on body — it breaks position:sticky on mobile WebKit */
   max-width: 100%;
 }
 

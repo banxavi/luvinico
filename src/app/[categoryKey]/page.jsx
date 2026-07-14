@@ -5,6 +5,9 @@ import CatalogPageHeader from "../../components/layout/CatalogPageHeader";
 import { createPageMetadata } from "../../lib/seo";
 import CategoryCatalog from "./CategoryCatalog";
 
+/** Static export: only known categories; unknown keys 404 (no on-demand params). */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return Object.keys(CATEGORIES).map((categoryKey) => ({ categoryKey }));
 }

@@ -8,9 +8,14 @@ import { getAllProductSlugs } from './products';
 import { absoluteUrl } from './site';
 import { buildTagHref, countProductsByType, getSubTabsWithCounts } from './types';
 
+/** XML requires & in query strings to be escaped as &amp; */
+function escapeXmlUrl(url) {
+  return url.replace(/&/g, '&amp;');
+}
+
 function createEntry(path, { priority, changeFrequency = 'weekly' }) {
   return {
-    url: absoluteUrl(path),
+    url: escapeXmlUrl(absoluteUrl(path)),
     lastModified: new Date(),
     changeFrequency,
     priority,

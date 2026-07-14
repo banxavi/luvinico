@@ -118,7 +118,7 @@ function TagCatalogContent() {
       </div>
 
       <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-start">
-        <aside className="w-full shrink-0 lg:sticky lg:top-6 lg:w-60">
+        <aside className="w-full shrink-0 lg:sticky lg:top-28 lg:w-60">
           <CategoryTypeSidebar
             categoryKey={categoryKey}
             groupKey={groupKey || ""}

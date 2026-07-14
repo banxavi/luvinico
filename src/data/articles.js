@@ -1,5 +1,5 @@
-import coronaKienThucImg from '../assets/Bia Mexico/corona_lat_chanh_kien_thuc.webp';
-import coronaKienThucLiviniImg from '../assets/Bia Mexico/corona_lat_chanh_kien_thuc_livini.webp';
+import coronaKienThucImg from '../assets/Bia Mexico/corona_lat_chanh_kien_thuc.jpg';
+import coronaKienThucLiviniImg from '../assets/Bia Mexico/corona_lat_chanh_kien_thuc_livini.jpg';
 
 /** Nội dung bài viết — block giống productDetails (p, ul, image) */
 export const articleBodies = {

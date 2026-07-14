@@ -18,7 +18,7 @@ const PRESETS = {
   row: {
     perPage: { lg: 5, sm: 3, default: 2 },
     gridClass:
-      'grid grid-cols-2 grid-rows-1 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5 lg:grid-rows-1 lg:gap-5',
+      'h-full grid grid-cols-2 grid-rows-1 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5 lg:grid-rows-1 lg:gap-5',
     ariaLabel: 'Vang ngon giá tốt',
   },
 };
@@ -133,18 +133,18 @@ export default function ProductFeaturedCarousel({ products, variant = 'featured'
         <span className="hidden sm:inline"> · {products.length} sản phẩm</span>
       </p>
 
-      <div className="relative px-11 sm:px-14 lg:px-16">
+      <div className="relative lg:px-16">
         <NavButton
           direction="prev"
           onClick={() => onNavClick(scrollPrev)}
           disabled={!canNavigate}
-          className="left-0 sm:left-1"
+          className="left-0 sm:left-1 hidden! md:block"
         />
         <NavButton
           direction="next"
           onClick={() => onNavClick(scrollNext)}
           disabled={!canNavigate}
-          className="right-0 sm:right-1"
+          className="right-0 sm:right-1 hidden! md:block"
         />
 
         <div
