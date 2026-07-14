@@ -70,3 +70,56 @@ At the end of every implementation, provide a short audit section:
 - Maintainability: PASS / WARNING
 
 Explain any warnings.
+
+
+## Cloudflare Pages Deployment Rules
+Primary Objective
+
+- All code changes must preserve successful deployment to Cloudflare Pages.
+- Never introduce changes that break the existing build pipeline, routing, or production behavior.
+
+## Deployment Target
+
+Assume this project is deployed on Cloudflare Pages.
+
+Do not:
+
+- Change the deployment target.
+- Convert the project to Cloudflare Workers.
+- Convert the project to another hosting platform.
+- Modify deployment architecture unless explicitly requested.
+
+## Cloudflare Pages Compatibility
+
+- Generated code should remain compatible with Cloudflare Pages.
+
+- Avoid introducing:
+
+  + Node-only runtime features.
+  + Unsupported server APIs.
+  + Build steps requiring custom infrastructure.
+  + Local filesystem dependencies at runtime.
+
+
+## Before Finishing
+
+Before completing any task, verify:
+
+- Existing production features continue working.
+- The project should still deploy successfully to Cloudflare Pages.
+- No deployment configuration was unintentionally modified.
+- No routing changes were introduced.
+- No breaking changes were added.
+
+When uncertain, prefer the safest implementation over a larger refactor.
+
+
+## Cloudflare Pages Safety
+
+Whenever modifying code that may affect deployment:
+
+- Verify compatibility with Cloudflare Pages.
+- Do not assume Node.js runtime behavior.
+- Preserve the existing deployment strategy.
+- If a change impacts build or deployment, explain the impact before generating code.
+- Prefer solutions that require zero changes to Cloudflare Pages configuration.

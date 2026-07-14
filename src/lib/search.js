@@ -1,5 +1,6 @@
 import { getProductCategory } from './catalog';
 import { getProductType } from './types';
+import { normalizeSearchText } from './formatters';
 import { CATEGORIES } from '../data/categories';
 import { PRODUCT_TYPES } from '../data/productTypes';
 
@@ -36,9 +37,11 @@ export function getProductAbvValue(product) {
   return Number.isFinite(num) ? num : null;
 }
 
-function matchesTextQuery(product, query) {
-  const haystack = `${product.name ?? ''} ${product.origin ?? ''} ${product.abv ?? ''} ${product.style ?? ''}`.toLowerCase();
-  return haystack.includes(query);
+function matchesTextQuery(product, normalizedQuery) {
+  const haystack = normalizeSearchText(
+    `${product.name ?? ''} ${product.origin ?? ''} ${product.abv ?? ''} ${product.style ?? ''}`,
+  );
+  return haystack.includes(normalizedQuery);
 }
 
 function matchesPriceFilter(product, priceKey) {
@@ -82,7 +85,7 @@ export function filterProducts(
   products,
   { q = '', origin = '', category = '', price = '', type = '', abv = '' } = {},
 ) {
-  const query = String(q).trim().toLowerCase();
+  const query = normalizeSearchText(String(q).trim());
 
   return (products ?? []).filter((product) => {
     if (query && !matchesTextQuery(product, query)) return false;
