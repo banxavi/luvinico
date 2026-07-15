@@ -52,12 +52,13 @@ function renderBlock(block, index) {
   if (block.type === 'image') {
     return (
       <div key={index} className="space-y-4">
-        <figure className="mx-auto w-full overflow-hidden rounded-2xl border border-white/10 bg-premium-black sm:w-1/2">
+        <figure className="mx-auto w-full overflow-hidden rounded-2xl border border-white/10 bg-premium-black sm:w-1/2 sm:max-w-md">
           <Image
             src={block.src}
             alt={block.alt ?? ''}
-            className="h-auto w-full object-cover"
-            sizes="(max-width: 768px) 100vw, 720px"
+            quality={90}
+            className="h-auto w-full object-contain"
+            sizes="(max-width: 640px) 100vw, 448px"
           />
           {block.caption ? (
             <figcaption className="border-t border-white/10 px-4 py-3 text-center text-sm text-body-subtle">

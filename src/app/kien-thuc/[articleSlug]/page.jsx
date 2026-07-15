@@ -69,17 +69,6 @@ export default async function ArticlePage({ params }) {
           <p className="mt-4 text-base leading-relaxed text-body-muted">{article.excerpt}</p>
         </header>
 
-        <div className="relative mx-auto mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-premium-black sm:w-1/2">
-          <Image
-            src={article.image}
-            alt=""
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 896px"
-          />
-        </div>
-
         <div className="mt-10 border-t border-white/10 pt-10">
           <RichContent content={article.content} />
         </div>

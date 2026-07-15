@@ -94,10 +94,34 @@ export default function Header() {
 
   useEffect(() => {
     if (!menuOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    const html = document.documentElement;
+    const { body } = document;
+    const scrollY = window.scrollY;
+    const prev = {
+      htmlOverflow: html.style.overflow,
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyWidth: body.style.width,
+      bodyOverscroll: body.style.overscrollBehavior,
+    };
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overscrollBehavior = "none";
+
     return () => {
-      document.body.style.overflow = prev;
+      html.style.overflow = prev.htmlOverflow;
+      body.style.overflow = prev.bodyOverflow;
+      body.style.position = prev.bodyPosition;
+      body.style.top = prev.bodyTop;
+      body.style.width = prev.bodyWidth;
+      body.style.overscrollBehavior = prev.bodyOverscroll;
+      window.scrollTo(0, scrollY);
     };
   }, [menuOpen]);
 
@@ -120,7 +144,7 @@ export default function Header() {
   };
 
   return (
-    <header className="relative z-50 border-b border-white/10">
+    <header className="relative z-50 bg-premium-black">
       <div className="site-container flex min-h-14 items-center justify-between gap-2 py-2.5 sm:min-h-[3.75rem] sm:py-3">
         <Link
           href="/"
@@ -191,80 +215,73 @@ export default function Header() {
       ) : null}
 
       {menuOpen ? (
-        <>
-          <button
-            type="button"
-            className="fixed inset-0 z-30 bg-black/60 xl:hidden"
-            aria-label="Đóng menu"
-            onClick={closePanels}
-          />
-          <nav
-            className="absolute inset-x-0 top-full z-40 max-h-[min(85vh,36rem)] overflow-y-auto border-b border-white/10 bg-premium-black shadow-2xl xl:hidden"
-            aria-label="Menu di động"
-          >
-            <div className="site-container flex flex-col gap-1 py-4">
-              <Link
-                href={buildTelHref(HOTLINE)}
-                className="header-phone-link"
-                aria-label={`Gọi ${HOTLINE}`}
-              >
-                <PhoneIcon />
-                <span>{formatPhoneDisplay(HOTLINE)}</span>
-              </Link>
-              {NAV_ITEMS.map((item) => (
-                <div key={item.path}>
-                  <Link
-                    href={item.path}
-                    className={mobileNavLinkClass(isActive(item.path))}
-                    aria-current={isActive(item.path) ? "page" : undefined}
-                    onClick={closePanels}
-                  >
-                    {item.label}
-                  </Link>
-                  {item.categoryKey ? (
-                    <div className="mb-2 ml-4 flex flex-col gap-2 border-l border-white/10 pl-3">
-                      {getNavMenuSections(item.categoryKey).map((section) => (
-                        <div key={section.key}>
-                          {section.label ? (
-                            <Link
-                              href={section.parentHref}
-                              className="flex min-h-10 items-center rounded-md px-3 text-sm font-semibold text-white transition hover:bg-white/5 hover:text-brand-amber"
-                              onClick={closePanels}
-                            >
-                              {section.label}
-                            </Link>
-                          ) : null}
-                          {section.subTabs.map((tab) => (
-                            <Link
-                              key={tab.slug}
-                              href={buildTagHref(item.categoryKey, {
-                                ...(section.parentHref ? { group: section.key } : {}),
-                                type: tab.slug,
-                              })}
-                              className="flex min-h-10 items-center rounded-md px-3 text-sm text-body-muted transition hover:bg-white/5 hover:text-white"
-                              onClick={closePanels}
-                            >
-                              {tab.label}
-                            </Link>
-                          ))}
-                          {section.hasMore ? (
-                            <Link
-                              href={section.moreHref}
-                              className="flex min-h-10 items-center px-3 text-xs font-semibold text-brand-amber"
-                              onClick={closePanels}
-                            >
-                              Xem thêm &gt;&gt;
-                            </Link>
-                          ) : null}
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </nav>
-        </>
+        <nav
+          className="fixed inset-x-0 bottom-0 z-40 overflow-y-auto overscroll-y-contain bg-premium-black xl:hidden"
+          style={{ top: "var(--site-header-height, 3.5rem)" }}
+          aria-label="Menu di động"
+        >
+          <div className="site-container flex min-h-full flex-col gap-1 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+            <Link
+              href={buildTelHref(HOTLINE)}
+              className="header-phone-link"
+              aria-label={`Gọi ${HOTLINE}`}
+            >
+              <PhoneIcon />
+              <span>{formatPhoneDisplay(HOTLINE)}</span>
+            </Link>
+            {NAV_ITEMS.map((item) => (
+              <div key={item.path}>
+                <Link
+                  href={item.path}
+                  className={mobileNavLinkClass(isActive(item.path))}
+                  aria-current={isActive(item.path) ? "page" : undefined}
+                  onClick={closePanels}
+                >
+                  {item.label}
+                </Link>
+                {item.categoryKey ? (
+                  <div className="mb-2 ml-4 flex flex-col gap-2 border-l border-white/10 pl-3">
+                    {getNavMenuSections(item.categoryKey).map((section) => (
+                      <div key={section.key}>
+                        {section.label ? (
+                          <Link
+                            href={section.parentHref}
+                            className="flex min-h-10 items-center rounded-md px-3 text-sm font-semibold text-white transition hover:bg-white/5 hover:text-brand-amber"
+                            onClick={closePanels}
+                          >
+                            {section.label}
+                          </Link>
+                        ) : null}
+                        {section.subTabs.map((tab) => (
+                          <Link
+                            key={tab.slug}
+                            href={buildTagHref(item.categoryKey, {
+                              ...(section.parentHref ? { group: section.key } : {}),
+                              type: tab.slug,
+                            })}
+                            className="flex min-h-10 items-center rounded-md px-3 text-sm text-body-muted transition hover:bg-white/5 hover:text-white"
+                            onClick={closePanels}
+                          >
+                            {tab.label}
+                          </Link>
+                        ))}
+                        {section.hasMore ? (
+                          <Link
+                            href={section.moreHref}
+                            className="flex min-h-10 items-center px-3 text-xs font-semibold text-brand-amber"
+                            onClick={closePanels}
+                          >
+                            Xem thêm &gt;&gt;
+                          </Link>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </nav>
       ) : null}
     </header>
   );

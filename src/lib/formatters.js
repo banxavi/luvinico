@@ -1,3 +1,12 @@
+/** Chuẩn hóa chuỗi để so khớp tìm kiếm không dấu: "Pháp" / "phap" → "phap", "Đức" → "duc" */
+export function normalizeSearchText(text) {
+  return String(text ?? '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd');
+}
+
 export function formatPhoneDisplay(phone) {
   const digits = String(phone ?? '').replace(/[^\d]/g, '');
   if (!digits) return '';

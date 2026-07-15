@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import { getSiteUrl, isIndexableSite } from '../lib/site';
 
 export default function robots() {
