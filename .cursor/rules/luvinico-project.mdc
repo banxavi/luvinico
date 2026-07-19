@@ -1,0 +1,39 @@
+---
+description: Luvinico monorepo overview — brand, structure, legal, and audit requirements
+alwaysApply: true
+---
+
+# Luvinico Project
+
+Premium imported wine & beer landing site (personal/non-commercial). Vietnamese UI (`lang="vi"`).
+
+## Monorepo layout
+
+| Path | Stack | Purpose |
+|------|-------|---------|
+| `frontend/` | Next.js 16, React 19, Tailwind v4 | Public site on **Cloudflare Workers** (OpenNext SSR) |
+| `cms/` | Sanity Studio v6 | Content editing (project `sfqhf74q`, dataset `production`) |
+
+Work in the correct package. Run `npm` commands from `frontend/` or `cms/`, not repo root.
+
+## Brand & design
+
+- Dark luxury aesthetic: `bg-premium-black`, `text-premium-gold`, `bg-premium-dark`
+- Mobile-first, thumb-friendly CTAs, fast images
+- Brand source: `frontend/src/data/brand.js`
+
+## Legal (required)
+
+Include age verification (Age Gate) **or** footer warning:
+> Sản phẩm không dành cho người dưới 18 tuổi và phụ nữ mang thai
+
+## Before finishing any task
+
+Report audit:
+
+- Performance: PASS / WARNING
+- SEO: PASS / WARNING
+- Accessibility: PASS / WARNING
+- Maintainability: PASS / WARNING
+
+Explain any WARNING. Verify Cloudflare Workers build (`npm run build` in `frontend/`) when touching frontend.

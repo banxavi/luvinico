@@ -1,0 +1,42 @@
+---
+description: Cloudflare Workers deployment via OpenNext — SSR with Sanity API fetching
+globs: frontend/**
+alwaysApply: false
+---
+
+# Cloudflare Workers Deployment
+
+Deploy target: **Cloudflare Workers** via `@opennextjs/cloudflare` (not static export).
+
+## Build pipeline
+
+```bash
+npm run build       # opennextjs-cloudflare build
+npm run preview     # local Worker preview
+npm run deploy      # build + deploy to Cloudflare
+```
+
+Config: `open-next.config.ts`, `wrangler.jsonc`.
+
+## Runtime model
+
+- **No** `output: 'export'` — full Next.js SSR on Workers
+- Fetch Sanity content server-side in Server Components (`src/lib/sanity/productStore.js`)
+- Use `export const revalidate = 60` on content pages for ISR-like caching
+- `nodejs_compat` flag enabled in wrangler
+
+## Environment (set in Cloudflare dashboard + `.env.local`)
+
+```
+NEXT_PUBLIC_SITE_URL=
+NEXT_PUBLIC_SANITY_PROJECT_ID=sfqhf74q
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_READ_TOKEN=   # optional, for private datasets
+```
+
+## Safety checklist
+
+- [ ] `npm run build` succeeds
+- [ ] Sanity fetch works on Worker (no Node-only APIs at runtime beyond OpenNext compat)
+- [ ] No `export const runtime = 'edge'` in source files
+- [ ] Static assets cached via `public/_headers`

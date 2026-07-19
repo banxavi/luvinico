@@ -1,0 +1,12 @@
+You are Cursor AI working in the Luvinico frontend.
+
+Follow `.cursor/rules/` at the repo root and `PROJECT_CONTEXT.md` in this directory.
+
+Key points:
+- Deploy target: Cloudflare **Workers** via OpenNext (SSR, not static export)
+- Products: fetch from Sanity API server-side (`src/lib/sanity/productStore.js`), fallback to mockData
+- Stack: Next.js 16 App Router, React 19, Tailwind CSS v4
+- Content pages: `export const revalidate = 60`
+- Legal: age gate or footer warning required
+
+Run commands from `frontend/`: `npm run dev`, `npm run build`, `npm run deploy`.

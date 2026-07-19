@@ -1,0 +1,44 @@
+---
+description: Sanity CMS conventions for Luvinico — schema design aligned with frontend data model
+globs: cms/**
+alwaysApply: false
+---
+
+# CMS (Sanity Studio)
+
+## Config
+
+- Studio v6 in `cms/` — `sanity.config.js`, schemas in `cms/schemaTypes/`
+- Project: `sfqhf74q`, dataset: `production`
+- Commands: `npm run dev` (studio), `npm run deploy` (hosted studio)
+
+## Schema design
+
+Model content to match frontend shapes in `frontend/src/mockData.js` and `frontend/src/data/`:
+
+- **product** — name, slug, price, origin, abv, style, category ref, type, description, images (card + gallery)
+- **category** — key/slug, title, description (maps to `CATEGORIES`)
+- **article** — knowledge posts (`/kien-thuc/[slug]`)
+- **policy** — legal pages (`/chinh-sach/[slug]`)
+- **banner** — hero carousel slides
+
+Use `defineType` / `defineField`. Slugs via Sanity slug field; keep ASCII slugs consistent with frontend routes.
+
+## Rules
+
+- Let Sanity generate `_id` for ordinary documents; use explicit IDs only for singletons
+- Model relationships with `reference` fields + GROQ lookups
+- Add validation (required fields, slug format, image alt text)
+- Prettier config: single quotes, no semis, printWidth 100
+
+## Frontend integration
+
+Sanity content is fetched **server-side at runtime** on Cloudflare Workers:
+
+- Client: `frontend/src/lib/sanity/client.js`
+- Data store: `frontend/src/lib/sanity/productStore.js`
+- Env: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`
+- Pages use `export const revalidate = 60` for ISR-like caching
+- Falls back to `mockData.js` when Sanity is empty or unreachable
+
+See project skill `luvinico-sanity-cms` for GROQ and schema details.

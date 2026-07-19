@@ -1,0 +1,42 @@
+---
+description: Next.js frontend conventions for Luvinico — App Router, Tailwind v4, Sanity data, SEO
+globs: frontend/**
+alwaysApply: false
+---
+
+# Frontend (Next.js)
+
+## Stack
+
+- Next.js 16 App Router + React 19, **JSX**
+- Tailwind CSS v4: `@import "tailwindcss"` in `src/app/globals.css`
+- **Cloudflare Workers** via OpenNext — SSR, not static export
+- Sanity CMS via `@sanity/client` (`src/lib/sanity/`)
+
+## Data layer
+
+- **Primary:** Sanity API fetched server-side (`getProducts()`, `getProductBySlugFromStore()`)
+- **Fallback:** `src/mockData.js` when Sanity is empty or unreachable
+- Static config: `src/data/*.js` (categories, brand, policies)
+- Helpers: `src/lib/*.js` — pass `products` array to catalog/type helpers
+
+Use React `cache()` via `productStore.js` — one Sanity fetch per request.
+
+## Components
+
+- Server Components by default; `'use client'` for interactivity
+- `ProductDataProvider` in `PageLayout` supplies products to client nav/components
+- Client catalog/search components accept `products` prop or use `useProducts()`
+
+## SEO & metadata
+
+Every page needs `metadata` or `generateMetadata`. Content pages use `export const revalidate = 60`.
+
+## Performance
+
+- Prefer `next/image`; Sanity CDN images allowed in `next.config.js`
+- Avoid unnecessary client JS and new npm packages
+
+## Inquiry form
+
+Client-side only — Zalo/Messenger, `mailto`, or Formspree.
