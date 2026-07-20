@@ -1,4 +1,4 @@
-import { mapSanityContentSections } from './mapRichContent';
+import { normalizeBodyContent } from './mapBodyContent';
 
 /** Map a Sanity product document to the frontend product shape. */
 export function mapSanityProduct(doc) {
@@ -23,6 +23,6 @@ export function mapSanityProduct(doc) {
     serveTemp: doc.serveTemp,
     description: doc.description ?? null,
     longDescription: doc.longDescription ?? null,
-    content: mapSanityContentSections(doc.content),
+    content: normalizeBodyContent(doc.content),
   };
 }

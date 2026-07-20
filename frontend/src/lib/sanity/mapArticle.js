@@ -1,4 +1,4 @@
-import { mapSanityContentSections } from './mapRichContent';
+import { normalizeBodyContent } from './mapBodyContent';
 
 export function mapSanityArticle(doc) {
   if (!doc?.slug) return null;
@@ -12,6 +12,6 @@ export function mapSanityArticle(doc) {
     publishedAt: doc.publishedAt ?? '',
     image: doc.image || null,
     imageAlt: doc.imageAlt ?? doc.title,
-    content: mapSanityContentSections(doc.body),
+    content: normalizeBodyContent(doc.body),
   };
 }

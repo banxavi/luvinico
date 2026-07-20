@@ -125,14 +125,14 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Mô tả ngắn',
-      type: 'productRichText',
+      type: 'richBodyContent',
       group: 'content',
-      description: 'Rich text — in đậm, link, heading, danh sách',
+      description: 'Văn bản, heading, danh sách, ảnh — một editor duy nhất',
     }),
     defineField({
       name: 'longDescription',
       title: 'Mô tả dài',
-      type: 'productRichText',
+      type: 'richBodyContent',
       group: 'content',
       description: 'Rich text — hiển thị khi chưa có nội dung chi tiết (content)',
     }),
@@ -173,9 +173,9 @@ export default defineType({
     defineField({
       name: 'content',
       title: 'Nội dung chi tiết',
-      type: 'array',
+      type: 'richBodyContent',
       group: 'content',
-      of: [{type: 'contentSection'}],
+      description: 'Văn bản, list, ảnh, khối ảnh+text — thay cho section/block riêng lẻ',
     }),
     defineField({
       name: 'legacyId',

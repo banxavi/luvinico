@@ -51,8 +51,8 @@ export default defineType({
     defineField({
       name: 'body',
       title: 'Nội dung',
-      type: 'array',
-      of: [{type: 'contentSection'}],
+      type: 'richBodyContent',
+      description: 'Văn bản, list, ảnh, khối ảnh+text — một editor duy nhất',
     }),
   ],
   preview: {

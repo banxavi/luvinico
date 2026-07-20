@@ -12,6 +12,8 @@ import richList from './objects/richList'
 import richImageBlock from './objects/richImageBlock'
 import contentSection from './objects/contentSection'
 import productRichText from './objects/productRichText'
+import richBodyContent from './objects/richBodyContent'
+import imageTextBlock from './objects/imageTextBlock'
 
 export const schemaTypes = [
   category,
@@ -21,6 +23,9 @@ export const schemaTypes = [
   categorySubTab,
   categoryDropdownMenu,
   categoryStandardMenu,
+  richBodyContent,
+  imageTextBlock,
+  // Legacy — giữ để đọc dữ liệu cũ trước khi chạy migrate:rich-body
   richSpan,
   richParagraph,
   richListItem,

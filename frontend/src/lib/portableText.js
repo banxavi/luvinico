@@ -2,9 +2,16 @@
  * Portable Text helpers — supports Sanity blocks and legacy plain strings (mockData).
  */
 
+const BODY_BLOCK_TYPES = new Set(['block', 'image', 'imageTextBlock']);
+
 /** @param {unknown} value */
 export function isPortableText(value) {
-  return Array.isArray(value) && value.some((block) => block?._type === 'block')
+  return Array.isArray(value) && value.some((block) => block?._type === 'block');
+}
+
+/** @param {unknown} value — richBodyContent array (PT + images + imageTextBlock). */
+export function isBodyContentPortableText(value) {
+  return Array.isArray(value) && value.some((block) => BODY_BLOCK_TYPES.has(block?._type));
 }
 
 /** Extract plain text for SEO / JSON-LD from PT blocks or string. */

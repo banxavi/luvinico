@@ -1,3 +1,22 @@
+import {
+  legacyContentSectionProjection,
+  portableTextProjection,
+} from './portableTextQuery.js';
+
+const pt = portableTextProjection.trim();
+const legacy = legacyContentSectionProjection.trim();
+
+const mixedBodyField = (fieldName) => `
+  "${fieldName}": select(
+    ${fieldName}[0]._type == "contentSection" => ${fieldName}[] {
+      ${legacy}
+    },
+    ${fieldName}[] {
+      ${pt}
+    }
+  )
+`;
+
 const productFields = /* groq */ `
 
   _id,
@@ -24,9 +43,13 @@ const productFields = /* groq */ `
 
   serveTemp,
 
-  description,
+  description[] {
+    ${pt}
+  },
 
-  longDescription,
+  longDescription[] {
+    ${pt}
+  },
 
   "category": coalesce(category->slug.current, category->key),
 
@@ -45,39 +68,7 @@ const productFields = /* groq */ `
 
   "gallery": gallery[].asset->url,
 
-  content[] {
-
-    heading,
-
-    blocks[] {
-
-      _type,
-
-      _key,
-
-      plainText,
-
-      spans[] { text, bold },
-
-      listStyle,
-
-      items[] { text, bold },
-
-      alt,
-
-      heading,
-
-      caption,
-
-      "imageUrl": image.asset->url,
-
-      "imageWidth": image.asset->metadata.dimensions.width,
-
-      "imageHeight": image.asset->metadata.dimensions.height
-
-    }
-
-  }
+  ${mixedBodyField('content')}
 
 `;
 
@@ -178,39 +169,7 @@ export const ALL_ARTICLES_QUERY = /* groq */ `
 
     "imageAlt": coverImage.alt,
 
-    body[] {
-
-      heading,
-
-      blocks[] {
-
-        _type,
-
-        _key,
-
-        plainText,
-
-        spans[] { text, bold },
-
-        listStyle,
-
-        items[] { text, bold },
-
-        alt,
-
-        heading,
-
-        caption,
-
-        "imageUrl": image.asset->url,
-
-        "imageWidth": image.asset->metadata.dimensions.width,
-
-        "imageHeight": image.asset->metadata.dimensions.height
-
-      }
-
-    }
+    ${mixedBodyField('body')}
 
   }
 
@@ -238,39 +197,7 @@ export const ARTICLE_BY_SLUG_QUERY = /* groq */ `
 
     "imageAlt": coverImage.alt,
 
-    body[] {
-
-      heading,
-
-      blocks[] {
-
-        _type,
-
-        _key,
-
-        plainText,
-
-        spans[] { text, bold },
-
-        listStyle,
-
-        items[] { text, bold },
-
-        alt,
-
-        heading,
-
-        caption,
-
-        "imageUrl": image.asset->url,
-
-        "imageWidth": image.asset->metadata.dimensions.width,
-
-        "imageHeight": image.asset->metadata.dimensions.height
-
-      }
-
-    }
+    ${mixedBodyField('body')}
 
   }
 
@@ -283,5 +210,4 @@ export const ALL_ARTICLE_SLUGS_QUERY = /* groq */ `
   *[_type == "article" && defined(slug.current)].slug.current
 
 `;
-
 

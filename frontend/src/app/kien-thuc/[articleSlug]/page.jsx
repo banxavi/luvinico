@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createPageMetadata } from '../../../lib/seo';
-import RichContent from '../../../components/content/RichContent';
+import BodyContent from '../../../components/content/BodyContent';
 import {
   getAllArticleSlugs,
   getArticleBySlug,
@@ -77,7 +77,7 @@ export default async function ArticlePage({ params }) {
         </header>
 
         <div className="mt-10 border-t border-white/10 pt-10">
-          <RichContent content={article.content} />
+          <BodyContent value={article.content} variant="article" />
         </div>
 
         <div className="mt-12">

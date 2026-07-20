@@ -21,8 +21,7 @@ import {
 import ProductBreadcrumb from "../../../components/layout/ProductBreadcrumb";
 import ProductImageGallery from "../../../components/product/ProductImageGallery";
 import ProductPrice from "../../../components/product/ProductPrice";
-import RichContent from "../../../components/content/RichContent";
-import PortableTextContent from "../../../components/content/PortableTextContent";
+import BodyContent from "../../../components/content/BodyContent";
 import ProductJsonLd from "../../../components/seo/ProductJsonLd";
 import ProductScrollHandler from "./ProductScrollHandler";
 import RelatedProducts from "./RelatedProducts";
@@ -127,10 +126,7 @@ export default async function ProductDetailPage({ params }) {
               <ProductPrice product={product} size="lg" layout="inline" />
             </div>
 
-            <PortableTextContent
-              value={product.description}
-              className="mt-4"
-            />
+            <BodyContent value={product.description} className="mt-4" />
 
             {specs.length > 0 ? (
               <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -197,13 +193,13 @@ export default async function ProductDetailPage({ params }) {
 
         {product.content?.length ? (
           <section className="mt-12 border-t border-white/10 pt-10">
-            <RichContent content={product.content} />
+            <BodyContent value={product.content} />
           </section>
         ) : null}
 
         {!product.content?.length && product.longDescription ? (
           <section className="mt-12 border-t border-white/10 pt-10">
-            <PortableTextContent value={product.longDescription} />
+            <BodyContent value={product.longDescription} />
           </section>
         ) : null}
 
