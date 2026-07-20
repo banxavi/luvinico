@@ -7,9 +7,7 @@ import {
   getArticleBySlug,
 } from '../../../lib/sanity/articleStore';
 
-import { PAGE_REVALIDATE_SECONDS } from '../../../lib/revalidate';
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const slugs = await getAllArticleSlugs();

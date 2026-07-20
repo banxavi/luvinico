@@ -1,6 +1,9 @@
 const parsed = Number(process.env.SANITY_REVALIDATE_SECONDS);
 
-/** ISR / Sanity fetch interval. Dev defaults to 0 so F5 always shows fresh CMS data. */
+/**
+ * ISR / Sanity fetch interval. Dev defaults to 0 so F5 always shows fresh CMS data.
+ * Route segments must use a literal: `export const revalidate = 60` (Next.js static analysis).
+ */
 export const PAGE_REVALIDATE_SECONDS =
   Number.isFinite(parsed) && parsed >= 0
     ? parsed

@@ -29,9 +29,7 @@ import Link from "next/link";
 
 const HOTLINE = BRAND.hotline;
 
-import { PAGE_REVALIDATE_SECONDS } from '../../../lib/revalidate';
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 export async function generateMetadata({ params }) {
   const { productSlug } = await params;

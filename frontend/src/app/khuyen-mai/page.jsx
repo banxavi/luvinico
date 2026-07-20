@@ -4,9 +4,7 @@ import ProductGrid from '../../components/product/ProductGrid';
 import { createPageMetadata } from '../../lib/seo';
 import { getOnSaleProductsFromStore } from '../../lib/sanity/productStore';
 
-import { PAGE_REVALIDATE_SECONDS } from '../../lib/revalidate';
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 export const metadata = createPageMetadata({
   title: 'Chương trình ưu đãi',

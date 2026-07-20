@@ -2,9 +2,7 @@ import { redirect } from 'next/navigation';
 import { getCatalog } from '../../../lib/sanity/catalogStore';
 import { getAllTypeSlugs, getTypeMeta, resolveTypeSlug } from '../../../lib/types';
 
-import { PAGE_REVALIDATE_SECONDS } from '../../../lib/revalidate';
-
-export const revalidate = PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const catalog = await getCatalog();
