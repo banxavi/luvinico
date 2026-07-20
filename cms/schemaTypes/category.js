@@ -32,6 +32,26 @@ export default defineType({
       initialValue: 'DANH MỤC',
     }),
     defineField({
+      name: 'showInNav',
+      title: 'Hiển thị trên menu header',
+      type: 'boolean',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'navOrder',
+      title: 'Thứ tự menu header',
+      type: 'number',
+      description: 'Số nhỏ hiển thị trước (vd. 10 = Rượu vang, 30 = Bia)',
+      hidden: ({document}) => document?.showInNav === false,
+    }),
+    defineField({
+      name: 'navLabel',
+      title: 'Nhãn menu header',
+      type: 'string',
+      description: 'Để trống = dùng tiêu đề danh mục',
+      hidden: ({document}) => document?.showInNav === false,
+    }),
+    defineField({
       name: 'dropdownMenus',
       title: 'Menu dropdown',
       description: 'Menu phân cấp trên header — nhóm + sub-tab (vd. Bia Đức → Bia Paulaner)',

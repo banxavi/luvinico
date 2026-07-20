@@ -67,6 +67,17 @@ export function getSubTabsWithCounts(products, catalog, categoryKey, groupKey) {
   return tabs.filter((tab) => tab.productCount > 0);
 }
 
+/** Header nav — luôn hiện sub-tab đã cấu hình trong CMS, kể cả chưa có sản phẩm. */
+function getSubTabsForNav(products, catalog, categoryKey, groupKey) {
+  const group = getNavMenuGroupFromCatalog(catalog, categoryKey, groupKey);
+  if (!group) return [];
+
+  return group.subTabs.map((tab) => ({
+    ...tab,
+    productCount: countProductsByType(products, tab.slug),
+  }));
+}
+
 export function getProductsForNavGroup(products, catalog, categoryKey, groupKey) {
   const slugs = getSubTabSlugsForGroup(catalog, categoryKey, groupKey);
   if (!slugs.length) return [];
@@ -92,29 +103,40 @@ export function getFeaturedTypesForCategory(products, catalog, categoryKey, limi
   return getSortedTypesForCategory(products, catalog, categoryKey).slice(0, limit);
 }
 
-/** Menu desktop/mobile — nhóm parent + sub-tab (ẩn tab trống) */
+/** Menu desktop/mobile — dropdown + standard menu từ CMS (kể cả tab chưa có SP). */
 export function getNavMenuSections(products, categoryKey, catalog, limit = NAV_SUBMENU_LIMIT) {
   if (hasCategoryNavMenuConfig(catalog, categoryKey)) {
     return getCategoryNavMenusFromCatalog(catalog, categoryKey)
       .map((group) => {
-        const subTabs = getSubTabsWithCounts(products, catalog, categoryKey, group.key);
+        const subTabs = getSubTabsForNav(products, catalog, categoryKey, group.key);
         if (!subTabs.length) return null;
 
         const visible = subTabs.slice(0, limit);
         const hasMore = subTabs.length > limit;
+        const groupHref = group.flat
+          ? null
+          : buildTagHref(categoryKey, { group: group.key });
         return {
           key: group.key,
           label: group.label,
-          parentHref: buildTagHref(categoryKey, { group: group.key }),
+          parentHref: groupHref,
           subTabs: visible,
           hasMore,
-          moreHref: buildTagHref(categoryKey, { group: group.key }),
+          moreHref: groupHref ?? `/tag?category=${categoryKey}`,
         };
       })
       .filter(Boolean);
   }
 
-  const flat = getSortedTypesForCategory(products, catalog, categoryKey);
+  const flat = getTypesByCategoryFromCatalog(catalog, categoryKey)
+    .map((type) => ({
+      ...type,
+      productCount: countProductsByType(products, type.slug),
+    }))
+    .sort(
+      (a, b) =>
+        b.productCount - a.productCount || a.label.localeCompare(b.label, 'vi'),
+    );
   if (!flat.length) return [];
 
   return [
@@ -134,6 +156,28 @@ export function getTypesWithCounts(products, catalog, categoryKey, groupKey = ''
     return getSubTabsWithCounts(products, catalog, categoryKey, groupKey);
   }
   return getSortedTypesForCategory(products, catalog, categoryKey);
+}
+
+/** Sidebar trang /tag — luôn hiện loại đã cấu hình CMS, kể cả chưa có sản phẩm. */
+export function getCatalogSidebarTypes(products, catalog, categoryKey, groupKey = '') {
+  if (groupKey) {
+    const group = getNavMenuGroupFromCatalog(catalog, categoryKey, groupKey);
+    if (!group) return [];
+    return group.subTabs.map((tab) => ({
+      ...tab,
+      productCount: countProductsByType(products, tab.slug),
+    }));
+  }
+
+  return getTypesByCategoryFromCatalog(catalog, categoryKey)
+    .map((type) => ({
+      ...type,
+      productCount: countProductsByType(products, type.slug),
+    }))
+    .sort(
+      (a, b) =>
+        b.productCount - a.productCount || a.label.localeCompare(b.label, 'vi'),
+    );
 }
 
 export function resolveTypeSlug(typeSlug, catalog, { categoryKey = '', groupKey = '' } = {}) {

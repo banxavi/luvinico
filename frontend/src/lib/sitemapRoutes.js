@@ -1,5 +1,5 @@
 import { FOOTER } from '../data/footer';
-import { NAV_ITEMS } from '../data/nav';
+import { buildNavItems } from './nav/buildNavItems';
 import { absoluteUrl } from './site';
 import {
   buildTagHref,
@@ -78,7 +78,7 @@ export function getSitemapEntries(products, productSlugs, catalog, articleSlugs 
 
   addEntry(map, '/', { priority: 1, changeFrequency: 'daily' });
 
-  for (const item of NAV_ITEMS) {
+  for (const item of buildNavItems(catalog)) {
     const changeFrequency = item.path === '/kien-thuc' ? 'weekly' : 'weekly';
     const priority = item.categoryKey ? 0.9 : item.path === '/khuyen-mai' ? 0.8 : 0.65;
     addEntry(map, item.path, { priority, changeFrequency });

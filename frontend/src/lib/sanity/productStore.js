@@ -8,7 +8,9 @@ import {
 
   sanityClient,
 
-  SANITY_REVALIDATE_SECONDS,
+  getSanityFetchOptions,
+
+  SANITY_CACHE_TAGS,
 
 } from './client';
 
@@ -23,11 +25,7 @@ import { getOnSaleProducts, getSaleDiscountPercent } from '../pricing';
 
 
 
-const fetchOptions = {
-
-  next: { revalidate: SANITY_REVALIDATE_SECONDS, tags: ['products'] },
-
-};
+const fetchOptions = getSanityFetchOptions(SANITY_CACHE_TAGS.products);
 
 
 

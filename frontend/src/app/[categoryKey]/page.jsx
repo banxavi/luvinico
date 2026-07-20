@@ -6,7 +6,9 @@ import { getCategoryByKey, getAllCategoryKeys } from "../../lib/sanity/catalogSt
 import { getProducts } from "../../lib/sanity/productStore";
 import CategoryCatalog from "./CategoryCatalog";
 
-export const revalidate = 60;
+import { PAGE_REVALIDATE_SECONDS } from '../../lib/revalidate';
+
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 
 export async function generateStaticParams() {
   const keys = await getAllCategoryKeys();

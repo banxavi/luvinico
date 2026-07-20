@@ -33,6 +33,8 @@ function mapImage(block) {
   return {
     type: 'image',
     src: block.imageUrl,
+    width: block.imageWidth ?? undefined,
+    height: block.imageHeight ?? undefined,
     alt: block.alt ?? '',
     heading: block.heading ?? undefined,
     caption: block.caption ?? undefined,

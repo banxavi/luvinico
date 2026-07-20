@@ -10,6 +10,8 @@ import { SiteDataProvider } from '../../context/SiteDataContext';
 
 import { getCatalog } from '../../lib/sanity/catalogStore';
 
+import { buildNavItems } from '../../lib/nav/buildNavItems';
+
 import { getProducts } from '../../lib/sanity/productStore';
 
 
@@ -18,11 +20,13 @@ export default async function PageLayout({ children }) {
 
   const [products, catalog] = await Promise.all([getProducts(), getCatalog()]);
 
+  const navItems = buildNavItems(catalog);
+
 
 
   return (
 
-    <SiteDataProvider products={products} catalog={catalog}>
+    <SiteDataProvider products={products} catalog={catalog} navItems={navItems}>
 
       <div className="relative min-h-screen bg-premium-black text-white font-sans">
 

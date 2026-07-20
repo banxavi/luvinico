@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { isSanityConfigured, sanityClient, SANITY_REVALIDATE_SECONDS } from './client';
+import { isSanityConfigured, sanityClient, getSanityFetchOptions, SANITY_CACHE_TAGS } from './client';
 import {
   ALL_ARTICLES_QUERY,
   ALL_ARTICLE_SLUGS_QUERY,
@@ -7,9 +7,7 @@ import {
 } from './queries';
 import { mapSanityArticle } from './mapArticle';
 
-const fetchOptions = {
-  next: { revalidate: SANITY_REVALIDATE_SECONDS, tags: ['articles'] },
-};
+const fetchOptions = getSanityFetchOptions(SANITY_CACHE_TAGS.articles);
 
 async function fetchAllArticles() {
   const docs = await sanityClient.fetch(ALL_ARTICLES_QUERY, {}, fetchOptions);

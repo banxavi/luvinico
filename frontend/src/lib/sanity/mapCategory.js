@@ -47,12 +47,29 @@ export function mapCategoryDoc(doc) {
     })
     .filter(Boolean);
 
+  const standardSubTabs = (doc.standardMenus ?? [])
+    .map((menu) => mapSubTab(menu))
+    .filter(Boolean);
+
+  if (standardSubTabs.length) {
+    navGroups.push({
+      key: `${key}__standard`,
+      label: null,
+      showEmptySubTabs: true,
+      flat: true,
+      subTabs: standardSubTabs,
+    });
+  }
+
   return {
     key,
     path: `/${key}`,
     title: doc.title,
     eyebrow: doc.eyebrow ?? 'DANH MỤC',
     description: doc.description ?? '',
+    showInNav: doc.showInNav !== false,
+    navOrder: typeof doc.navOrder === 'number' ? doc.navOrder : undefined,
+    navLabel: doc.navLabel ?? '',
     navGroups,
     dropdownMenus: (doc.dropdownMenus ?? []).map((menu) => ({
       slug: readSlug(menu.slug),
@@ -139,6 +156,9 @@ export function buildCatalogFromDocs(categories) {
       title: cat.title,
       eyebrow: cat.eyebrow,
       description: cat.description,
+      showInNav: cat.showInNav,
+      navOrder: cat.navOrder,
+      navLabel: cat.navLabel,
     };
     categoryNavMenus[cat.key] = cat.navGroups ?? [];
 

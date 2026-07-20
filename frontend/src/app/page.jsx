@@ -12,7 +12,9 @@ import {
   getValueDealProducts,
 } from '../lib/sanity/productStore';
 
-export const revalidate = 60;
+import { PAGE_REVALIDATE_SECONDS } from '../lib/revalidate';
+
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 
 const homeTitle = 'Rượu vang nhập khẩu & Bia craft cao cấp';
 

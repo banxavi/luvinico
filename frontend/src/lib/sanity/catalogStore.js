@@ -1,11 +1,9 @@
 import { cache } from 'react';
-import { isSanityConfigured, sanityClient, SANITY_REVALIDATE_SECONDS } from './client';
+import { isSanityConfigured, sanityClient, getSanityFetchOptions, SANITY_CACHE_TAGS } from './client';
 import { ALL_CATEGORIES_QUERY } from './queries';
 import { buildCatalogFromDocs, mapCategoryDoc } from './mapCategory';
 
-const fetchOptions = {
-  next: { revalidate: SANITY_REVALIDATE_SECONDS, tags: ['catalog'] },
-};
+const fetchOptions = getSanityFetchOptions(SANITY_CACHE_TAGS.catalog);
 
 export const EMPTY_CATALOG = {
   categories: {},

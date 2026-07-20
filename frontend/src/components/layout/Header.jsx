@@ -4,8 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BRAND } from "../../data/brand";
-import { NAV_ITEMS } from "../../data/nav";
-import { useProducts, useCatalog } from "../../context/SiteDataContext";
+import { useProducts, useCatalog, useNavItems } from "../../context/SiteDataContext";
 import { buildTagHref, getNavMenuSections } from "../../lib/types";
 import { buildTelHref } from "../../lib/links";
 import { formatPhoneDisplay } from "../../lib/formatters";
@@ -85,6 +84,7 @@ export default function Header() {
   const pathname = usePathname() ?? "/";
   const products = useProducts();
   const catalog = useCatalog();
+  const navItems = useNavItems();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -162,7 +162,7 @@ export default function Header() {
           className="hidden min-w-0 flex-1 flex-wrap items-center justify-center gap-x-2 gap-y-1 xl:flex 2xl:flex-nowrap 2xl:gap-x-3"
           aria-label="Điều hướng chính"
         >
-          {NAV_ITEMS.map((item) =>
+          {navItems.map((item) =>
             item.categoryKey ? (
               <NavCategoryDropdown
                 key={item.path}
@@ -232,7 +232,7 @@ export default function Header() {
               <PhoneIcon />
               <span>{formatPhoneDisplay(HOTLINE)}</span>
             </Link>
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <div key={item.path}>
                 <Link
                   href={item.path}

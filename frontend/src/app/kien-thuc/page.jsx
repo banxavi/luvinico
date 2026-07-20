@@ -3,7 +3,9 @@ import CatalogPageHeader from '../../components/layout/CatalogPageHeader';
 import ArticleCard from '../../components/knowledge/ArticleCard';
 import { createPageMetadata } from '../../lib/seo';
 
-export const revalidate = 60;
+import { PAGE_REVALIDATE_SECONDS } from '../../lib/revalidate';
+
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 
 export const metadata = createPageMetadata({
   title: 'Kiến thức thưởng thức rượu vang & bia nhập khẩu',

@@ -69,7 +69,11 @@ const productFields = /* groq */ `
 
       caption,
 
-      "imageUrl": image.asset->url
+      "imageUrl": image.asset->url,
+
+      "imageWidth": image.asset->metadata.dimensions.width,
+
+      "imageHeight": image.asset->metadata.dimensions.height
 
     }
 
@@ -119,6 +123,9 @@ export const ALL_CATEGORIES_QUERY = /* groq */ `
     title,
     eyebrow,
     description,
+    showInNav,
+    navOrder,
+    navLabel,
     dropdownMenus[] {
       _key,
       name,
@@ -195,7 +202,11 @@ export const ALL_ARTICLES_QUERY = /* groq */ `
 
         caption,
 
-        "imageUrl": image.asset->url
+        "imageUrl": image.asset->url,
+
+        "imageWidth": image.asset->metadata.dimensions.width,
+
+        "imageHeight": image.asset->metadata.dimensions.height
 
       }
 
@@ -251,7 +262,11 @@ export const ARTICLE_BY_SLUG_QUERY = /* groq */ `
 
         caption,
 
-        "imageUrl": image.asset->url
+        "imageUrl": image.asset->url,
+
+        "imageWidth": image.asset->metadata.dimensions.width,
+
+        "imageHeight": image.asset->metadata.dimensions.height
 
       }
 

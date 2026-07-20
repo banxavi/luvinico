@@ -5,8 +5,9 @@ import {
   getProducts,
 } from '../lib/sanity/productStore';
 import { getSitemapEntries } from '../lib/sitemapRoutes';
+import { SITEMAP_REVALIDATE_SECONDS } from '../lib/revalidate';
 
-export const revalidate = 3600;
+export const revalidate = SITEMAP_REVALIDATE_SECONDS;
 
 export default async function sitemap() {
   const [products, productSlugs, catalog, articleSlugs] = await Promise.all([

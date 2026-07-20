@@ -76,7 +76,7 @@ export default function ProductFilters({
   return (
     <section
       aria-label={ariaLabel}
-      className="rounded-2xl mt-5 border border-white/10 bg-premium-dark/60 p-4 sm:p-5"
+      className="rounded-2xl border border-white/10 bg-premium-dark/60 p-4 sm:p-5"
     >
       <div className="flex flex-wrap items-end justify-between gap-3">
         <h2 className="text-sm font-semibold text-white">Lọc kết quả</h2>

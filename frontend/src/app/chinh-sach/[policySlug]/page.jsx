@@ -5,7 +5,9 @@ import { getPolicyHtml } from "../../../lib/policy";
 import { createPageMetadata } from "../../../lib/seo";
 import PolicyScrollHandler from "./PolicyScrollHandler";
 
-export const revalidate = 60;
+import { PAGE_REVALIDATE_SECONDS } from '../../../lib/revalidate';
+
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 
 export function generateStaticParams() {
   return FOOTER.policies.map((policy) => ({

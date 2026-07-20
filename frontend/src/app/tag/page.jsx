@@ -3,7 +3,9 @@ import { createPageMetadata } from "../../lib/seo";
 import { getProducts } from "../../lib/sanity/productStore";
 import TagCatalog from "./TagCatalog";
 
-export const revalidate = 60;
+import { PAGE_REVALIDATE_SECONDS } from '../../lib/revalidate';
+
+export const revalidate = PAGE_REVALIDATE_SECONDS;
 
 export const metadata = createPageMetadata({
   title: "Loại sản phẩm",
