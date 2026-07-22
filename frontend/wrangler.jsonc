@@ -1,3 +1,4 @@
+// Canonical Wrangler config when working in frontend/. Repo-root CI uses ../wrangler.jsonc (paths prefixed with frontend/).
 {
     "$schema": "./node_modules/wrangler/config-schema.json",
     "main": ".open-next/worker.js",
