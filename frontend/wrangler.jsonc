@@ -11,6 +11,14 @@
         "directory": ".open-next/assets",
         "binding": "ASSETS"
     },
+    "services": [
+        {
+            // Required for ISR/revalidation; service name must match worker `name` above
+            // https://opennext.js.org/cloudflare/caching
+            "binding": "WORKER_SELF_REFERENCE",
+            "service": "luvinico"
+        }
+    ],
     "observability": {
         "enabled": false
     },
