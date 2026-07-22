@@ -72,10 +72,56 @@ const productFields = /* groq */ `
 
 `;
 
+/** Catalog / nav / grids — omit heavy PT bodies (keeps Workers under CPU limits). */
+const productListFields = /* groq */ `
+
+  _id,
+
+  name,
+
+  "slug": slug.current,
+
+  price,
+
+  salePrice,
+
+  contactPrice,
+
+  origin,
+
+  style,
+
+  abv,
+
+  ibu,
+
+  volume,
+
+  serveTemp,
+
+  "category": coalesce(category->slug.current, category->key),
+
+  menuSelection {
+    menuKind,
+    groupSlug,
+    itemSlug,
+    itemName
+  },
+
+  "type": coalesce(menuSelection.itemSlug, type),
+
+  "image": coalesce(image.asset->url, ""),
+
+  "imageAlt": image.alt,
+
+  "gallery": gallery[].asset->url
+
+`;
+
 
 
 export const ALL_PRODUCTS_QUERY = /* groq */ `
-  *[_type == "product"] | order(name asc) { ${productFields} }
+  *[_type == "product"] | order(name asc) { ${productListFields} }
 `;
 
 /** Products with a promotional sale price set in CMS */
@@ -85,7 +131,7 @@ export const ON_SALE_PRODUCTS_QUERY = /* groq */ `
     && defined(salePrice)
     && salePrice != ""
     && !contactPrice
-  ] | order(name asc) { ${productFields} }
+  ] | order(name asc) { ${productListFields} }
 `;
 
 

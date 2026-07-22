@@ -1,4 +1,4 @@
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { getRevalidationTargets } from '../../../lib/sanity/revalidateFromDoc';
 import { verifySanityWebhook } from '../../../lib/sanity/verifyWebhook';
@@ -6,7 +6,7 @@ import { verifySanityWebhook } from '../../../lib/sanity/verifyWebhook';
 export const dynamic = 'force-dynamic';
 
 /** Wait for Sanity CDN to catch up before revalidating (ms). */
-const CDN_WAIT_MS = 1000;
+const CDN_WAIT_MS = 500;
 
 export async function POST(request) {
   const secret = process.env.SANITY_REVALIDATE_SECRET;
@@ -35,21 +35,16 @@ export async function POST(request) {
     return NextResponse.json({ message: 'Invalid JSON body' }, { status: 400 });
   }
 
-  const { tags, paths } = getRevalidationTargets(doc);
+  const { tags } = getRevalidationTargets(doc);
 
   for (const tag of tags) {
     revalidateTag(tag);
-  }
-
-  for (const path of paths) {
-    revalidatePath(path);
   }
 
   return NextResponse.json({
     revalidated: true,
     type: doc?._type ?? null,
     tags,
-    paths,
     at: Date.now(),
   });
 }
