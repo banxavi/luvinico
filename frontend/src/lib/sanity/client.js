@@ -23,16 +23,12 @@ export const sanityClient = createClient({
   token: process.env.SANITY_API_READ_TOKEN,
 });
 
-/** Next/Sanity fetch options — no-store in dev (revalidate 0), ISR tags in production. */
-export function getSanityFetchOptions(tag) {
-  if (SANITY_REVALIDATE_SECONDS === 0) {
-    return { cache: 'no-store' };
-  }
-
-  return {
-    next: {
-      revalidate: SANITY_REVALIDATE_SECONDS,
-      ...(tag ? { tags: [tag] } : {}),
-    },
-  };
+/**
+ * Sanity fetch cache options.
+ * Always no-store: OpenNext on Cloudflare has no KV/D1 incrementalCache + tagCache yet,
+ * so Next.js Data Cache (`next: { revalidate, tags }`) misbehaves on Workers and can hang requests after CMS saves.
+ * Restore ISR tags here once KV/D1 is configured in open-next.config.ts.
+ */
+export function getSanityFetchOptions(_tag) {
+  return { cache: 'no-store' };
 }

@@ -1,4 +1,4 @@
-import { revalidateTag } from 'next/cache';
+// import { revalidateTag } from 'next/cache'; // disabled until OpenNext KV/D1 tag cache is configured
 import { NextResponse } from 'next/server';
 import { getRevalidationTargets } from '../../../lib/sanity/revalidateFromDoc';
 import { verifySanityWebhook } from '../../../lib/sanity/verifyWebhook';
@@ -37,12 +37,18 @@ export async function POST(request) {
 
   const { tags } = getRevalidationTargets(doc);
 
-  for (const tag of tags) {
-    revalidateTag(tag);
-  }
+  console.info('[sanity-webhook] received', {
+    type: doc?._type ?? null,
+    id: doc?._id ?? null,
+    tags,
+  });
+
+  // for (const tag of tags) {
+  //   revalidateTag(tag);
+  // }
 
   return NextResponse.json({
-    revalidated: true,
+    revalidated: false,
     type: doc?._type ?? null,
     tags,
     at: Date.now(),
