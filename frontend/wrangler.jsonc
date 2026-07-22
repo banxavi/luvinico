@@ -21,7 +21,10 @@
         }
     ],
     "observability": {
-        "enabled": false
+        "logs": {
+          "enabled": true,
+          "invocation_logs": true
+        }
     },
     "vars": {
         "NEXT_PUBLIC_SANITY_PROJECT_ID": "sfqhf74q",
