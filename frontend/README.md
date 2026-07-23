@@ -67,9 +67,16 @@ Restart `npm run dev` sau khi đổi `.env.local`. Production vẫn dùng Worker
 
 [CORS](https://www.sanity.io/manage/project/sfqhf74q/api): thêm **`http://localhost:3000`**.
 
-### Production
+### Production / demo trên workers.dev
 
-`cms/` deploy + Worker proxy — `../workers/sanity-admin-proxy/README.md` (không set `SANITY_STUDIO_DEV_ORIGIN` trên Cloudflare).
+Set trên Worker `luvinico`:
+
+```
+SANITY_STUDIO_ORIGIN=https://luvini.sanity.studio
+NEXT_PUBLIC_SITE_URL=https://luvinico.banxavi.workers.dev
+```
+
+Sau deploy: **https://luvinico.banxavi.workers.dev/admin/** (middleware proxy → Studio hosted). CORS: thêm origin workers.dev.
 
 ### Phân quyền (content admin vs super admin)
 

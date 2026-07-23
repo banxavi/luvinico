@@ -28,9 +28,10 @@ Site Worker: **`luvinico`** (OpenNext). Root directory trong Dashboard: **`front
 
 | Name | Type | Ghi chú |
 |------|------|---------|
-| `NEXT_PUBLIC_SITE_URL` | Variable | Nên trùng build |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Variable | Đã có sẵn trong `wrangler.jsonc` |
-| `NEXT_PUBLIC_SANITY_DATASET` | Variable | Đã có sẵn trong `wrangler.jsonc` |
+| `NEXT_PUBLIC_SITE_URL` | Variable | vd. `https://luvinico.banxavi.workers.dev` |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Variable | Đã có trong `wrangler.jsonc` |
+| `NEXT_PUBLIC_SANITY_DATASET` | Variable | Đã có trong `wrangler.jsonc` |
+| `SANITY_STUDIO_ORIGIN` | Variable | `https://luvini.sanity.studio` — proxy `/admin` (demo trên workers.dev) |
 | `SANITY_API_READ_TOKEN` | **Secret** | Chỉ khi dataset private |
 | `SANITY_REVALIDATE_SECRET` | **Secret** | Webhook revalidate |
 
@@ -38,16 +39,20 @@ Site Worker: **`luvinico`** (OpenNext). Root directory trong Dashboard: **`front
 
 | Name | Lý do |
 |------|--------|
-| `SANITY_STUDIO_DEV_ORIGIN` | Chỉ local iframe `/admin` |
+| `SANITY_STUDIO_DEV_ORIGIN` | Chỉ local iframe → `cms` Vite |
 
-## `/admin` production
+## `/admin` trên workers.dev (demo khách)
 
-1. Deploy Studio: `cd cms && npm run deploy`
-2. Deploy proxy: `cd workers/sanity-admin-proxy` — set `STUDIO_ORIGIN`, `npm run deploy`
-3. Route zone: `[domain]/admin*` → Worker **`luvinico-sanity-admin-proxy`**
-4. Route còn lại: Worker **`luvinico`**
+Không cần domain riêng và không cần Worker proxy tách:
 
-Không nhúng Studio vào Next. Push Git chỉ auto-deploy **frontend** (Worker `luvinico`). Proxy + Studio deploy tay khi cần.
+1. Studio đã deploy: `https://luvini.sanity.studio/admin/`
+2. Worker `luvinico` có `SANITY_STUDIO_ORIGIN=https://luvini.sanity.studio`
+3. Middleware proxy `/admin/*` → Studio hosted
+4. Demo: **https://luvinico.banxavi.workers.dev/admin/**
+
+CORS: thêm `https://luvinico.banxavi.workers.dev`
+
+Worker `sanity-admin-proxy` chỉ cần khi sau này dùng custom domain tách route.
 
 ## Checklist trước push
 

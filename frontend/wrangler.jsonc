@@ -27,9 +27,11 @@
         }
     },
     "vars": {
-        // Also set NEXT_PUBLIC_SITE_URL (+ secrets) in Cloudflare Dashboard.
+        // Set NEXT_PUBLIC_SITE_URL (+ secrets) in Cloudflare Dashboard.
+        // SANITY_STUDIO_ORIGIN: proxy /admin → hosted Studio (works on workers.dev).
         // Do NOT set SANITY_STUDIO_DEV_ORIGIN on Cloudflare (local iframe only).
         "NEXT_PUBLIC_SANITY_PROJECT_ID": "sfqhf74q",
-        "NEXT_PUBLIC_SANITY_DATASET": "production"
+        "NEXT_PUBLIC_SANITY_DATASET": "production",
+        "SANITY_STUDIO_ORIGIN": "https://luvini.sanity.studio"
     }
 }

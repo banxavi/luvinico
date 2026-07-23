@@ -3,9 +3,9 @@
   "name": "luvinico-sanity-admin-proxy",
   "main": "src/worker.js",
   "compatibility_date": "2026-07-11",
-  // Origin Sanity hosted Studio (no trailing slash). Example: https://luvinico.sanity.studio
+  // Hosted Studio: https://luvini.sanity.studio/admin/
   "vars": {
-    "STUDIO_ORIGIN": "https://YOUR-STUDIO-HOST.sanity.studio"
+    "STUDIO_ORIGIN": "https://luvini.sanity.studio"
   }
   // Route: attach in Dashboard (recommended) or uncomment and set your zone:
   // "routes": [

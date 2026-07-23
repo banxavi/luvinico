@@ -6,7 +6,7 @@ Thêm từng origin (không wildcard):
 
 | Origin | Ghi chú |
 |--------|---------|
-| `https://[DOMAIN-CHINH]` | Production (proxy `/admin`) |
+| `https://luvinico.banxavi.workers.dev` | Site + `/admin` proxy demo |
 | `https://www.[DOMAIN-CHINH]` | Nếu dùng www |
 | `http://localhost:3000` | Next.js dev — `/admin` rewrite tới Studio |
 | `http://localhost:3333` | `cms` dev Studio (upstream local) |
