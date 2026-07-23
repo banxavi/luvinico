@@ -13,10 +13,16 @@ import {
 } from './queries';
 import { mapSanityArticle } from './mapArticle';
 
-const fetchOptions = getSanityFetchOptions(SANITY_CACHE_TAGS.articles);
+function articleFetchOptions() {
+  return getSanityFetchOptions(SANITY_CACHE_TAGS.articles);
+}
 
 async function fetchAllArticles() {
-  const docs = await sanityClient.fetch(ALL_ARTICLES_QUERY, {}, fetchOptions);
+  const docs = await sanityClient.fetch(
+    ALL_ARTICLES_QUERY,
+    {},
+    articleFetchOptions(),
+  );
   if (!Array.isArray(docs)) return [];
   return docs.map(mapSanityArticle).filter(Boolean);
 }
@@ -41,7 +47,7 @@ export const getArticleBySlug = cache(async (slug) => {
       const doc = await sanityClient.fetch(
         ARTICLE_BY_SLUG_QUERY,
         { slug: normalized },
-        fetchOptions,
+        articleFetchOptions(),
       );
       const article = mapSanityArticle(doc);
       if (article) return article;
@@ -57,7 +63,11 @@ export const getArticleBySlug = cache(async (slug) => {
 export async function getAllArticleSlugs() {
   if (isSanityConfigured()) {
     try {
-      const slugs = await sanityClient.fetch(ALL_ARTICLE_SLUGS_QUERY, {}, fetchOptions);
+      const slugs = await sanityClient.fetch(
+        ALL_ARTICLE_SLUGS_QUERY,
+        {},
+        articleFetchOptions(),
+      );
       if (Array.isArray(slugs) && slugs.length > 0) return slugs.filter(Boolean);
     } catch (error) {
       logSanityError('fetchArticleSlugs failed', error);

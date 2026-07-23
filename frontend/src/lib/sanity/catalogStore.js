@@ -10,7 +10,9 @@ import { ALL_CATEGORIES_QUERY } from './queries';
 import { buildCatalogFromDocs, mapCategoryDoc } from './mapCategory';
 import { withSanityMemoryCache } from './memoryCache';
 
-const fetchOptions = getSanityFetchOptions(SANITY_CACHE_TAGS.catalog);
+function catalogFetchOptions() {
+  return getSanityFetchOptions(SANITY_CACHE_TAGS.catalog);
+}
 
 export const EMPTY_CATALOG = {
   categories: {},
@@ -23,7 +25,7 @@ async function fetchCatalogFromSanity() {
     const categoryDocs = await sanityClient.fetch(
       ALL_CATEGORIES_QUERY,
       {},
-      fetchOptions,
+      catalogFetchOptions(),
     );
     const categories = (categoryDocs ?? []).map(mapCategoryDoc).filter(Boolean);
     if (!categories.length) return null;
@@ -31,7 +33,7 @@ async function fetchCatalogFromSanity() {
   });
 }
 
-/** Request-scoped + isolate TTL catalog cache. */
+/** Request-scoped + isolate TTL catalog cache — source of truth for header nav. */
 export const getCatalog = cache(async () => {
   if (!isSanityConfigured()) return EMPTY_CATALOG;
 

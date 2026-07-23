@@ -36,8 +36,7 @@ export function mapCategoryDoc(doc) {
         })
         .filter(Boolean);
 
-      if (!subTabs.length) return null;
-
+      // Keep CMS-configured groups even when sub-tabs are still empty.
       return {
         key: menuKey,
         label: menu.name ?? menu.label ?? null,

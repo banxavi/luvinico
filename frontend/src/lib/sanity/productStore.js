@@ -18,11 +18,17 @@ import { mapSanityProduct } from './mapProduct';
 import { getOnSaleProducts, getSaleDiscountPercent } from '../pricing';
 import { withSanityMemoryCache } from './memoryCache';
 
-const fetchOptions = getSanityFetchOptions(SANITY_CACHE_TAGS.products);
+function productFetchOptions() {
+  return getSanityFetchOptions(SANITY_CACHE_TAGS.products);
+}
 
 async function fetchSanityProducts() {
   return withSanityMemoryCache('products:all', async () => {
-    const docs = await sanityClient.fetch(ALL_PRODUCTS_QUERY, {}, fetchOptions);
+    const docs = await sanityClient.fetch(
+      ALL_PRODUCTS_QUERY,
+      {},
+      productFetchOptions(),
+    );
     if (!Array.isArray(docs)) return [];
     return docs.map(mapSanityProduct).filter(Boolean);
   });
@@ -32,7 +38,7 @@ async function fetchSanityProductBySlug(slug) {
   const doc = await sanityClient.fetch(
     PRODUCT_BY_SLUG_QUERY,
     { slug },
-    fetchOptions,
+    productFetchOptions(),
   );
   return mapSanityProduct(doc);
 }
@@ -55,7 +61,7 @@ export const getOnSaleProductsFromStore = cache(async () => {
 
   try {
     const docs = await withSanityMemoryCache('products:on-sale', async () =>
-      sanityClient.fetch(ON_SALE_PRODUCTS_QUERY, {}, fetchOptions),
+      sanityClient.fetch(ON_SALE_PRODUCTS_QUERY, {}, productFetchOptions()),
     );
     if (!Array.isArray(docs)) return [];
 
@@ -95,7 +101,7 @@ export async function getAllProductSlugsFromStore() {
   if (isSanityConfigured()) {
     try {
       const slugs = await withSanityMemoryCache('products:slugs', async () =>
-        sanityClient.fetch(ALL_PRODUCT_SLUGS_QUERY, {}, fetchOptions),
+        sanityClient.fetch(ALL_PRODUCT_SLUGS_QUERY, {}, productFetchOptions()),
       );
       if (Array.isArray(slugs) && slugs.length > 0) {
         return slugs.filter(Boolean);
@@ -109,18 +115,27 @@ export async function getAllProductSlugsFromStore() {
   return products.map((product) => product.slug).filter(Boolean);
 }
 
-export function getValueDealProducts(products) {
-  return [...products]
-    .filter((product) => product.category === 'ruou-vang' || product.category === 'bia')
-    .sort((a, b) => {
-      const priceA = parseInt(String(a.price ?? '').replace(/[^\d]/g, ''), 10) || 0;
-      const priceB = parseInt(String(b.price ?? '').replace(/[^\d]/g, ''), 10) || 0;
-      return priceA - priceB;
-    })
-    .slice(0, 8);
+function parseListPrice(product) {
+  return parseInt(String(product?.price ?? '').replace(/[^\d]/g, ''), 10) || 0;
 }
 
-export function getBestSellerProducts(products) {
-  const wineAndBeer = new Set(['ruou-vang', 'bia']);
-  return products.filter((product) => wineAndBeer.has(product.category));
+/**
+ * Home “signature” row — every published CMS product (no hardcoded category keys).
+ * Category membership comes from Sanity `category` refs only.
+ */
+export function getBestSellerProducts(products, limit = 12) {
+  return (products ?? []).filter(Boolean).slice(0, limit);
+}
+
+/**
+ * Home value deals — cheapest CMS products with a list price.
+ * Falls back to any products if none have parseable prices.
+ */
+export function getValueDealProducts(products, limit = 8) {
+  const list = (products ?? []).filter(Boolean);
+  const priced = list
+    .filter((product) => parseListPrice(product) > 0)
+    .sort((a, b) => parseListPrice(a) - parseListPrice(b));
+  const pool = priced.length ? priced : list;
+  return pool.slice(0, limit);
 }

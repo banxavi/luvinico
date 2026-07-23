@@ -103,13 +103,14 @@ export function getFeaturedTypesForCategory(products, catalog, categoryKey, limi
   return getSortedTypesForCategory(products, catalog, categoryKey).slice(0, limit);
 }
 
-/** Menu desktop/mobile — dropdown + standard menu từ CMS (kể cả tab chưa có SP). */
+/** Menu desktop/mobile — dropdown + standard menu từ CMS (kể cả tab/group chưa có SP). */
 export function getNavMenuSections(products, categoryKey, catalog, limit = NAV_SUBMENU_LIMIT) {
   if (hasCategoryNavMenuConfig(catalog, categoryKey)) {
     return getCategoryNavMenusFromCatalog(catalog, categoryKey)
       .map((group) => {
         const subTabs = getSubTabsForNav(products, catalog, categoryKey, group.key);
-        if (!subTabs.length) return null;
+        // Include CMS groups with zero sub-tabs so header matches Studio config.
+        if (!subTabs.length && !group.label && !group.flat) return null;
 
         const visible = subTabs.slice(0, limit);
         const hasMore = subTabs.length > limit;
