@@ -12,7 +12,8 @@
     "lint": "next lint",
     "preview": "node scripts/build.mjs && opennextjs-cloudflare preview",
     "deploy": "node scripts/build.mjs && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "lockfile:sync": "npx -y npm@10.9.2 install --package-lock-only --no-audit --no-fund"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.1",
