@@ -9,8 +9,8 @@
 
 import { fileURLToPath } from 'node:url';
 
-const paths = ['/admin/'];
-const optionalAssetPath = '/admin/static/';
+const paths = ['/'];
+const optionalAssetPath = '/static/';
 
 async function check(label, url) {
   const optional = label.includes('(optional)');
@@ -61,20 +61,20 @@ export async function runSmokeTest(opts = {}) {
     } else {
       await check(`upstream ${optionalAssetPath} (optional)`, studioOrigin + optionalAssetPath);
     }
-    const desk = studioOrigin + '/admin/desk';
+    const desk = studioOrigin + '/structure';
     if (!(await check('upstream deep path', desk))) failed += 1;
   }
 
   if (proxyBase) {
-    for (const p of paths) {
+    for (const p of ['/admin/']) {
       if (!(await check(`proxy ${p}`, proxyBase + p))) failed += 1;
     }
     if (strictAssets) {
-      if (!(await check(`proxy ${optionalAssetPath}`, proxyBase + optionalAssetPath))) {
+      if (!(await check(`proxy /static/`, proxyBase + '/static/'))) {
         failed += 1;
       }
     } else {
-      await check(`proxy ${optionalAssetPath} (optional)`, proxyBase + optionalAssetPath);
+      await check(`proxy /static/ (optional)`, proxyBase + '/static/');
     }
     try {
       const cache = await fetch(proxyBase + '/admin/', { redirect: 'manual' });

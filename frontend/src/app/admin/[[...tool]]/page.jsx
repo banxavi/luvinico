@@ -17,14 +17,14 @@ function studioSrc(tool) {
   if (!origin) return null;
 
   const segments = Array.isArray(tool) ? tool.filter(Boolean) : [];
-  const path =
-    segments.length === 0 ? '/admin/' : `/admin/${segments.join('/')}/`;
-  return `${origin}${path}`;
+  // Local Studio has no basePath — iframe root or deep path
+  if (segments.length === 0) return `${origin}/`;
+  return `${origin}/${segments.join('/')}/`;
 }
 
 /**
  * Local only: iframe → cms `npm run dev` (SANITY_STUDIO_DEV_ORIGIN).
- * Production: set SANITY_STUDIO_ORIGIN — middleware proxies /admin → hosted Studio.
+ * Production: SANITY_STUDIO_ORIGIN + middleware proxies /admin → hosted Studio.
  */
 export default async function AdminStudioDevPage({ params }) {
   const { tool } = await params;

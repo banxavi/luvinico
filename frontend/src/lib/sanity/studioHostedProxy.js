@@ -1,7 +1,8 @@
 /**
- * Proxy hosted Sanity Studio (/admin) through the site Worker.
- * Used on workers.dev (cannot split path routes to a second Worker).
- * Local Vite Studio: do NOT set SANITY_STUDIO_ORIGIN — use iframe + SANITY_STUDIO_DEV_ORIGIN.
+ * Proxy hosted Sanity Studio through the site Worker at /admin/*.
+ * Studio is hosted at origin root (no basePath) — we strip the /admin prefix.
+ *
+ * Local Vite: do NOT set SANITY_STUDIO_ORIGIN; use iframe + SANITY_STUDIO_DEV_ORIGIN.
  */
 
 const ADMIN_PREFIX = '/admin';
@@ -22,13 +23,38 @@ export function isAdminPath(pathname) {
   return pathname === ADMIN_PREFIX || pathname.startsWith(`${ADMIN_PREFIX}/`);
 }
 
+/** Studio static assets (no basePath) — must also proxy when document is under /admin. */
+export function isStudioAssetPath(pathname) {
+  return (
+    pathname === '/static' ||
+    pathname.startsWith('/static/') ||
+    pathname.startsWith('/favicons/')
+  );
+}
+
+export function shouldProxyStudioPath(pathname) {
+  return isAdminPath(pathname) || isStudioAssetPath(pathname);
+}
+
 function needsBody(method) {
   return method !== 'GET' && method !== 'HEAD' && method !== 'OPTIONS';
 }
 
+function toUpstreamPathname(pathname) {
+  if (pathname === ADMIN_PREFIX || pathname === `${ADMIN_PREFIX}/`) {
+    return '/';
+  }
+  if (pathname.startsWith(`${ADMIN_PREFIX}/`)) {
+    const rest = pathname.slice(ADMIN_PREFIX.length);
+    return rest.startsWith('/') ? rest : `/${rest}`;
+  }
+  return pathname;
+}
+
 function isSpaDocumentPath(pathname) {
-  if (pathname === ADMIN_PREFIX || pathname === `${ADMIN_PREFIX}/`) return false;
-  return !/\.[a-z0-9]+$/i.test(pathname);
+  const upstream = toUpstreamPathname(pathname);
+  if (upstream === '/') return false;
+  return !/\.[a-z0-9]+$/i.test(upstream);
 }
 
 function handleOptions(request) {
@@ -51,7 +77,8 @@ function handleOptions(request) {
 }
 
 async function proxyToStudio(request, url, studioOrigin, studioHost) {
-  const targetUrl = new URL(url.pathname + url.search, studioOrigin);
+  const upstreamPath = toUpstreamPathname(url.pathname);
+  const targetUrl = new URL(upstreamPath + url.search, studioOrigin);
   const headers = new Headers(request.headers);
   headers.delete('host');
   headers.set('Host', studioHost);
@@ -76,12 +103,19 @@ function rewriteLocation(headers, studioOrigin, publicOrigin) {
   try {
     const resolved = new URL(location, studioOrigin);
     const studio = new URL(studioOrigin);
-    if (resolved.origin === studio.origin) {
-      headers.set(
-        'Location',
-        publicOrigin + resolved.pathname + resolved.search + resolved.hash,
-      );
+    if (resolved.origin !== studio.origin) return;
+
+    let path = resolved.pathname;
+    if (path === '/' || path === '') {
+      path = `${ADMIN_PREFIX}/`;
+    } else if (!path.startsWith(`${ADMIN_PREFIX}/`) && !path.startsWith('/static')) {
+      path = `${ADMIN_PREFIX}${path.startsWith('/') ? path : `/${path}`}`;
     }
+
+    headers.set(
+      'Location',
+      publicOrigin + path + resolved.search + resolved.hash,
+    );
   } catch {
     /* keep */
   }
@@ -115,6 +149,10 @@ function applyNoCache(headers) {
   headers.set('Cloudflare-CDN-Cache-Control', value);
 }
 
+/**
+ * Rewrite root-absolute asset URLs in HTML so they stay under /admin when needed.
+ * Studio without basePath emits /static/...; those are proxied separately.
+ */
 export async function proxyHostedStudio(request) {
   const studioOrigin = getHostedStudioOrigin();
   if (!studioOrigin) {
@@ -124,12 +162,12 @@ export async function proxyHostedStudio(request) {
   const url = request.nextUrl;
   const publicOrigin = url.origin;
 
-  if (url.pathname === ADMIN_PREFIX) {
-    return Response.redirect(`${publicOrigin}${ADMIN_PREFIX}/`, 308);
+  if (!shouldProxyStudioPath(url.pathname)) {
+    return null;
   }
 
-  if (!isAdminPath(url.pathname)) {
-    return null;
+  if (url.pathname === ADMIN_PREFIX) {
+    return Response.redirect(`${publicOrigin}${ADMIN_PREFIX}/`, 308);
   }
 
   if (request.method === 'OPTIONS') {
@@ -140,18 +178,19 @@ export async function proxyHostedStudio(request) {
   let upstream = await proxyToStudio(request, url, studioOrigin, studioHost);
 
   if (
+    isAdminPath(url.pathname) &&
     request.method === 'GET' &&
     upstream.status === 404 &&
     isSpaDocumentPath(url.pathname)
   ) {
-    const shellUrl = new URL(`${ADMIN_PREFIX}/`, studioOrigin);
+    const shellUrl = new URL('/', studioOrigin);
     shellUrl.search = url.search;
     upstream = await proxyToStudio(
       new Request(shellUrl.toString(), {
         method: 'GET',
         headers: request.headers,
       }),
-      new URL(shellUrl.pathname + shellUrl.search, url.origin),
+      new URL(`${ADMIN_PREFIX}/${url.search}`, url.origin),
       studioOrigin,
       studioHost,
     );

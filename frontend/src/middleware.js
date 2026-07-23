@@ -2,12 +2,16 @@ import { NextResponse } from 'next/server';
 
 import {
   getHostedStudioOrigin,
-  isAdminPath,
   proxyHostedStudio,
+  shouldProxyStudioPath,
 } from './lib/sanity/studioHostedProxy';
 
 export async function middleware(request) {
-  if (!getHostedStudioOrigin() || !isAdminPath(request.nextUrl.pathname)) {
+  if (!getHostedStudioOrigin()) {
+    return NextResponse.next();
+  }
+
+  if (!shouldProxyStudioPath(request.nextUrl.pathname)) {
     return NextResponse.next();
   }
 
@@ -16,5 +20,10 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/admin', '/admin/:path*'],
+  matcher: [
+    '/admin',
+    '/admin/:path*',
+    '/static/:path*',
+    '/favicons/:path*',
+  ],
 };

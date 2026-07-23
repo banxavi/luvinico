@@ -1,5 +1,6 @@
 /**
- * Proxy https://[DOMAIN]/admin/* → https://[TEN-DU-AN].sanity.studio/admin/*
+ * Proxy https://[DOMAIN]/admin/* → https://[STUDIO]/  (strip /admin prefix)
+ * Studio must be deployed WITHOUT basePath (root).
  */
 
 const ADMIN_PREFIX = '/admin';
@@ -22,8 +23,15 @@ export default {
       return Response.redirect(`${publicOrigin}${ADMIN_PREFIX}/`, 308);
     }
 
-    if (!url.pathname.startsWith(ADMIN_PREFIX)) {
-      return new Response('Not found — open /admin/ for Sanity Studio', { status: 404 });
+    const isAdmin =
+      url.pathname === ADMIN_PREFIX || url.pathname.startsWith(`${ADMIN_PREFIX}/`);
+    const isAsset =
+      url.pathname.startsWith('/static/') || url.pathname.startsWith('/favicons/');
+
+    if (!isAdmin && !isAsset) {
+      return new Response('Not found — open /admin/ for Sanity Studio', {
+        status: 404,
+      });
     }
 
     if (request.method === 'OPTIONS') {
@@ -34,15 +42,19 @@ export default {
     let upstream = await proxyToStudio(request, url, studioOrigin, studioHost);
 
     if (
+      isAdmin &&
       request.method === 'GET' &&
       upstream.status === 404 &&
       isSpaDocumentPath(url.pathname)
     ) {
-      const shellUrl = new URL(ADMIN_PREFIX + '/', studioOrigin);
+      const shellUrl = new URL('/', studioOrigin);
       shellUrl.search = url.search;
       upstream = await proxyToStudio(
-        new Request(shellUrl.toString(), { method: 'GET', headers: request.headers }),
-        new URL(shellUrl.pathname + shellUrl.search, url.origin),
+        new Request(shellUrl.toString(), {
+          method: 'GET',
+          headers: request.headers,
+        }),
+        new URL(`${ADMIN_PREFIX}/${url.search}`, url.origin),
         studioOrigin,
         studioHost,
       );
@@ -56,8 +68,17 @@ export default {
   },
 };
 
+function toUpstreamPathname(pathname) {
+  if (pathname === ADMIN_PREFIX || pathname === `${ADMIN_PREFIX}/`) return '/';
+  if (pathname.startsWith(`${ADMIN_PREFIX}/`)) {
+    const rest = pathname.slice(ADMIN_PREFIX.length);
+    return rest.startsWith('/') ? rest : `/${rest}`;
+  }
+  return pathname;
+}
+
 async function proxyToStudio(request, url, studioOrigin, studioHost) {
-  const targetUrl = new URL(url.pathname + url.search, studioOrigin);
+  const targetUrl = new URL(toUpstreamPathname(url.pathname) + url.search, studioOrigin);
   const headers = new Headers(request.headers);
   headers.delete('host');
   headers.set('Host', studioHost);
@@ -79,8 +100,9 @@ async function proxyToStudio(request, url, studioOrigin, studioHost) {
 }
 
 function isSpaDocumentPath(pathname) {
-  if (pathname === ADMIN_PREFIX || pathname === ADMIN_PREFIX + '/') return false;
-  return !/\.[a-z0-9]+$/i.test(pathname);
+  const upstream = toUpstreamPathname(pathname);
+  if (upstream === '/') return false;
+  return !/\.[a-z0-9]+$/i.test(upstream);
 }
 
 function needsBody(method) {
@@ -96,7 +118,8 @@ function handleOptions(request) {
     status: 204,
     headers: {
       'Access-Control-Allow-Origin': origin,
-      'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS',
+      'Access-Control-Allow-Methods':
+        'GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': requestHeaders,
       'Access-Control-Allow-Credentials': 'true',
       'Access-Control-Max-Age': '86400',
@@ -109,7 +132,7 @@ function buildClientResponse(upstream, { studioOrigin, studioHost, publicOrigin 
   const headers = new Headers(upstream.headers);
 
   rewriteLocation(headers, studioOrigin, publicOrigin);
-  rewriteSetCookie(headers, studioHost, new URL(publicOrigin).host);
+  rewriteSetCookie(headers, new URL(publicOrigin).host);
   applyNoCacheForStudio(headers);
 
   headers.delete('content-encoding');
@@ -145,18 +168,25 @@ function rewriteLocation(headers, studioOrigin, publicOrigin) {
   try {
     const resolved = new URL(location, studioOrigin);
     const studio = new URL(studioOrigin);
-    if (resolved.origin === studio.origin) {
-      headers.set(
-        'Location',
-        publicOrigin + resolved.pathname + resolved.search + resolved.hash,
-      );
+    if (resolved.origin !== studio.origin) return;
+
+    let path = resolved.pathname;
+    if (path === '/' || path === '') {
+      path = `${ADMIN_PREFIX}/`;
+    } else if (!path.startsWith('/static') && !path.startsWith('/favicons')) {
+      path = `${ADMIN_PREFIX}${path.startsWith('/') ? path : `/${path}`}`;
     }
+
+    headers.set(
+      'Location',
+      publicOrigin + path + resolved.search + resolved.hash,
+    );
   } catch {
     /* keep original */
   }
 }
 
-function rewriteSetCookie(headers, studioHost, publicHost) {
+function rewriteSetCookie(headers, publicHost) {
   const cookies = headers.getSetCookie?.() ?? [];
   if (cookies.length === 0) return;
 
@@ -164,9 +194,7 @@ function rewriteSetCookie(headers, studioHost, publicHost) {
   for (const cookie of cookies) {
     headers.append(
       'Set-Cookie',
-      cookie
-        .replace(/Domain=[^;]+/gi, `Domain=${publicHost}`)
-        .replace(/Domain=\.?[^;]+\.sanity\.studio/gi, `Domain=${publicHost}`),
+      cookie.replace(/Domain=[^;]+/gi, `Domain=${publicHost}`),
     );
   }
 }

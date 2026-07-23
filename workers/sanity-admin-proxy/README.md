@@ -4,14 +4,14 @@ Worker riêng — **không** nằm trong bundle Next.js/OpenNext.
 
 ## 1. Sanity Studio (repo `cms/`)
 
-`cms/sanity.config.js`: `basePath: '/admin'`.
+`cms/sanity.config.js`: **không** dùng `basePath` (tránh lỗi “Tool not found: admin” trên Sanity Manage). Proxy strip `/admin` → Studio root.
 
 ```bash
 cd cms
 npm run deploy
 ```
 
-Kiểm tra upstream: `https://[TEN-DU-AN].sanity.studio/admin/`
+Kiểm tra upstream: `https://luvini.sanity.studio/`
 
 CORS: xem `cms/CORS.md`.
 
