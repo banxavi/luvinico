@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/sync-cms-studio.mjs && next dev",
-    "build": "node scripts/sync-cms-studio.mjs && node scripts/build.mjs",
-    "build:next": "node scripts/sync-cms-studio.mjs && next build",
+    "dev": "next dev",
+    "build": "node scripts/build.mjs",
+    "build:next": "next build",
     "build:cf": "node scripts/build.mjs",
     "start": "next start",
     "lint": "next lint",
@@ -19,18 +19,13 @@
     "@opennextjs/cloudflare": "^1.20.1",
     "@portabletext/react": "^6.2.0",
     "@sanity/client": "^7.23.2",
-    "@sanity/ui": "^3.4.3",
-    "@sanity/vision": "^6.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-fade": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "marked": "^18.0.5",
     "next": "16.2.11",
-    "next-sanity": "^13.2.0",
     "react": "19.2.7",
-    "react-dom": "19.2.7",
-    "sanity": "^6.6.0",
-    "styled-components": "^6.4.4"
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.0",

@@ -1,9 +1,45 @@
-import AdminStudio from '../../../sanity/AdminStudio';
+import { notFound } from 'next/navigation';
 
-export const dynamic = 'force-static';
+export const metadata = {
+  title: 'Sanity Studio',
+  robots: { index: false, follow: false },
+};
 
-export { metadata, viewport } from 'next-sanity/studio';
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
-export default function AdminStudioPage() {
-  return <AdminStudio />;
+function studioSrc(tool) {
+  const origin = (process.env.SANITY_STUDIO_DEV_ORIGIN || '')
+    .trim()
+    .replace(/\/$/, '');
+  if (!origin) return null;
+
+  const segments = Array.isArray(tool) ? tool.filter(Boolean) : [];
+  const path =
+    segments.length === 0 ? '/admin/' : `/admin/${segments.join('/')}/`;
+  return `${origin}${path}`;
+}
+
+/**
+ * Local only: iframe → cms `npm run dev` (SANITY_STUDIO_DEV_ORIGIN).
+ * Production: do not set that env — Cloudflare route `/admin*` → sanity-admin-proxy Worker.
+ */
+export default async function AdminStudioDevPage({ params }) {
+  const { tool } = await params;
+  const src = studioSrc(tool);
+
+  if (!src) {
+    notFound();
+  }
+
+  return (
+    <iframe
+      title="Sanity Studio"
+      src={src}
+      className="fixed inset-0 h-[100dvh] w-screen border-0 bg-[#101112]"
+      allow="clipboard-read; clipboard-write"
+    />
+  );
 }

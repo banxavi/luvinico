@@ -5,15 +5,11 @@ initOpenNextCloudflareForDev();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['next-sanity', 'sanity', '@sanity/vision'],
-  experimental: {
-    externalDir: true,
-  },
   async headers() {
     return [
       {
         source:
-          '/((?!_next/static|_next/image|favicon\\.png|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|woff2?)$).*)',
+          '/((?!admin(?:/|$)|_next/static|_next/image|favicon\\.png|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|woff2?)$).*)',
         headers: [
           {
             key: 'Cache-Control',

@@ -27,6 +27,8 @@
         }
     },
     "vars": {
+        // Also set NEXT_PUBLIC_SITE_URL (+ secrets) in Cloudflare Dashboard.
+        // Do NOT set SANITY_STUDIO_DEV_ORIGIN on Cloudflare (local iframe only).
         "NEXT_PUBLIC_SANITY_PROJECT_ID": "sfqhf74q",
         "NEXT_PUBLIC_SANITY_DATASET": "production"
     }

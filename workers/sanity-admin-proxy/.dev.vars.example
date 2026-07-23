@@ -1,0 +1,3 @@
+# Copy to .dev.vars (gitignored by wrangler) for local proxy testing
+# Dùng localhost (không phải 127.0.0.1) — Vite/Sanity dev trên Windows thường chỉ bind localhost
+STUDIO_ORIGIN=http://localhost:3333

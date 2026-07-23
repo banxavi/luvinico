@@ -49,19 +49,27 @@ Add `SANITY_REVALIDATE_SECRET` (same value as the Sanity webhook secret) so CMS 
 - **React 19**
 - **Tailwind CSS v4**
 - **Sanity CMS** — server-side fetch with mock data fallback
-- **Sanity Studio** embedded at `/admin/` via `next-sanity` (schemas shared from `../cms/`)
+- **Sanity Studio** deploy riêng (`cms/`), proxy `/admin` qua `workers/sanity-admin-proxy/`
 
 ## CMS (`/admin`)
 
-After `npm run dev`, open **http://localhost:3000/admin/** to edit content (same schemas as `cms/` Studio).
+### Local (giống production: một domain)
 
-`dev` and `build` run `scripts/sync-cms-studio.mjs` first — it copies `../cms/schemaTypes` and `ProductMenuSelect` into `src/sanity/_cms/` (Turbopack on Windows cannot follow symlinks outside `frontend/`). After changing schemas in `cms/`, restart dev or rebuild.
+1. Thêm vào `frontend/.env.local`:
+   ```
+   SANITY_STUDIO_DEV_ORIGIN=http://localhost:3333
+   ```
+2. **Terminal A:** `cd cms && npm run dev` (Studio upstream)
+3. **Terminal B:** `cd frontend && npm run dev`
+4. Mở **http://localhost:3000/admin/** — trang iframe full-screen tới Studio `:3333` (URL bar vẫn `:3000`). Không proxy Vite HMR qua Next (dễ lỗi `__HMR_CONFIG_NAME__`).
 
-1. In [Sanity Manage → API → CORS origins](https://www.sanity.io/manage/project/sfqhf74q/api), add:
-   - `http://localhost:3000` (dev)
-   - Your production origin, e.g. `https://your-domain.com`
-   - Enable **Allow credentials** for login.
-2. Optional: keep using standalone Studio with `cd ../cms && npm run dev` (port 3333).
+Restart `npm run dev` sau khi đổi `.env.local`. Production vẫn dùng Worker proxy (`workers/sanity-admin-proxy/`).
+
+[CORS](https://www.sanity.io/manage/project/sfqhf74q/api): thêm **`http://localhost:3000`**.
+
+### Production
+
+`cms/` deploy + Worker proxy — `../workers/sanity-admin-proxy/README.md` (không set `SANITY_STUDIO_DEV_ORIGIN` trên Cloudflare).
 
 ### Phân quyền (content admin vs super admin)
 
@@ -74,11 +82,13 @@ Trong [Sanity Manage → Members](https://www.sanity.io/manage/project/sfqhf74q/
 
 Mời biên tập viên bằng role **Editor** — không gán Administrator. Quyền thật sự vẫn do Sanity RBAC trên server; UI Studio chỉ ẩn thêm các nút quản trị dự án.
 
-Local editing still works with `cd ../cms && npm run dev` if you prefer the dedicated Studio dev server.
-
 ## Deploy
 
-Deploy target is **Cloudflare Workers** (not static Pages export):
+Deploy target is **Cloudflare Workers** (not static Pages export).
+
+**Push → auto deploy:** cấu hình Workers Builds — xem **[CF-BUILDS.md](./CF-BUILDS.md)** (root `frontend`, `npm run build`, `npx wrangler deploy`). Env set tay trên Dashboard.
+
+Local / one-shot:
 
 ```bash
 npm run deploy

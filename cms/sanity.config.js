@@ -11,6 +11,7 @@ import './studio/studioManageMenu.css'
 export default defineConfig({
   name: 'default',
   title: 'cms',
+  basePath: '/admin',
 
   projectId: 'sfqhf74q',
   dataset: 'production',

@@ -31,5 +31,5 @@ Also use the global **sanity-best-practices** skill for detailed Sanity patterns
 ## Current state
 
 - Frontend fetches products from **Sanity API** on Cloudflare Workers (falls back to `mockData.js`)
-- Sanity Studio has `product` and `category` schemas — populate content in Studio
-- Deploy: `cd frontend && npm run deploy` (OpenNext → Cloudflare Workers)
+- Sanity Studio lives in **`cms/`** (`basePath: /admin`); production `/admin` is proxied via **`workers/sanity-admin-proxy/`** (not embedded in Next.js)
+- Deploy site: `cd frontend && npm run deploy` (or Cloudflare Workers Builds — see `frontend/CF-BUILDS.md`); deploy Studio: `cd cms && npm run deploy`; deploy proxy: `cd workers/sanity-admin-proxy && npm run deploy`

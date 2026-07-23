@@ -11,11 +11,6 @@ import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 
-spawnSync("node", [path.join(scriptDir, "sync-cms-studio.mjs")], {
-  stdio: "inherit",
-  shell: true,
-});
-
 const fromOpenNext = process.env.NEXT_PRIVATE_STANDALONE === "true";
 const args = fromOpenNext
   ? ["next", "build"]

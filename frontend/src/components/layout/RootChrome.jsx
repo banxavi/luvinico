@@ -6,7 +6,13 @@ import PageLayout from './PageLayout';
 export default function RootChrome({ children }) {
   const siteShell = (
     <PageLayout>
-      <Suspense fallback={<div className="site-container py-16 text-center text-body-muted">Đang tải...</div>}>
+      <Suspense
+        fallback={
+          <div className="site-container py-16 text-center text-body-muted">
+            Đang tải...
+          </div>
+        }
+      >
         {children}
       </Suspense>
     </PageLayout>

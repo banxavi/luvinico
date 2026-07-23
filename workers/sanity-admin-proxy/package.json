@@ -1,0 +1,15 @@
+{
+  "name": "@luvinico/sanity-admin-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:local": "wrangler dev --port 8787",
+    "deploy": "wrangler deploy",
+    "test:smoke": "node scripts/smoke-test.mjs",
+    "test:smoke:local": "node scripts/smoke-test-local.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.110.0"
+  }
+}
