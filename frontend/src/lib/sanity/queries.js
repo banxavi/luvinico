@@ -145,7 +145,7 @@ export const ALL_PRODUCT_SLUGS_QUERY = /* groq */ `
 
 
 export const ALL_CATEGORIES_QUERY = /* groq */ `
-  *[_type == "category"] | order(coalesce(navOrder, 999) asc, title asc) {
+  *[_type == "category" && !(_id in path("drafts.**"))] | order(coalesce(navOrder, 999) asc, title asc) {
     _id,
     "slug": coalesce(slug.current, key),
     key,

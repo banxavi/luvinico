@@ -32,7 +32,7 @@ Site Worker: **`luvinico`** (OpenNext). Root directory trong Dashboard: **`front
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Variable | Đã có trong `wrangler.jsonc` |
 | `NEXT_PUBLIC_SANITY_DATASET` | Variable | Đã có trong `wrangler.jsonc` |
 | `SANITY_STUDIO_ORIGIN` | Variable | `https://luvini.sanity.studio` — proxy `/admin` (demo trên workers.dev) |
-| `SANITY_API_READ_TOKEN` | **Secret** | Chỉ khi dataset private |
+| `SANITY_API_READ_TOKEN` | **Secret** | **Bắt buộc** — Viewer token; thiếu thì header chỉ thấy subset danh mục (CDN public), lệch localhost |
 | `SANITY_REVALIDATE_SECRET` | **Secret** | Webhook revalidate |
 
 ### Không set trên Cloudflare

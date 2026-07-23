@@ -24,16 +24,32 @@ function sanityFetch(url, init) {
   });
 }
 
+const readToken = process.env.SANITY_API_READ_TOKEN || undefined;
+
+if (
+  typeof process !== 'undefined' &&
+  process.env.NODE_ENV === 'production' &&
+  !readToken &&
+  !process.env.NEXT_PHASE
+) {
+  console.warn(
+    '[sanity] SANITY_API_READ_TOKEN missing — catalog/header may be incomplete vs Studio. Set the Viewer secret on Cloudflare Workers.',
+  );
+}
+
+/**
+ * CMS collections used by the site: category, product, article.
+ * Always prefer authenticated API when a read token exists so production
+ * matches Studio (anonymous CDN can omit some published category docs).
+ */
 export const sanityClient = createClient({
   projectId: sanityProjectId,
   dataset: sanityDataset,
   apiVersion: '2026-02-01',
-  // CDN is fine for published docs; override with SANITY_USE_CDN=false if needed.
-  useCdn: process.env.SANITY_USE_CDN !== 'false',
-  token: process.env.SANITY_API_READ_TOKEN,
+  token: readToken,
+  useCdn: readToken ? false : process.env.SANITY_USE_CDN !== 'false',
+  perspective: 'published',
   fetch: sanityFetch,
-  // Next throws DYNAMIC_SERVER_USAGE on no-store during SSG; Sanity treats it as
-  // a network error and would otherwise retry 5× and flood the build log.
   maxRetries: 1,
 });
 
@@ -42,10 +58,8 @@ function isProductionBuild() {
 }
 
 /**
- * Build: time-based revalidate so sitemap / generateStaticParams do not throw
- * DYNAMIC_SERVER_USAGE (and Sanity does not retry that as a network failure).
- * Runtime on Workers: no-store + root force-dynamic so CMS data is not frozen
- * from an empty/partial SSG snapshot when OpenNext KV is not configured.
+ * Build: time-based revalidate (avoid DYNAMIC_SERVER_USAGE on sitemap/SSG).
+ * Runtime: no-store + root force-dynamic for live CMS data without OpenNext KV.
  */
 export function getSanityFetchOptions(tag) {
   if (isProductionBuild()) {
