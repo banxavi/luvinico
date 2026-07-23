@@ -1,5 +1,11 @@
 import { cache } from 'react';
-import { isSanityConfigured, sanityClient, getSanityFetchOptions, SANITY_CACHE_TAGS } from './client';
+import {
+  isSanityConfigured,
+  sanityClient,
+  getSanityFetchOptions,
+  logSanityError,
+  SANITY_CACHE_TAGS,
+} from './client';
 import { ALL_CATEGORIES_QUERY } from './queries';
 import { buildCatalogFromDocs, mapCategoryDoc } from './mapCategory';
 import { withSanityMemoryCache } from './memoryCache';
@@ -33,7 +39,7 @@ export const getCatalog = cache(async () => {
     const catalog = await fetchCatalogFromSanity();
     return catalog ?? EMPTY_CATALOG;
   } catch (error) {
-    console.error('[sanity] fetchCatalog failed', error);
+    logSanityError('fetchCatalog failed', error);
     return EMPTY_CATALOG;
   }
 });

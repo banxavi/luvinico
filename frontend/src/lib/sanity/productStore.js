@@ -5,6 +5,7 @@ import {
   isSanityConfigured,
   sanityClient,
   getSanityFetchOptions,
+  logSanityError,
   SANITY_CACHE_TAGS,
 } from './client';
 import {
@@ -43,7 +44,7 @@ export const getProducts = cache(async () => {
   try {
     return await fetchSanityProducts();
   } catch (error) {
-    console.error('[sanity] fetchAllProducts failed', error);
+    logSanityError('fetchAllProducts failed', error);
     return [];
   }
 });
@@ -63,7 +64,7 @@ export const getOnSaleProductsFromStore = cache(async () => {
       (a, b) => (getSaleDiscountPercent(b) ?? 0) - (getSaleDiscountPercent(a) ?? 0),
     );
   } catch (error) {
-    console.error('[sanity] fetchOnSaleProducts failed', error);
+    logSanityError('fetchOnSaleProducts failed', error);
     return [];
   }
 });
@@ -77,7 +78,7 @@ export const getProductBySlugFromStore = cache(async (slug) => {
       const product = await fetchSanityProductBySlug(normalized);
       if (product) return product;
     } catch (error) {
-      console.error('[sanity] fetchProductBySlug failed', error);
+      logSanityError('fetchProductBySlug failed', error);
     }
   }
 
@@ -100,7 +101,7 @@ export async function getAllProductSlugsFromStore() {
         return slugs.filter(Boolean);
       }
     } catch (error) {
-      console.error('[sanity] fetchProductSlugs failed', error);
+      logSanityError('fetchProductSlugs failed', error);
     }
   }
 

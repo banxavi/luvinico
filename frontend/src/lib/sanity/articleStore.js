@@ -1,5 +1,11 @@
 import { cache } from 'react';
-import { isSanityConfigured, sanityClient, getSanityFetchOptions, SANITY_CACHE_TAGS } from './client';
+import {
+  isSanityConfigured,
+  sanityClient,
+  getSanityFetchOptions,
+  logSanityError,
+  SANITY_CACHE_TAGS,
+} from './client';
 import {
   ALL_ARTICLES_QUERY,
   ALL_ARTICLE_SLUGS_QUERY,
@@ -21,7 +27,7 @@ export const getAllArticles = cache(async () => {
   try {
     return await fetchAllArticles();
   } catch (error) {
-    console.error('[sanity] fetchAllArticles failed', error);
+    logSanityError('fetchAllArticles failed', error);
     return [];
   }
 });
@@ -40,7 +46,7 @@ export const getArticleBySlug = cache(async (slug) => {
       const article = mapSanityArticle(doc);
       if (article) return article;
     } catch (error) {
-      console.error('[sanity] fetchArticleBySlug failed', error);
+      logSanityError('fetchArticleBySlug failed', error);
     }
   }
 
@@ -54,7 +60,7 @@ export async function getAllArticleSlugs() {
       const slugs = await sanityClient.fetch(ALL_ARTICLE_SLUGS_QUERY, {}, fetchOptions);
       if (Array.isArray(slugs) && slugs.length > 0) return slugs.filter(Boolean);
     } catch (error) {
-      console.error('[sanity] fetchArticleSlugs failed', error);
+      logSanityError('fetchArticleSlugs failed', error);
     }
   }
 
