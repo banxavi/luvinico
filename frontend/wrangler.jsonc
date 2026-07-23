@@ -8,11 +8,9 @@
     "compatibility_flags": [
         "nodejs_compat"
     ],
-    // Paid plan: raise CPU budget to reduce Error 1102 on cold SSR (default 30s).
-    // Free plan ignores values above the free CPU cap.
-    "limits": {
-        "cpu_ms": 60000
-    },
+    // Do NOT set `limits.cpu_ms` on Free — API rejects deploy (code 100328).
+    // After upgrading to Workers Paid, you can add:
+    // "limits": { "cpu_ms": 60000 }
     "assets": {
         "directory": ".open-next/assets",
         "binding": "ASSETS"
