@@ -49,7 +49,32 @@ Add `SANITY_REVALIDATE_SECRET` (same value as the Sanity webhook secret) so CMS 
 - **React 19**
 - **Tailwind CSS v4**
 - **Sanity CMS** — server-side fetch with mock data fallback
-- **Sanity Studio** in `../cms/`
+- **Sanity Studio** embedded at `/admin/` via `next-sanity` (schemas shared from `../cms/`)
+
+## CMS (`/admin`)
+
+After `npm run dev`, open **http://localhost:3000/admin/** to edit content (same schemas as `cms/` Studio).
+
+`dev` and `build` run `scripts/sync-cms-studio.mjs` first — it copies `../cms/schemaTypes` and `ProductMenuSelect` into `src/sanity/_cms/` (Turbopack on Windows cannot follow symlinks outside `frontend/`). After changing schemas in `cms/`, restart dev or rebuild.
+
+1. In [Sanity Manage → API → CORS origins](https://www.sanity.io/manage/project/sfqhf74q/api), add:
+   - `http://localhost:3000` (dev)
+   - Your production origin, e.g. `https://your-domain.com`
+   - Enable **Allow credentials** for login.
+2. Optional: keep using standalone Studio with `cd ../cms && npm run dev` (port 3333).
+
+### Phân quyền (content admin vs super admin)
+
+Trong [Sanity Manage → Members](https://www.sanity.io/manage/project/sfqhf74q/members):
+
+| Vai trò Sanity | Dùng cho | Studio `/admin` |
+|----------------|----------|-----------------|
+| **Editor** | Nhập/sửa nội dung | Không thấy **Manage project**, không có tool **Vision** |
+| **Administrator** hoặc **Developer** | Dev / chủ site | Đủ menu quản trị dự án + Vision |
+
+Mời biên tập viên bằng role **Editor** — không gán Administrator. Quyền thật sự vẫn do Sanity RBAC trên server; UI Studio chỉ ẩn thêm các nút quản trị dự án.
+
+Local editing still works with `cd ../cms && npm run dev` if you prefer the dedicated Studio dev server.
 
 ## Deploy
 

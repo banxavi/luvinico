@@ -105,12 +105,6 @@ export default defineType({
       group: 'content',
     }),
     defineField({
-      name: 'ibu',
-      title: 'IBU',
-      type: 'string',
-      group: 'content',
-    }),
-    defineField({
       name: 'volume',
       title: 'Dung tích',
       type: 'string',
@@ -128,13 +122,6 @@ export default defineType({
       type: 'richBodyContent',
       group: 'content',
       description: 'Văn bản, heading, danh sách, ảnh — một editor duy nhất',
-    }),
-    defineField({
-      name: 'longDescription',
-      title: 'Mô tả dài',
-      type: 'richBodyContent',
-      group: 'content',
-      description: 'Rich text — hiển thị khi chưa có nội dung chi tiết (content)',
     }),
     defineField({
       name: 'image',

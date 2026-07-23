@@ -37,17 +37,11 @@ const productFields = /* groq */ `
 
   abv,
 
-  ibu,
-
   volume,
 
   serveTemp,
 
   description[] {
-    ${pt}
-  },
-
-  longDescription[] {
     ${pt}
   },
 
@@ -92,8 +86,6 @@ const productListFields = /* groq */ `
   style,
 
   abv,
-
-  ibu,
 
   volume,
 
@@ -153,7 +145,7 @@ export const ALL_PRODUCT_SLUGS_QUERY = /* groq */ `
 
 
 export const ALL_CATEGORIES_QUERY = /* groq */ `
-  *[_type == "category"] | order(coalesce(slug.current, key) asc) {
+  *[_type == "category"] | order(coalesce(navOrder, 999) asc, title asc) {
     _id,
     "slug": coalesce(slug.current, key),
     key,
@@ -162,7 +154,6 @@ export const ALL_CATEGORIES_QUERY = /* groq */ `
     description,
     showInNav,
     navOrder,
-    navLabel,
     dropdownMenus[] {
       _key,
       name,

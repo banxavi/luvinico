@@ -18,11 +18,9 @@ export function mapSanityProduct(doc) {
     category: doc.category,
     type: doc.type ?? doc.menuSelection?.itemSlug ?? null,
     abv: doc.abv,
-    ibu: doc.ibu,
     volume: doc.volume,
     serveTemp: doc.serveTemp,
     description: doc.description ?? null,
-    longDescription: doc.longDescription ?? null,
     content: normalizeBodyContent(doc.content),
   };
 }

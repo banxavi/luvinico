@@ -4,6 +4,9 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import ProductMenuSelect from './components/ProductMenuSelect.jsx'
 import {schemaTypes} from './schemaTypes'
+import StudioNavbar from './studio/StudioNavbar.jsx'
+
+import './studio/studioManageMenu.css'
 
 export default defineConfig({
   name: 'default',
@@ -16,6 +19,12 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
+  },
+
+  studio: {
+    components: {
+      navbar: StudioNavbar,
+    },
   },
 
   form: {

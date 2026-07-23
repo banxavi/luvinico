@@ -1,0 +1,9 @@
+/* Hide Sanity project infra links for content-only editors (UI guard; enforce roles in Sanity Manage). */
+html[data-luvinico-studio-role='editor'] a[href*='sanity.io/manage/project'] {
+  display: none !important;
+}
+
+html[data-luvinico-studio-role='editor'] a[href*='/admin/vision'],
+html[data-luvinico-studio-role='editor'] a[href*='/admin/vision/'] {
+  display: none !important;
+}

@@ -19,7 +19,8 @@ export default defineType({
       description: 'Nhập tiêu đề trước, rồi bấm Generate',
       options: slugOptionsFromTitle,
       validation: (rule) => rule.required(),
-    }),    defineField({
+    }),
+    defineField({
       name: 'description',
       title: 'Mô tả',
       type: 'text',
@@ -39,16 +40,12 @@ export default defineType({
     }),
     defineField({
       name: 'navOrder',
-      title: 'Thứ tự menu header',
+      title: 'Thứ tự trên menu header',
       type: 'number',
-      description: 'Số nhỏ hiển thị trước (vd. 10 = Rượu vang, 30 = Bia)',
-      hidden: ({document}) => document?.showInNav === false,
-    }),
-    defineField({
-      name: 'navLabel',
-      title: 'Nhãn menu header',
-      type: 'string',
-      description: 'Để trống = dùng tiêu đề danh mục',
+      description:
+        'Nhập số thứ tự: 1 = mục đầu menu, 2 = tiếp theo, 3, 4… (cùng số thì xếp theo tên danh mục)',
+      initialValue: 1,
+      validation: (rule) => rule.integer().min(1).max(99),
       hidden: ({document}) => document?.showInNav === false,
     }),
     defineField({
@@ -68,6 +65,11 @@ export default defineType({
     }),
   ],
   preview: {
-    select: {title: 'title', subtitle: 'slug.current'},
+    select: {title: 'title', subtitle: 'slug.current', navOrder: 'navOrder'},
+    prepare({title, subtitle, navOrder}) {
+      const order =
+        typeof navOrder === 'number' ? `Menu #${navOrder}` : 'Chưa đặt thứ tự menu'
+      return {title, subtitle: [order, subtitle].filter(Boolean).join(' · ')}
+    },
   },
 })

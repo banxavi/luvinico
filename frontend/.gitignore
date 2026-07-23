@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Sanity Studio vendor copy (from ../cms via scripts/sync-cms-studio.mjs)
+/src/sanity/_cms/

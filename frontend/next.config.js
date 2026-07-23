@@ -5,6 +5,10 @@ initOpenNextCloudflareForDev();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ['next-sanity', 'sanity', '@sanity/vision'],
+  experimental: {
+    externalDir: true,
+  },
   async headers() {
     return [
       {

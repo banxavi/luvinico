@@ -69,7 +69,6 @@ export function mapCategoryDoc(doc) {
     description: doc.description ?? '',
     showInNav: doc.showInNav !== false,
     navOrder: typeof doc.navOrder === 'number' ? doc.navOrder : undefined,
-    navLabel: doc.navLabel ?? '',
     navGroups,
     dropdownMenus: (doc.dropdownMenus ?? []).map((menu) => ({
       slug: readSlug(menu.slug),
@@ -158,7 +157,6 @@ export function buildCatalogFromDocs(categories) {
       description: cat.description,
       showInNav: cat.showInNav,
       navOrder: cat.navOrder,
-      navLabel: cat.navLabel,
     };
     categoryNavMenus[cat.key] = cat.navGroups ?? [];
 

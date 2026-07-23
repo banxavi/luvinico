@@ -11,10 +11,7 @@ export default function ProductJsonLd({ product }) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    description:
-      portableTextToPlain(product.longDescription) ||
-      portableTextToPlain(product.description) ||
-      undefined,
+    description: portableTextToPlain(product.description) || undefined,
     image: image ? [image] : undefined,
     brand: {
       '@type': 'Brand',

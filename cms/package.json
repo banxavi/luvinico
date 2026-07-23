@@ -1,8 +1,15 @@
 {
-  "name": "cms",
+  "name": "@luvinico/cms",
   "private": true,
   "version": "1.0.0",
   "main": "package.json",
+  "exports": {
+    "./schemaTypes": "./schemaTypes/index.js",
+    "./schemaTypes/index.js": "./schemaTypes/index.js",
+    "./schemaTypes/*": "./schemaTypes/*",
+    "./components/ProductMenuSelect.jsx": "./components/ProductMenuSelect.jsx",
+    "./components/*": "./components/*"
+  },
   "license": "UNLICENSED",
   "scripts": {
     "build": "sanity build",

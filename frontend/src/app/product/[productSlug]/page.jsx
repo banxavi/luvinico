@@ -40,7 +40,6 @@ export async function generateMetadata({ params }) {
   const title = `${product.name} | Rượu vang & Bia nhập khẩu`;
   const description =
     portableTextToPlain(product.description) ||
-    portableTextToPlain(product.longDescription) ||
     `Chi tiết sản phẩm ${product.name} tại LUVINI & CO.`;
   const image = resolveProductImageUrl(product.image);
 
@@ -85,7 +84,6 @@ export default async function ProductDetailPage({ params }) {
     { label: "Xuất xứ", value: product.origin },
     { label: "Phong cách", value: product.style },
     { label: "ABV", value: product.abv },
-    { label: "IBU", value: product.ibu ?? "—" },
     { label: "Dung tích", value: product.volume ?? "—" },
     { label: "Nhiệt độ uống", value: product.serveTemp ?? "—" },
   ].filter((s) => s.value && s.value !== "—");
@@ -192,12 +190,6 @@ export default async function ProductDetailPage({ params }) {
         {product.content?.length ? (
           <section className="mt-12 border-t border-white/10 pt-10">
             <BodyContent value={product.content} />
-          </section>
-        ) : null}
-
-        {!product.content?.length && product.longDescription ? (
-          <section className="mt-12 border-t border-white/10 pt-10">
-            <BodyContent value={product.longDescription} />
           </section>
         ) : null}
 

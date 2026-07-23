@@ -5,11 +5,11 @@ import {
 } from '../../data/nav';
 
 const DEFAULT_NAV_ORDER = {
-  'ruou-vang': 10,
-  'ruou-manh': 20,
-  bia: 30,
-  'qua-tet': 40,
-  'phu-kien': 50,
+  'ruou-vang': 1,
+  'ruou-manh': 2,
+  bia: 3,
+  'qua-tet': 4,
+  'phu-kien': 5,
 };
 
 function resolveNavOrder(category) {
@@ -31,7 +31,7 @@ export function buildNavItems(catalog) {
     )
     .map((category) => ({
       path: category.path ?? `/${category.key}`,
-      label: category.navLabel?.trim() || category.title || category.key,
+      label: category.title || category.key,
       categoryKey: category.key,
     }));
 

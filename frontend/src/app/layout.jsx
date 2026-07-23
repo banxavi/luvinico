@@ -1,7 +1,6 @@
 import { Cormorant_Garamond, Playfair_Display, Be_Vietnam_Pro } from 'next/font/google';
 import './globals.css';
-import PageLayout from '../components/layout/PageLayout';
-import { Suspense } from 'react';
+import RootChrome from '../components/layout/RootChrome';
 import { BRAND } from '../data/brand';
 import { formatSeoTitle } from '../lib/seo';
 import { getSiteUrl, isIndexableSite } from '../lib/site';
@@ -60,11 +59,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${beVietnam.variable} ${playfair.variable} ${cormorant.variable} antialiased bg-premium-black text-white`}
       >
-        <PageLayout>
-          <Suspense fallback={<div className="site-container py-16 text-center text-body-muted">Đang tải...</div>}>
-            {children}
-          </Suspense>
-        </PageLayout>
+        <RootChrome>{children}</RootChrome>
       </body>
     </html>
   );

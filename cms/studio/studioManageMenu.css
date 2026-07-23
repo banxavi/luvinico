@@ -1,0 +1,8 @@
+html[data-luvinico-studio-role='editor'] a[href*='sanity.io/manage/project'] {
+  display: none !important;
+}
+
+html[data-luvinico-studio-role='editor'] a[href*='/vision'],
+html[data-luvinico-studio-role='editor'] a[href*='?tool=vision'] {
+  display: none !important;
+}
