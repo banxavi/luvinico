@@ -8,6 +8,11 @@
     "compatibility_flags": [
         "nodejs_compat"
     ],
+    // Paid plan: raise CPU budget to reduce Error 1102 on cold SSR (default 30s).
+    // Free plan ignores values above the free CPU cap.
+    "limits": {
+        "cpu_ms": 60000
+    },
     "assets": {
         "directory": ".open-next/assets",
         "binding": "ASSETS"

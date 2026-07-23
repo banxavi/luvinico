@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { isSanityConfigured, sanityClient, getSanityFetchOptions, SANITY_CACHE_TAGS } from './client';
 import { ALL_CATEGORIES_QUERY } from './queries';
 import { buildCatalogFromDocs, mapCategoryDoc } from './mapCategory';
+import { withSanityMemoryCache } from './memoryCache';
 
 const fetchOptions = getSanityFetchOptions(SANITY_CACHE_TAGS.catalog);
 
@@ -12,15 +13,19 @@ export const EMPTY_CATALOG = {
 };
 
 async function fetchCatalogFromSanity() {
-  const categoryDocs = await sanityClient.fetch(ALL_CATEGORIES_QUERY, {}, fetchOptions);
-  const categories = (categoryDocs ?? []).map(mapCategoryDoc).filter(Boolean);
-
-  if (!categories.length) return null;
-
-  return buildCatalogFromDocs(categories);
+  return withSanityMemoryCache('catalog:all', async () => {
+    const categoryDocs = await sanityClient.fetch(
+      ALL_CATEGORIES_QUERY,
+      {},
+      fetchOptions,
+    );
+    const categories = (categoryDocs ?? []).map(mapCategoryDoc).filter(Boolean);
+    if (!categories.length) return null;
+    return buildCatalogFromDocs(categories);
+  });
 }
 
-/** Request-scoped catalog cache — categories embed menus + product type slugs. */
+/** Request-scoped + isolate TTL catalog cache. */
 export const getCatalog = cache(async () => {
   if (!isSanityConfigured()) return EMPTY_CATALOG;
 

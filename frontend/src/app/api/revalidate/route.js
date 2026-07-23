@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { getRevalidationTargets } from '../../../lib/sanity/revalidateFromDoc';
 import { verifySanityWebhook } from '../../../lib/sanity/verifyWebhook';
+import { clearSanityMemoryCache } from '../../../lib/sanity/memoryCache';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,12 +44,16 @@ export async function POST(request) {
     tags,
   });
 
+  // Drop isolate memory TTL so next request refetches Sanity.
+  clearSanityMemoryCache();
+
   // for (const tag of tags) {
   //   revalidateTag(tag);
   // }
 
   return NextResponse.json({
-    revalidated: false,
+    revalidated: true,
+    memoryCacheCleared: true,
     type: doc?._type ?? null,
     tags,
     at: Date.now(),

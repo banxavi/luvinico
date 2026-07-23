@@ -13,32 +13,31 @@ export const isSanityConfigured = () => Boolean(sanityProjectId && sanityDataset
 
 export const SANITY_REVALIDATE_SECONDS = PAGE_REVALIDATE_SECONDS;
 
+/** Abort hung Sanity API calls (wall time; does not burn CPU while waiting). */
+const FETCH_TIMEOUT_MS = Number(process.env.SANITY_FETCH_TIMEOUT_MS) || 8_000;
+
+function sanityFetch(url, init) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  return fetch(url, { ...init, signal: controller.signal }).finally(() => {
+    clearTimeout(timer);
+  });
+}
+
 export const sanityClient = createClient({
   projectId: sanityProjectId,
   dataset: sanityDataset,
   apiVersion: '2026-02-01',
-  useCdn:
-    process.env.NODE_ENV === 'production' &&
-    process.env.SANITY_USE_CDN !== 'false',
+  // CDN is fine for published docs; override with SANITY_USE_CDN=false if needed.
+  useCdn: process.env.SANITY_USE_CDN !== 'false',
   token: process.env.SANITY_API_READ_TOKEN,
+  fetch: sanityFetch,
 });
 
 /**
- * Sanity fetch cache options aligned with route `export const revalidate = 60`.
- * `cache: 'no-store'` opts out of static generation and breaks `next build` for those routes.
- * Tag-based `revalidateTag` stays disabled in /api/revalidate until OpenNext KV/D1 tag cache is configured.
+ * Avoid Next Data Cache on OpenNext CF without KV (stale SSG).
+ * Freshness comes from short isolate memory TTL in productStore/catalogStore.
  */
-export function getSanityFetchOptions(tag) {
-  const revalidate = SANITY_REVALIDATE_SECONDS;
-
-  if (revalidate === 0) {
-    return { cache: 'no-store' };
-  }
-
-  return {
-    next: {
-      revalidate,
-      ...(tag ? { tags: [tag] } : {}),
-    },
-  };
+export function getSanityFetchOptions(_tag) {
+  return { cache: 'no-store' };
 }

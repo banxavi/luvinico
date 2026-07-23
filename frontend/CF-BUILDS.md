@@ -54,7 +54,19 @@ CORS: thêm `https://luvinico.banxavi.workers.dev`
 
 Worker `sanity-admin-proxy` chỉ cần khi sau này dùng custom domain tách route.
 
-## Checklist trước push
+## Data / Sanity trên Workers
+
+OpenNext chưa cấu hình KV cache → Sanity dùng `cache: 'no-store'` + `dynamic = 'force-dynamic'`.
+
+Chống **Error 1102** (CPU limit) khi catalog lớn:
+
+- List products/categories chỉ lấy field nhẹ (`productListFields`, không Portable Text)
+- Cache memory TTL ~30s trong isolate (`SANITY_MEMORY_CACHE_SECONDS`)
+- Timeout fetch Sanity 8s (`SANITY_FETCH_TIMEOUT_MS`)
+- Lỗi Sanity → trả `[]` / empty catalog, **không crash** trang
+- `wrangler.jsonc` → `limits.cpu_ms: 60000` (Paid)
+
+Sau publish CMS: tối đa ~30s (hoặc F5 sau TTL) là thấy data mới.
 
 - [ ] `frontend/package-lock.json` đã sync (`npm run lockfile:sync` nếu vừa đổi deps)
 - [ ] Không commit `.env.local`

@@ -5,6 +5,9 @@ import { BRAND } from '../data/brand';
 import { formatSeoTitle } from '../lib/seo';
 import { getSiteUrl, isIndexableSite } from '../lib/site';
 
+/** Live Sanity fetch on Workers — avoid SSG freezing empty/partial CMS data. */
+export const dynamic = 'force-dynamic';
+
 const cormorant = Cormorant_Garamond({
   subsets: ['vietnamese', 'latin'],
   weight: ['500', '600', '700'],
