@@ -1,25 +1,23 @@
-import { notFound } from "next/navigation";
-import { FOOTER } from "../../../data/footer";
-import CatalogPageHeader from "../../../components/layout/CatalogPageHeader";
-import { getPolicyHtml } from "../../../lib/policy";
-import { createPageMetadata } from "../../../lib/seo";
-import PolicyScrollHandler from "./PolicyScrollHandler";
+import { notFound } from 'next/navigation';
+import CatalogPageHeader from '../../../components/layout/CatalogPageHeader';
+import { FOOTER } from '../../../data/footer';
+import { getPolicyHtml } from '../../../lib/policy';
+import { createPageMetadata } from '../../../lib/seo';
+import PolicyScrollHandler from './PolicyScrollHandler';
 
 export const revalidate = 60;
 
-export function generateStaticParams() {
-  return FOOTER.policies.map((policy) => ({
-    policySlug: policy.href.replace("/chinh-sach/", ""),
-  }));
+function policySlugFromHref(href) {
+  return String(href || '').replace(/^\/chinh-sach\//, '').replace(/\/$/, '');
 }
 
 export async function generateMetadata({ params }) {
   const { policySlug } = await params;
   const policy = FOOTER.policies.find(
-    (p) => p.href === `/chinh-sach/${policySlug}`,
+    (p) => policySlugFromHref(p.href) === policySlug,
   );
   if (!policy) {
-    return createPageMetadata({ title: "Không tìm thấy trang" });
+    return createPageMetadata({ title: 'Không tìm thấy trang' });
   }
   return createPageMetadata({
     title: policy.label,
@@ -33,7 +31,7 @@ export async function generateMetadata({ params }) {
 export default async function PolicyPage({ params }) {
   const { policySlug } = await params;
   const policy = FOOTER.policies.find(
-    (p) => p.href === `/chinh-sach/${policySlug}`,
+    (p) => policySlugFromHref(p.href) === policySlug,
   );
 
   if (!policy) {

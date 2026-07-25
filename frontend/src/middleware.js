@@ -6,6 +6,12 @@ import {
   shouldProxyStudioPath,
 } from './lib/sanity/studioHostedProxy';
 
+/**
+ * Keep the `middleware` file convention (Edge), not `proxy`.
+ * Next.js 16 `proxy.js` defaults to Node.js runtime, which
+ * @opennextjs/cloudflare does not support yet.
+ * See: https://github.com/opennextjs/opennextjs-cloudflare/issues/962
+ */
 export async function middleware(request) {
   if (!getHostedStudioOrigin()) {
     return NextResponse.next();

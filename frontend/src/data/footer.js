@@ -1,4 +1,4 @@
-/** Nội dung footer — mock; khách cập nhật khi go-live */
+/** Nội dung footer mặc định — CMS `siteSettings` ghi đè khi có. */
 export const FOOTER = {
   address: '208 Trường Chinh, Phường Tân Bình, Hồ Chí Minh',
   facebookLabel: 'LUVINI & CO.',
@@ -20,4 +20,10 @@ export const FOOTER = {
   },
   warning:
     'Cấm sử dụng rượu bia với người dưới 18 tuổi, phụ nữ mang thai, người điều khiển phương tiện giao thông.',
+  regulatoryNote:
+    'Điểm mới từ nghị quyết 66.18/2026/NQ-CP (áp dụng từ 01/7/2026): Không còn xử phạt hành chính đối với một số vi phạm về đăng ký bán rượu, nhập khẩu rượu và kinh doanh rượu theo quy định tại Nghị định 98/2020/NĐ-CP.',
+  warningImageUrl: '/warning.png',
+  warningImageAlt:
+    'Không bán cho người dưới 18 tuổi. Phụ nữ mang thai không uống rượu bia. Không lái xe sau khi uống rượu bia.',
+  faviconUrl: '/favicon.png',
 };

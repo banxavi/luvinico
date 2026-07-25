@@ -248,3 +248,20 @@ export const ALL_ARTICLE_SLUGS_QUERY = /* groq */ `
 
 `;
 
+/** Singleton — fixed document id from Studio structure. */
+export const SITE_SETTINGS_QUERY = /* groq */ `
+  *[_id == "siteSettings"][0] {
+    brandName,
+    address,
+    hotline,
+    facebookUrl,
+    facebookLabel,
+    disclaimer,
+    regulatoryNote,
+    warning,
+    "faviconUrl": favicon.asset->url,
+    "warningImageUrl": warningImage.asset->url,
+    "warningImageAlt": warningImage.alt
+  }
+`;
+

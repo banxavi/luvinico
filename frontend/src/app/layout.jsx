@@ -4,6 +4,7 @@ import RootChrome from '../components/layout/RootChrome';
 import { BRAND } from '../data/brand';
 import { formatSeoTitle } from '../lib/seo';
 import { getSiteUrl, isIndexableSite } from '../lib/site';
+import { getSiteSettings } from '../lib/sanity/siteSettingsStore';
 
 /** Live Sanity fetch on Workers — avoid SSG freezing empty/partial CMS data. */
 export const dynamic = 'force-dynamic';
@@ -31,30 +32,35 @@ const beVietnam = Be_Vietnam_Pro({
 
 const defaultTitle = formatSeoTitle(BRAND.subtitle);
 
-export const metadata = {
-  metadataBase: new URL(getSiteUrl()),
-  title: {
-    default: defaultTitle,
-  },
-  description: `${BRAND.name} | ${BRAND.tagline}. Rượu vang tuyển chọn và bia nhập khẩu cao cấp.`,
-  icons: {
-    icon: [{ url: '/favicon.png', type: 'image/png' }],
-    apple: [{ url: '/favicon.png', type: 'image/png' }],
-  },
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: defaultTitle,
-    description: BRAND.description,
-    type: 'website',
-    siteName: BRAND.name,
-    locale: 'vi_VN',
-  },
-  robots: isIndexableSite()
-    ? { index: true, follow: true, googleBot: { index: true, follow: true } }
-    : { index: false, follow: false, googleBot: { index: false, follow: false } },
-};
+export async function generateMetadata() {
+  const settings = await getSiteSettings();
+  const iconUrl = settings.faviconUrl || '/favicon.png';
+
+  return {
+    metadataBase: new URL(getSiteUrl()),
+    title: {
+      default: defaultTitle,
+    },
+    description: `${BRAND.name} | ${BRAND.tagline}. Rượu vang tuyển chọn và bia nhập khẩu cao cấp.`,
+    icons: {
+      icon: [{ url: iconUrl }],
+      apple: [{ url: iconUrl }],
+    },
+    alternates: {
+      canonical: '/',
+    },
+    openGraph: {
+      title: defaultTitle,
+      description: BRAND.description,
+      type: 'website',
+      siteName: BRAND.name,
+      locale: 'vi_VN',
+    },
+    robots: isIndexableSite()
+      ? { index: true, follow: true, googleBot: { index: true, follow: true } }
+      : { index: false, follow: false, googleBot: { index: false, follow: false } },
+  };
+}
 
 export default function RootLayout({ children }) {
   return (

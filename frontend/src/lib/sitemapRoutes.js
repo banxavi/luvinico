@@ -1,4 +1,3 @@
-import { FOOTER } from '../data/footer';
 import { buildNavItems } from './nav/buildNavItems';
 import { absoluteUrl } from './site';
 import {
@@ -73,7 +72,13 @@ function addFlatTagRoutes(map, products, catalog) {
 }
 
 /** Canonical URL set for sitemap.xml — excludes /search and legacy /tag/[slug] redirects. */
-export function getSitemapEntries(products, productSlugs, catalog, articleSlugs = []) {
+export function getSitemapEntries(
+  products,
+  productSlugs,
+  catalog,
+  articleSlugs = [],
+  policies = [],
+) {
   const map = new Map();
 
   addEntry(map, '/', { priority: 1, changeFrequency: 'daily' });
@@ -99,7 +104,7 @@ export function getSitemapEntries(products, productSlugs, catalog, articleSlugs 
     addEntry(map, `/kien-thuc/${slug}`, { priority: 0.6, changeFrequency: 'monthly' });
   }
 
-  for (const policy of FOOTER.policies) {
+  for (const policy of policies) {
     addEntry(map, policy.href, { priority: 0.4, changeFrequency: 'yearly' });
   }
 

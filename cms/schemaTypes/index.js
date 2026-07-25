@@ -1,6 +1,7 @@
 import category from './category'
 import product from './product'
 import article from './article'
+import siteSettings from './siteSettings'
 import categorySubTab from './objects/categorySubTab'
 import categoryDropdownMenu from './objects/categoryDropdownMenu'
 import categoryStandardMenu from './objects/categoryStandardMenu'
@@ -16,6 +17,7 @@ import richBodyContent from './objects/richBodyContent'
 import imageTextBlock from './objects/imageTextBlock'
 
 export const schemaTypes = [
+  siteSettings,
   category,
   productMenuSelection,
   product,

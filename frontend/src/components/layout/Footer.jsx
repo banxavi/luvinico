@@ -1,17 +1,19 @@
-import Link from "next/link";
-import Image from "next/image";
-import { BRAND } from "../../data/brand";
-import { FOOTER } from "../../data/footer";
-import { formatPhoneDisplay } from "../../lib/formatters";
-import { buildTelHref } from "../../lib/links";
-import BrandMark from "./BrandMark";
-import FooterLink from "./FooterLink";
+import Link from 'next/link';
+import Image from 'next/image';
+import { FOOTER } from '../../data/footer';
+import { formatPhoneDisplay } from '../../lib/formatters';
+import { buildTelHref } from '../../lib/links';
+import { getSiteSettings } from '../../lib/sanity/siteSettingsStore';
+import BrandMark from './BrandMark';
+import FooterLink from './FooterLink';
 
 function FooterHeading({ children }) {
   return <h3 className="footer-heading">{children}</h3>;
 }
 
-export default function Footer() {
+export default async function Footer() {
+  const footer = await getSiteSettings();
+
   return (
     <footer className="mt-16 border-t border-white/10 bg-premium-black">
       <div className="site-container py-12">
@@ -21,26 +23,26 @@ export default function Footer() {
             <div className="mt-8">
               <FooterHeading>Thông tin liên hệ</FooterHeading>
               <div className="mt-4 space-y-2 text-sm leading-relaxed text-body-muted">
-                <p className="font-semibold text-white/90">{BRAND.name}</p>
-                <p>Địa chỉ: {FOOTER.address}</p>
+                <p className="font-semibold text-white/90">{footer.brandName}</p>
+                <p>Địa chỉ: {footer.address}</p>
                 <p>
-                  Hotline:{" "}
+                  Hotline:{' '}
                   <Link
-                    href={buildTelHref(BRAND.hotline)}
+                    href={buildTelHref(footer.hotline)}
                     className="font-semibold text-brand-amber transition hover:text-white"
                   >
-                    {formatPhoneDisplay(BRAND.hotline)}
+                    {formatPhoneDisplay(footer.hotline)}
                   </Link>
                 </p>
                 <p>
-                  Facebook:{" "}
+                  Facebook:{' '}
                   <Link
-                    href={BRAND.facebook}
+                    href={footer.facebookUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="text-brand-amber transition hover:text-white"
                   >
-                    {FOOTER.facebookLabel}
+                    {footer.facebookLabel}
                   </Link>
                 </p>
               </div>
@@ -50,7 +52,7 @@ export default function Footer() {
           <div>
             <FooterHeading>Lưu ý</FooterHeading>
             <p className="mt-4 text-sm leading-relaxed text-body-muted">
-              {FOOTER.disclaimer}
+              {footer.disclaimer}
             </p>
           </div>
 
@@ -67,23 +69,22 @@ export default function Footer() {
 
           <div className="space-y-8">
             <div>
-              <FooterHeading>{FOOTER.facebookLabel}</FooterHeading>
+              <FooterHeading>{footer.facebookLabel}</FooterHeading>
               <div className="mt-4 text-sm leading-relaxed text-body-muted">
-                Điểm mới từ <b>nghị quyết 66.18/2026/NQ-CP</b> (áp dụng từ 01/7/2026):
-                Không còn xử phạt hành chính đối với một số vi phạm về <b>đăng ký bán rượu, nhập khẩu rượu</b> và kinh doanh rượu theo quy định tại Nghị định 98/2020/NĐ-CP.
+                {footer.regulatoryNote}
               </div>
             </div>
 
             <div>
               <FooterHeading>Khuyến cáo</FooterHeading>
               <p className="mt-4 text-sm leading-relaxed text-body-muted">
-                {FOOTER.warning}
+                {footer.warning}
               </p>
 
               <div className="footer-warning-image mt-4 max-w-4/5 m-auto">
                 <Image
-                  src="/warning.png"
-                  alt="Không bán cho người dưới 18 tuổi. Phụ nữ mang thai không uống rượu bia. Không lái xe sau khi uống rượu bia."
+                  src={footer.warningImageUrl}
+                  alt={footer.warningImageAlt}
                   width={300}
                   height={119}
                   className="footer-warning-image__asset"
@@ -95,7 +96,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-body-subtle">
-          © {BRAND.name} All rights reserved.
+          © {footer.brandName} All rights reserved.
         </div>
       </div>
     </footer>

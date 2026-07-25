@@ -24,7 +24,7 @@ function studioSrc(tool) {
 
 /**
  * Local only: iframe → cms `npm run dev` (SANITY_STUDIO_DEV_ORIGIN).
- * Production: SANITY_STUDIO_ORIGIN + middleware proxies /admin → hosted Studio.
+ * Production: SANITY_STUDIO_ORIGIN + middleware forwards /admin → hosted Studio.
  */
 export default async function AdminStudioDevPage({ params }) {
   const { tool } = await params;

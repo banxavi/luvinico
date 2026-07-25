@@ -4,6 +4,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import ProductMenuSelect from './components/ProductMenuSelect.jsx'
 import {schemaTypes} from './schemaTypes'
+import {structure} from './structure'
 import StudioNavbar from './studio/StudioNavbar.jsx'
 
 import './studio/studioManageMenu.css'
@@ -15,7 +16,7 @@ export default defineConfig({
   projectId: 'sfqhf74q',
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool({structure}), visionTool()],
 
   schema: {
     types: schemaTypes,

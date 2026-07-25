@@ -40,10 +40,15 @@ export function getRevalidationTargets(doc) {
       if (slug) paths.add(withTrailingSlash(`/kien-thuc/${slug}`));
       break;
 
+    case 'siteSettings':
+      tags.add(SANITY_CACHE_TAGS.siteSettings);
+      break;
+
     default:
       tags.add(SANITY_CACHE_TAGS.products);
       tags.add(SANITY_CACHE_TAGS.catalog);
       tags.add(SANITY_CACHE_TAGS.articles);
+      tags.add(SANITY_CACHE_TAGS.siteSettings);
       break;
   }
 

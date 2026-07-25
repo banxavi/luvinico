@@ -4,6 +4,7 @@ import {
   getAllProductSlugsFromStore,
   getProducts,
 } from '../lib/sanity/productStore';
+import { FOOTER } from '../data/footer';
 import { getSitemapEntries } from '../lib/sitemapRoutes';
 export const revalidate = 3600;
 
@@ -15,5 +16,11 @@ export default async function sitemap() {
     getAllArticleSlugs(),
   ]);
 
-  return getSitemapEntries(products, productSlugs, catalog, articleSlugs);
+  return getSitemapEntries(
+    products,
+    productSlugs,
+    catalog,
+    articleSlugs,
+    FOOTER.policies,
+  );
 }
