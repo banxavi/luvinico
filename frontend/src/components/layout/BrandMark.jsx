@@ -1,13 +1,20 @@
-import { BRAND } from "../../data/brand";
-import logoImg from "../../assets/logo/new_logo.webp.png";
-import Image from "next/image";
+import Image from 'next/image';
 
-export default function BrandMark({ variant = "header" }) {
-  if (variant === "footer") {
+import { BRAND } from '../../data/brand';
+import defaultLogo from '../../assets/logo/new_logo.webp.png';
+
+/**
+ * Brand icon — CMS favicon khi có; không thì logo mặc định.
+ * @param {string | import('next/image').StaticImageData | null | undefined} iconSrc
+ */
+export default function BrandMark({ variant = 'header', iconSrc }) {
+  const src = iconSrc || defaultLogo;
+
+  if (variant === 'footer') {
     return (
       <div className="flex items-center gap-3 sm:gap-4">
         <Image
-          src={logoImg}
+          src={src}
           alt=""
           className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-brand-amber/25 sm:h-14 sm:w-14"
           width={56}
@@ -24,12 +31,13 @@ export default function BrandMark({ variant = "header" }) {
   return (
     <div className="flex min-w-0 items-center gap-2 sm:gap-2.5">
       <Image
-        src={logoImg}
+        src={src}
         alt=""
         className="h-9 w-9 shrink-0 self-center rounded-full object-cover ring-1 ring-brand-amber/25 sm:h-10 sm:w-10"
         width={48}
         height={48}
         loading="eager"
+        priority
       />
       <div className="flex min-w-0 flex-col justify-center">
         <div className="brand-wordmark brand-logo-gradient truncate text-[0.9rem] font-semibold uppercase leading-none tracking-[0.06em] sm:text-[1.05rem]">

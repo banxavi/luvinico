@@ -11,16 +11,11 @@ export default defineType({
   fields: [
     defineField({
       name: 'favicon',
-      title: 'Favicon',
+      title: 'Favicon / Logo icon',
       type: 'image',
+      description: 'Dùng chung cho tab trình duyệt, icon header và footer',
       group: 'favicon',
       options: {hotspot: false},
-    }),
-    defineField({
-      name: 'brandName',
-      title: 'Tên thương hiệu',
-      type: 'string',
-      group: 'footer',
     }),
     defineField({
       name: 'address',
@@ -39,12 +34,6 @@ export default defineType({
       name: 'facebookUrl',
       title: 'Link Facebook',
       type: 'url',
-      group: 'footer',
-    }),
-    defineField({
-      name: 'facebookLabel',
-      title: 'Nhãn Facebook',
-      type: 'string',
       group: 'footer',
     }),
     defineField({

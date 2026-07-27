@@ -21,18 +21,17 @@ function pickText(value, fallback) {
 /**
  * Merge CMS singleton with static defaults (`FOOTER` / `BRAND`).
  * Policies stay static. Missing fields/images → site defaults.
+ * `faviconUrl` is null until CMS uploads — callers keep local defaults.
  */
 export function mapSiteSettings(doc) {
   return {
-    brandName: pickText(doc?.brandName, BRAND.name),
     address: pickText(doc?.address, FOOTER.address),
     hotline: pickText(doc?.hotline, BRAND.hotline),
     facebookUrl: pickText(doc?.facebookUrl, BRAND.facebook),
-    facebookLabel: pickText(doc?.facebookLabel, FOOTER.facebookLabel),
     disclaimer: pickText(doc?.disclaimer, FOOTER.disclaimer),
     regulatoryNote: pickText(doc?.regulatoryNote, FOOTER.regulatoryNote),
     warning: pickText(doc?.warning, FOOTER.warning),
-    faviconUrl: pickText(doc?.faviconUrl, FOOTER.faviconUrl),
+    faviconUrl: pickText(doc?.faviconUrl, null),
     warningImageUrl: pickText(doc?.warningImageUrl, FOOTER.warningImageUrl),
     warningImageAlt: pickText(doc?.warningImageAlt, FOOTER.warningImageAlt),
   };

@@ -2,6 +2,7 @@ import { Cormorant_Garamond, Playfair_Display, Be_Vietnam_Pro } from 'next/font/
 import './globals.css';
 import RootChrome from '../components/layout/RootChrome';
 import { BRAND } from '../data/brand';
+import { FOOTER } from '../data/footer';
 import { formatSeoTitle } from '../lib/seo';
 import { getSiteUrl, isIndexableSite } from '../lib/site';
 import { getSiteSettings } from '../lib/sanity/siteSettingsStore';
@@ -34,7 +35,7 @@ const defaultTitle = formatSeoTitle(BRAND.subtitle);
 
 export async function generateMetadata() {
   const settings = await getSiteSettings();
-  const iconUrl = settings.faviconUrl || '/favicon.png';
+  const iconUrl = settings.faviconUrl || FOOTER.faviconUrl;
 
   return {
     metadataBase: new URL(getSiteUrl()),

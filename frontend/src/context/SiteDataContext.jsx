@@ -8,25 +8,41 @@ const SiteDataContext = createContext({
   products: [],
   catalog: EMPTY_CATALOG,
   navItems: NAV_ITEMS_FALLBACK,
+  /** CMS favicon URL, or null → BrandMark keeps bundled default */
+  faviconUrl: null,
 });
 
 export function SiteDataProvider({
   products = [],
   catalog = EMPTY_CATALOG,
   navItems = NAV_ITEMS_FALLBACK,
+  faviconUrl = null,
   children,
 }) {
   return (
-    <SiteDataContext.Provider value={{ products, catalog, navItems }}>
+    <SiteDataContext.Provider
+      value={{ products, catalog, navItems, faviconUrl }}
+    >
       {children}
     </SiteDataContext.Provider>
   );
 }
 
 /** @deprecated use useSiteData().products */
-export function ProductDataProvider({ products, catalog, navItems, children }) {
+export function ProductDataProvider({
+  products,
+  catalog,
+  navItems,
+  faviconUrl,
+  children,
+}) {
   return (
-    <SiteDataProvider products={products} catalog={catalog} navItems={navItems}>
+    <SiteDataProvider
+      products={products}
+      catalog={catalog}
+      navItems={navItems}
+      faviconUrl={faviconUrl}
+    >
       {children}
     </SiteDataProvider>
   );
@@ -46,4 +62,8 @@ export function useCatalog() {
 
 export function useNavItems() {
   return useContext(SiteDataContext).navItems;
+}
+
+export function useFaviconUrl() {
+  return useContext(SiteDataContext).faviconUrl;
 }

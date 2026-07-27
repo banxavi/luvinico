@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { BRAND } from '../../data/brand';
 import { FOOTER } from '../../data/footer';
 import { formatPhoneDisplay } from '../../lib/formatters';
 import { buildTelHref } from '../../lib/links';
@@ -19,11 +20,11 @@ export default async function Footer() {
       <div className="site-container py-12">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
-            <BrandMark variant="footer" />
+            <BrandMark variant="footer" iconSrc={footer.faviconUrl} />
             <div className="mt-8">
               <FooterHeading>Thông tin liên hệ</FooterHeading>
               <div className="mt-4 space-y-2 text-sm leading-relaxed text-body-muted">
-                <p className="font-semibold text-white/90">{footer.brandName}</p>
+                <p className="font-semibold text-white/90">{BRAND.name}</p>
                 <p>Địa chỉ: {footer.address}</p>
                 <p>
                   Hotline:{' '}
@@ -42,7 +43,7 @@ export default async function Footer() {
                     rel="noreferrer"
                     className="text-brand-amber transition hover:text-white"
                   >
-                    {footer.facebookLabel}
+                    {FOOTER.facebookLabel}
                   </Link>
                 </p>
               </div>
@@ -69,7 +70,7 @@ export default async function Footer() {
 
           <div className="space-y-8">
             <div>
-              <FooterHeading>{footer.facebookLabel}</FooterHeading>
+              <FooterHeading>LUVINI & CO.</FooterHeading>
               <div className="mt-4 text-sm leading-relaxed text-body-muted">
                 {footer.regulatoryNote}
               </div>
@@ -96,7 +97,7 @@ export default async function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-body-subtle">
-          © {footer.brandName} All rights reserved.
+          © {BRAND.name} All rights reserved.
         </div>
       </div>
     </footer>

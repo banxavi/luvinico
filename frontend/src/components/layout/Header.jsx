@@ -4,7 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BRAND } from "../../data/brand";
-import { useProducts, useCatalog, useNavItems } from "../../context/SiteDataContext";
+import {
+  useProducts,
+  useCatalog,
+  useNavItems,
+  useFaviconUrl,
+} from "../../context/SiteDataContext";
 import { buildTagHref, getNavMenuSections } from "../../lib/types";
 import { buildTelHref } from "../../lib/links";
 import { formatPhoneDisplay } from "../../lib/formatters";
@@ -81,6 +86,7 @@ function MenuIcon({ open }) {
 }
 
 export default function Header() {
+  const faviconUrl = useFaviconUrl();
   const pathname = usePathname() ?? "/";
   const products = useProducts();
   const catalog = useCatalog();
@@ -155,7 +161,7 @@ export default function Header() {
           aria-label="LUVINI & CO. — về trang chủ"
           onClick={closePanels}
         >
-          <BrandMark />
+          <BrandMark iconSrc={faviconUrl} />
         </Link>
 
         <nav
