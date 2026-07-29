@@ -37,11 +37,14 @@ export default defineType({
       title: 'Danh mục',
       type: 'reference',
       group: 'content',
+      // Weak: cho phép unpublish/xóa danh mục dù còn sản phẩm trỏ tới
+      weak: true,
       to: [{type: 'category'}],
       options: {
         disableNew: false,
       },
-      description: 'Chọn danh mục có sẵn hoặc bấm Create new để thêm danh mục mới',
+      description:
+        'Chọn danh mục có sẵn hoặc bấm Create new. Có thể xóa/unpublish danh mục dù còn sản phẩm (sản phẩm sẽ mất liên kết).',
       validation: (rule) => rule.required(),
     }),
     defineField({

@@ -200,7 +200,7 @@ async function migrateProducts(productDetailExtras) {
       serveTemp: extras.serveTemp ?? undefined,
       description: plainTextToPortableText(product.description),
       longDescription: plainTextToPortableText(extras.longDescription ?? undefined),
-      category: {_type: 'reference', _ref: categoryId(product.categoryKey)},
+      category: {_type: 'reference', _ref: categoryId(product.categoryKey), _weak: true},
       type: product.typeSlug,
       image: await uploadImageField(product.cardImage, product.imageAlt),
       gallery,

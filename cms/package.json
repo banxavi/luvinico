@@ -19,7 +19,8 @@
     "start": "sanity start",
     "migrate:nav": "sanity exec scripts/migrate-nav-content.js --with-user-token",
     "migrate:category-unified": "sanity exec scripts/migrate-category-unified.js --with-user-token",
-    "migrate:rich-body": "sanity exec scripts/migrate-rich-body-content.js --with-user-token"
+    "migrate:rich-body": "sanity exec scripts/migrate-rich-body-content.js --with-user-token",
+    "migrate:weak-category-refs": "sanity exec scripts/migrate-weak-category-refs.js --with-user-token"
   },
   "keywords": [
     "sanity"
