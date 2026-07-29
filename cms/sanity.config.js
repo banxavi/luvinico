@@ -11,7 +11,7 @@ import './studio/studioManageMenu.css'
 
 export default defineConfig({
   name: 'default',
-  title: 'Nhà web',
+  title: 'Nhà Web',
 
   projectId: 'sfqhf74q',
   dataset: 'production',

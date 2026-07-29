@@ -2,6 +2,25 @@
 
 Site Worker: **`luvinico`** (OpenNext). Root directory trong Dashboard: **`frontend`**.
 
+## Push mà không mất data (bắt buộc một lần)
+
+Local `npm run deploy` có token từ `.env.local`. **Push → Workers Builds không có file đó** → nếu Worker thiếu secret runtime thì header/menu/bài viết lại thiếu.
+
+Làm **một lần** (giữ mãi qua mọi push):
+
+```bash
+cd frontend
+npx wrangler secret put SANITY_API_READ_TOKEN
+```
+
+Dán cùng Viewer token trong `.env.local` → Enter.
+
+Hoặc Dashboard: Workers → **`luvinico`** → Settings → **Variables and secrets** → thêm `SANITY_API_READ_TOKEN` kiểu **Secret** (không chỉ Variable thường).
+
+- Secret **không** bị xóa khi `wrangler deploy` / CI rebuild  
+- Không commit token vào git / `wrangler.jsonc`  
+- Đổi/rotate token → chạy lại `wrangler secret put`
+
 ## Build settings (Workers & Pages → luvinico → Settings → Builds)
 
 | Field | Value |
@@ -32,7 +51,7 @@ Site Worker: **`luvinico`** (OpenNext). Root directory trong Dashboard: **`front
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Variable | Đã có trong `wrangler.jsonc` |
 | `NEXT_PUBLIC_SANITY_DATASET` | Variable | Đã có trong `wrangler.jsonc` |
 | `SANITY_STUDIO_ORIGIN` | Variable | `https://luvini.sanity.studio` — proxy `/admin` (demo trên workers.dev) |
-| `SANITY_API_READ_TOKEN` | **Secret** | **Bắt buộc** — Viewer token; thiếu thì header chỉ thấy subset danh mục (CDN public), lệch localhost |
+| `SANITY_API_READ_TOKEN` | **Secret** | **Bắt buộc** — xem mục “Push mà không mất data” ở trên |
 | `SANITY_REVALIDATE_SECRET` | **Secret** | Webhook revalidate |
 
 ### Không set trên Cloudflare
