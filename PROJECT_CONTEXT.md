@@ -9,7 +9,7 @@
 - **Framework:** Next.js 16 (App Router) with React 19.
 - **Styling:** Tailwind CSS v4 (Using `@import "tailwindcss";` in `src/app/globals.css` and `@tailwindcss/postcss` in `postcss.config.js`).
 - **Database:** NONE. The app uses static/mock data for displaying products to ensure fast performance and no external dependencies.
-- **Deployment Platform:** Vercel (Free tier). Set `NEXT_PUBLIC_SITE_URL` for SEO metadata.
+- **Deployment Platform:** Cloudflare Pages (static export → `out/`). Set `NEXT_PUBLIC_SITE_URL` for SEO metadata.
 
 ## 3. Mock Data Structure (`src/mockData.js`)
 Products are rendered dynamically using `.map()` from an array of objects. Each product object must include:
