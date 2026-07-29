@@ -1,4 +1,5 @@
 import { createClient } from '@sanity/client';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 import { PAGE_REVALIDATE_SECONDS } from '../revalidate';
 import { SANITY_CACHE_TAGS } from './cacheTags';
 
@@ -24,34 +25,73 @@ function sanityFetch(url, init) {
   });
 }
 
-const readToken = process.env.SANITY_API_READ_TOKEN || undefined;
+/**
+ * OpenNext populates `process.env` from Worker bindings on the first request.
+ * Prefer `getCloudflareContext().env` so Dashboard secrets are visible even when
+ * the Sanity client is first touched inside a request.
+ */
+function resolveReadToken() {
+  try {
+    const fromCf = getCloudflareContext()?.env?.SANITY_API_READ_TOKEN;
+    if (typeof fromCf === 'string' && fromCf.trim()) return fromCf.trim();
+  } catch {
+    // Build / `next dev` without an active Worker request context.
+  }
 
-if (
-  typeof process !== 'undefined' &&
-  process.env.NODE_ENV === 'production' &&
-  !readToken &&
-  !process.env.NEXT_PHASE
-) {
-  console.warn(
-    '[sanity] SANITY_API_READ_TOKEN missing — catalog/header may be incomplete vs Studio. Set the Viewer secret on Cloudflare Workers.',
-  );
+  const fromEnv = process.env.SANITY_API_READ_TOKEN;
+  if (typeof fromEnv === 'string' && fromEnv.trim()) return fromEnv.trim();
+  return undefined;
 }
+
+function createSanityClient(readToken) {
+  return createClient({
+    projectId: sanityProjectId,
+    dataset: sanityDataset,
+    apiVersion: '2026-02-01',
+    token: readToken,
+    // Authenticated API when token exists — anonymous CDN omits private docs.
+    useCdn: readToken ? false : process.env.SANITY_USE_CDN !== 'false',
+    perspective: 'published',
+    fetch: sanityFetch,
+    maxRetries: 1,
+  });
+}
+
+let cachedClient;
+let cachedTokenKey;
+let missingTokenWarned = false;
 
 /**
  * CMS collections used by the site: category, product, article.
- * Always prefer authenticated API when a read token exists so production
- * matches Studio (anonymous CDN can omit some published category docs).
+ * Lazily created so Cloudflare Worker secrets are visible at request time.
  */
-export const sanityClient = createClient({
-  projectId: sanityProjectId,
-  dataset: sanityDataset,
-  apiVersion: '2026-02-01',
-  token: readToken,
-  useCdn: readToken ? false : process.env.SANITY_USE_CDN !== 'false',
-  perspective: 'published',
-  fetch: sanityFetch,
-  maxRetries: 1,
-});
+export const sanityClient = new Proxy(
+  {},
+  {
+    get(_target, prop) {
+      const readToken = resolveReadToken();
+      const tokenKey = readToken || '';
+      if (!cachedClient || cachedTokenKey !== tokenKey) {
+        if (
+          !missingTokenWarned &&
+          typeof process !== 'undefined' &&
+          process.env.NODE_ENV === 'production' &&
+          !readToken &&
+          !process.env.NEXT_PHASE
+        ) {
+          missingTokenWarned = true;
+          console.warn(
+            '[sanity] SANITY_API_READ_TOKEN missing — catalog/header may be incomplete vs Studio. Set the Viewer secret on Cloudflare Workers.',
+          );
+        }
+        cachedClient = createSanityClient(readToken);
+        cachedTokenKey = tokenKey;
+      }
+      const value = cachedClient[prop];
+      return typeof value === 'function' ? value.bind(cachedClient) : value;
+    },
+  },
+);
 
 function isProductionBuild() {
   return process.env.NEXT_PHASE === 'phase-production-build';
