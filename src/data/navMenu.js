@@ -54,12 +54,25 @@ export const CATEGORY_NAV_MENUS = {
   ],
   'ruou-vang': [
     {
-      key: 'ruou-vang',
-      label: 'Rượu vang',
+      key: 'ruou-vang-phap',
+      label: 'Rượu Vang Pháp',
       subTabs: [
-        { slug: 'ruou-vang-phap', label: 'Rượu Vang Pháp' },
-        { slug: 'ruou-vang-y', label: 'Rượu Vang Ý' },
-        { slug: 'ruou-vang-uc', label: 'Rượu Vang Úc' },
+        { slug: 'chateau', label: 'Rượu Vang Chateau' },
+        { slug: 'le-pacha', label: 'Rượu Vang Le Pacha' },
+      ],
+    },
+    {
+      key: 'ruou-vang-y',
+      label: 'Rượu Vang Ý',
+      subTabs: [
+        { slug: 'primitivo', label: 'Rượu Vang Primitivo' },
+      ],
+    },
+    {
+      key: 'ruou-vang-uc',
+      label: 'Rượu Vang Úc',
+      subTabs: [
+        { slug: 'jacobs-creek', label: "Rượu Vang Jacob's Creek" },
       ],
     },
   ],

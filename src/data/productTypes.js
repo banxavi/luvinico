@@ -1,26 +1,33 @@
 /** Loại sản phẩm (sub-tab) — label theo file docx khách */
 export const PRODUCT_TYPES = {
-  // Rượu vang — sub-tab theo xuất xứ
-  'ruou-vang-phap': {
-    key: 'ruou-vang-phap',
-    slug: 'ruou-vang-phap',
-    label: 'Rượu Vang Pháp',
+  // Rượu vang — parent theo xuất xứ, sub-tab theo thương hiệu (giống bia)
+  chateau: {
+    key: 'chateau',
+    slug: 'chateau',
+    label: 'Rượu Vang Chateau',
     category: 'ruou-vang',
-    group: 'ruou-vang',
+    group: 'ruou-vang-phap',
   },
-  'ruou-vang-y': {
-    key: 'ruou-vang-y',
-    slug: 'ruou-vang-y',
-    label: 'Rượu Vang Ý',
+  'le-pacha': {
+    key: 'le-pacha',
+    slug: 'le-pacha',
+    label: 'Rượu Vang Le Pacha',
     category: 'ruou-vang',
-    group: 'ruou-vang',
+    group: 'ruou-vang-phap',
   },
-  'ruou-vang-uc': {
-    key: 'ruou-vang-uc',
-    slug: 'ruou-vang-uc',
-    label: 'Rượu Vang Úc',
+  primitivo: {
+    key: 'primitivo',
+    slug: 'primitivo',
+    label: 'Rượu Vang Primitivo',
     category: 'ruou-vang',
-    group: 'ruou-vang',
+    group: 'ruou-vang-y',
+  },
+  'jacobs-creek': {
+    key: 'jacobs-creek',
+    slug: 'jacobs-creek',
+    label: "Rượu Vang Jacob's Creek",
+    category: 'ruou-vang',
+    group: 'ruou-vang-uc',
   },
   // Quà Tết — 2 submenu phẳng (không parent)
   'hop-qua-tet': {

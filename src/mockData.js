@@ -10,7 +10,7 @@ const rawProducts = [
     origin: 'Pháp',
     style: 'Vang đỏ',
     category: 'ruou-vang',
-    type: 'ruou-vang-phap',
+    type: 'chateau',
     abv: '14.5%',
     description:
       'Vang đỏ Bordeaux cổ điển — Merlot và Cabernet, hương trái cây chín, mận, vanilla và gia vị. Chai 750ml.',
@@ -24,7 +24,7 @@ const rawProducts = [
     origin: 'Pháp',
     style: 'Vang đỏ',
     category: 'ruou-vang',
-    type: 'ruou-vang-phap',
+    type: 'le-pacha',
     abv: '14.5%',
     description:
       'Le Pacha Les Eyraux Bordeaux Supérieur 2019 — Merlot và Cabernet Sauvignon, hương quả mọng đen, tannin mượt. Lý tưởng với thịt đỏ nướng và bò hầm. Chai 750ml.',
@@ -38,7 +38,7 @@ const rawProducts = [
     origin: 'Ý',
     style: 'Vang đỏ',
     category: 'ruou-vang',
-    type: 'ruou-vang-y',
+    type: 'primitivo',
     abv: '14.5%',
     description:
       'Primitivo DOC Puglia từ Giustini — đậm đà, hương trái cây chín, gỗ sồi và chocolate. Chai 750ml, sản lượng giới hạn.',
@@ -124,7 +124,7 @@ const rawProducts = [
     origin: 'Úc',
     style: 'Vang đỏ',
     category: 'ruou-vang',
-    type: 'ruou-vang-uc',
+    type: 'jacobs-creek',
     abv: '13%',
     description:
       "Shiraz và Cabernet Đông Nam Úc — trái cây đậm, gia vị cay, tannin mượt. Màu ruby đậm, dễ uống mọi dịp. Chai 750ml.",
